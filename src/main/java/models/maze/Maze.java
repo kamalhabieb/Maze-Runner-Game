@@ -21,7 +21,7 @@ public interface Maze {
     /**
      * Build the maze and distribute the walls and the gifts and the bombs in their place.
      * it also can rebuild the maze when changing any maze object on it
-     *
+     *@param mazeObjects arrayList of maze object which will be distributed on the maze.
      * @return 2D array of the maze.
      */
     int[][] mazeBuilder(ArrayList mazeObjects);
