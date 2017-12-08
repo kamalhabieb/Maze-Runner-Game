@@ -30,6 +30,10 @@ public interface Matter {
     /**
      * sets the velocity of the object
      *
+     * velocity range 40 to 100
+     *
+     * mid (default) =  70
+     *
      * @param velocity of the object
      */
     void setVelocity(int velocity);
@@ -42,7 +46,11 @@ public interface Matter {
     int getAcceleration();
 
     /**
-     * gets the acceleration of the object
+     * sets the acceleration of the object
+     *
+     * default = 0
+     *
+     * acceleration range -20 to +20
      *
      * @param acceleration of the object
      */
