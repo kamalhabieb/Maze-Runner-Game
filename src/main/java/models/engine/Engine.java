@@ -1,35 +1,32 @@
 package models.engine;
 
+import models.matter.Matter;
+
 public interface Engine {
 
+    /**
+     * Moves the Object to the north
+     * @param object of the type matter
+     */
+    void moveNorth(Matter object);
 
     /**
-     * Gets the object's x coordinate
-     *
-     * @return the x coordinate
+     * Moves the Object to the east
+     * @param object of the type matter
      */
-    int getX();
+    void moveEast(Matter object);
 
     /**
-     * Sets the object's x coordinate
-     *
-     * @param x coordinate
+     * Moves the Object to the south
+     * @param object of the type matter
      */
-    void setX(int x);
+
+    void moveSouth(Matter object);
 
     /**
-     * Gets the object's x coordinate
-     *
-     * @return the y coordinate
+     *Moves the Object to the west
+     *@param object of the type matter
      */
-
-    int getY();
-
-    /**
-     * Sets the object's y coordinate
-     *
-     * @param y coordinate
-     */
-    void setY(int y);
+    void moveWest(Matter object);
 
 }
