@@ -1,30 +1,40 @@
 package models.maze;
 
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
 public interface Maze {
     /**
-     * Save a template of solvable maze in jason file.
-     *
-     * @param file the file will contain the template.
+     * Gets the size of the maze.
+     * @return size maze.
      */
-    Void saveTemplate(File file);
+    int getSize();
+
+    /**Add new object to the array list of maze objects.
+     * @param object the maze object which will be added to the maze objects list.
+     * @param position the relative position in the maze.
+     */
+    void addMazeObject(MazeObject object, Point position);
 
     /**
-     * Load a template which is saved in a jason file.
+     * Remove object from the array list of maze objects.
      *
-     * @return Array List of the maze objects (walls) with its position.
+     * @param object the maze object which will be removed from the maze objects list.
      */
-    ArrayList loadRandomTemplate();
+    void RemoveMazeObject(MazeObject object);
 
     /**
-     * Build the maze and distribute the walls and the gifts and the bombs in their place.
-     * it also can rebuild the maze when changing any maze object on it
-     *@param mazeObjects arrayList of maze object which will be distributed on the maze.
-     * @return 2D array of the maze.
+     * Gets an array list holds all of the maze objects.
+     * @return arrayList of the maze objects.
      */
-    int[][] mazeBuilder(ArrayList mazeObjects);
+    ArrayList getMazeObjects();
 
+    /**
+     * get maze object at a position on tha maze.
+     * @param position the relative position of the wanted object.
+     * @return the wanted maze object.
+     */
+    MazeObject getMazeObjectAt(Point position);
 
 }
