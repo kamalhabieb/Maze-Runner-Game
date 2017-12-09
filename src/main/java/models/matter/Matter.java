@@ -29,9 +29,9 @@ public interface Matter {
 
     /**
      * sets the velocity of the object
-     *
+     * <p>
      * velocity range 40 to 100
-     *
+     * <p>
      * mid (default) =  70
      *
      * @param velocity of the object
@@ -47,9 +47,9 @@ public interface Matter {
 
     /**
      * sets the acceleration of the object
-     *
+     * <p>
      * default = 0
-     *
+     * <p>
      * acceleration range -20 to +20
      *
      * @param acceleration of the object

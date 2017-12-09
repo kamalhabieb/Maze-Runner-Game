@@ -32,6 +32,7 @@ public interface Maze {
 
     /**
      * get maze object at a position on tha maze.
+     *
      * @param position the relative position of the wanted object.
      * @return the wanted maze object.
      */

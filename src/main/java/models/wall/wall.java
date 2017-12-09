@@ -10,7 +10,6 @@ public interface wall {
 
     /**
      * Get wither the cell is breakable or not .
-     *
      * @return true if the cell is breakable or false if it is unbreakable .
      */
     boolean getCellState();
@@ -25,7 +24,6 @@ public interface wall {
      * Affect the cell health by some effect.
      * if the effect causes the health to reach or surpass zero the cell will break,
      * when a cell break it is replaced by either a bomb or space randomly.
-     *
      * @param effect the magnitude of the effect.
      * @return true if the health is affected by any amount in that range ]0,effect], false otherwise.
      */
