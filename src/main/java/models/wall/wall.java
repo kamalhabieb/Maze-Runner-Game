@@ -16,9 +16,20 @@ public interface wall {
     boolean getCellState();
 
     /**
-     * Break the cell if breakable and put a bomb or empty space .
+     * Get the health of the cell if breakable.
+     * @return the health bound by 0 - 100
      */
-    void breakCell();
+    int getHealth();
+
+    /**
+     * Affect the cell health by some effect.
+     * if the effect causes the health to reach or surpass zero the cell will break,
+     * when a cell break it is replaced by either a bomb or space randomly.
+     *
+     * @param effect the magnitude of the effect.
+     * @return true if the health is affected by any amount in that range ]0,effect], false otherwise.
+     */
+    boolean affectHealthBy(int effect);
 
 
 }
