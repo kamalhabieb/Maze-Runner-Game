@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="49b6b422-2be0-4f37-9bdb-74c686723395" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/wall/wall.java" afterPath="$PROJECT_DIR$/src/main/java/models/wall/wall.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -371,7 +370,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512778536247</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Maze Interface.">
+      <created>1512950025085</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1512950025085</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
