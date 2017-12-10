@@ -1,6 +1,8 @@
 package models.charcter;
 
-public interface Character {
+import models.matter.Matter;
+
+public interface Character extends Matter {
 
     /**
      * Get the health of the character.
