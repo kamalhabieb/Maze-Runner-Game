@@ -1,4 +1,6 @@
 package models.maze;
 
-public interface MazeObject {
+import models.mazeObjects.Host;
+
+public interface MazeObject extends Host{
 }

@@ -13,7 +13,6 @@ public abstract class ObjectPool<T> {
         unlocked = new ArrayList<T>();
     }
 
-    //TODO Override check in in connection pool to adjust path
     protected abstract T create();
 
     public abstract boolean validate(T o);
