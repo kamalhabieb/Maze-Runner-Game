@@ -1,0 +1,5 @@
+number_of_bombs : 5
+number_of_gifts : 5
+number_of_monsters : 5
+game_mode : "earth"
+difficulty : 1
