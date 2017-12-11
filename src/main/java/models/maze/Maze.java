@@ -4,12 +4,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
-interface Maze {
-    /**
-     * Gets the size of the maze.
-     * @return size maze.
-     */
-    int getSize();
+public interface Maze {
 
     /**Add new object to the array list of maze objects.
      * @param object the maze object which will be added to the maze objects list.
