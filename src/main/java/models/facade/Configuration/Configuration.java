@@ -34,7 +34,7 @@ public  class Configuration {
             int x=rand.nextInt(30);
             int y=rand.nextInt(30);
             int range=rand.nextInt(5)+1;
-            Bomb bomb = new Bomb(range,new Point(x,y));
+            //Object bomb =;
         }
     }
 
