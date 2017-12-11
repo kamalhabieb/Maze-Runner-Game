@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class MazeBuilder {
 
-    int length;
-    int width;
-    int cellSize;
-    Maze playingMaze;
-    Map<MazeObject, Point> mazeObjectsMap ;
+    private int length;
+    private int width;
+    private int cellSize;
+    private Maze playingMaze;
+    private Map<MazeObject, Point> mazeObjectsMap ;
 
     public MazeBuilder() {
         this.length = 30;
