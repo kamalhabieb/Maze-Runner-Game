@@ -1,6 +1,6 @@
 package models.charcter;
 
-import models.matter.Matter;
+import models.engine.Matter;
 
 public interface AliveObject extends Matter {
 

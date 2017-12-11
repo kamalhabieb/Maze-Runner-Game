@@ -1,7 +1,5 @@
 package models.engine;
 
-import models.matter.Matter;
-
 public interface Engine {
 
     /**

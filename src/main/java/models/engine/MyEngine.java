@@ -1,7 +1,5 @@
 package models.engine;
 
-import models.matter.Matter;
-
 public class MyEngine implements Engine {
     private int xDistance = 0;
     private int yDistance = 0;
