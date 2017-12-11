@@ -16,7 +16,7 @@ public class GameMaze implements Maze {
         this.width = width;
         this.cellSize = cellSize;
         this.mazeArray = new MazeObject[length][width];
-        this.initializeArray(this.mazeArray);
+        this.initializeArray();
     }
 
 
@@ -61,9 +61,9 @@ public class GameMaze implements Maze {
                         [(int)absolutePosition.getY() / cellSize];
     }
 
-    private void initializeArray (MazeObject[][] mazeArray){
-        for (int i = 0; i < mazeArray.length; i++){
-            Arrays.fill(mazeArray[i],space);
+    private void initializeArray (){
+        for (int i = 0; i < this.mazeArray.length; i++){
+            Arrays.fill(this.mazeArray[i],space);
         }
     }
 }
