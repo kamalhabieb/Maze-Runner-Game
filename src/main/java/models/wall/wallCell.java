@@ -9,6 +9,9 @@ public class wallCell implements wall {
 
     public wallCell ()
     {
+
+
+
         health = MAX_HEALTH;
     }
 
