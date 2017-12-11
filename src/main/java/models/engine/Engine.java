@@ -1,7 +1,5 @@
 package models.engine;
 
-import models.matter.Matter;
-
 public interface Engine {
 
     /**
@@ -33,4 +31,9 @@ public interface Engine {
      */
     void moveWest(Matter object);
 
+    /**
+     * Stopes the object from moving
+     * @param object of type matter
+     */
+    void stop(Matter object);
 }

@@ -1,6 +1,6 @@
 package models.charcter.weapons.bullets;
 
-import models.matter.Matter;
+import models.engine.Matter;
 
 public interface Bullet extends Matter{
 

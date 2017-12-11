@@ -1,4 +1,4 @@
-package models.matter;
+package models.engine;
 
 import java.awt.*;
 
@@ -44,15 +44,10 @@ public interface Matter {
      * @return acceleration
      */
     int getAcceleration();
-
     /**
      * sets the acceleration of the object
-     * <p>
-     * default = 0
-     * <p>
-     * acceleration range -20 to +20
      *
-     * @param acceleration of the object
+     * @param acceleration
      */
     void setAcceleration(int acceleration);
 }
