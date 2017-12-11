@@ -1,4 +1,4 @@
 package models.charcter;
 
-public interface Decoration extends Character {
+public interface Decoration extends AliveObject {
 }

@@ -2,7 +2,7 @@ package models.wall;
 
 public class wallCell implements wall {
 
-    private String state = "breakable";
+    private boolean breakable ;
     private int MAX_HEALTH=100;
     private int MIN_HEALTH=0;
     private int health ;
@@ -16,13 +16,13 @@ public class wallCell implements wall {
     @Override
     public void setCellState(boolean makeBreakable) {
         if(makeBreakable)
-            state="breakable";
-        else state="ubreakable";
+            breakable=true;
+        else breakable=false;
     }
 
     @Override
     public boolean getCellState() {
-        if (state=="breakable")
+        if (breakable)
             return true;
         return false;
 
@@ -35,7 +35,7 @@ public class wallCell implements wall {
 
     @Override
     public boolean affectHealthBy(int effect) {
-        if (state=="breakable")
+        if (breakable)
         {
             health-=effect;
             return true;
