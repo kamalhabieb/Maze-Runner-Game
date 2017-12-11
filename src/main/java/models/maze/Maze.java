@@ -9,46 +9,56 @@ public interface Maze {
     /**Add new object to the array list of maze objects.
      * @param object the maze object which will be added to the maze objects list.
      * @param relativePosition the relative position of the object in the maze.
+     * @return true if the object was added successfully and other wise.
      */
-    void addMazeObjectWithRelativePosition(MazeObject object, Point relativePosition);
+    boolean addMazeObjectWithRelativePosition(MazeObject object, Point relativePosition) throws InvalidPositionException;
 
     /**
      * Add new object to the array list of maze objects.
      *
      * @param object           the maze object which will be added to the maze objects list.
      * @param absolutePosition the absolute position of the object in the maze.
+     * @return true if the object was added successfully and other wise.
+
      */
-    void addMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition);
+    boolean addMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition) throws InvalidPositionException;
 
     /**
      * Remove object from the array list of maze objects.
      *
      * @param object the maze object which will be removed from the maze objects list.
      * @param relativePosition the relative position of the object in the maze.
+     * @return true if the object was removed successfully and other wise.
      */
-    void RemoveMazeObjectWithRelativePosition(MazeObject object, Point relativePosition);
+    boolean RemoveMazeObjectWithRelativePosition(MazeObject object, Point relativePosition) throws InvalidPositionException;
 
     /**
      * Remove object from the array list of maze objects.
      *
      * @param object           the maze object which will be removed from the maze objects list.
      * @param absolutePosition the absolute position of the object in the maze.
+     * @return true if the object was removed successfully and other wise.
      */
-    void RemoveMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition);
+    boolean RemoveMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition) throws InvalidPositionException;
 
     /**
      * get maze object at a position on the maze.
      * @param relativePosition the relative position of the wanted object.
      * @return the wanted maze object.
      */
-    MazeObject getMazeObjectAtRelativePosition(Point relativePosition);
+    MazeObject getMazeObjectAtRelativePosition(Point relativePosition) throws InvalidPositionException;
 
     /**
      * get maze object at a position on the maze.
-     *
      * @param absolutePosition the absolute position of the wanted object.
      * @return the wanted maze object.
      */
-    MazeObject getMazeObjectAtAbsolutePosition(Point absolutePosition);
+    MazeObject getMazeObjectAtAbsolutePosition(Point absolutePosition) throws InvalidPositionException;
+
+    /**
+     * get array list with the maze objects.
+     * @return array of objects.
+     */
+    ArrayList getMazeObjectsArray();
 
 }
