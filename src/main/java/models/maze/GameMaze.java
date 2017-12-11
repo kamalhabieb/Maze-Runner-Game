@@ -1,7 +1,6 @@
 package models.maze;
 
-import models.mazeObjects.Space;
-import sun.security.jca.GetInstance;
+import models.mazeObjects.space.Space;
 
 import java.awt.*;
 import java.util.ArrayList;
