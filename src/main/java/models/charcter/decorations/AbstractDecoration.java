@@ -1,17 +1,17 @@
 package models.charcter.decorations;
 
 import models.charcter.Decoration;
-import models.charcter.Character;
+import models.charcter.AliveObject;
 
 import java.awt.*;
 
 public abstract class AbstractDecoration implements Decoration {
     protected int health;
-    private Character character;
+    private AliveObject aliveObject;
 
 
-    public AbstractDecoration(final Character character) {
-        this.character = character;
+    public AbstractDecoration(final AliveObject aliveObject) {
+        this.aliveObject = aliveObject;
         health = getMaxHealth();
     }
 
@@ -20,7 +20,7 @@ public abstract class AbstractDecoration implements Decoration {
 
     @Override
     public int getHealth() {
-        return health + character.getHealth();
+        return health + aliveObject.getHealth();
     }
 
     @Override
@@ -31,38 +31,38 @@ public abstract class AbstractDecoration implements Decoration {
         int diff = Math.abs(newHealth - health);
         health = newHealth;
         if (diff == effect) return true;
-        if (diff == 0) return character.affectHealthBy(effect);
-        character.affectHealthBy(effect - diff);
+        if (diff == 0) return aliveObject.affectHealthBy(effect);
+        aliveObject.affectHealthBy(effect - diff);
         return true;
     }
 
     @Override
     public void setPosition(final int x, final int y) {
-        character.setPosition(x, y);
+        aliveObject.setPosition(x, y);
     }
 
     @Override
     public Point getPosition() {
-        return character.getPosition();
+        return aliveObject.getPosition();
     }
 
     @Override
     public int getVelocity() {
-        return character.getVelocity();
+        return aliveObject.getVelocity();
     }
 
     @Override
     public void setVelocity(final int velocity) {
-        character.setVelocity(velocity);
+        aliveObject.setVelocity(velocity);
     }
 
     @Override
     public int getAcceleration() {
-        return character.getAcceleration();
+        return aliveObject.getAcceleration();
     }
 
     @Override
     public void setAcceleration(final int acceleration) {
-        character.setAcceleration(acceleration);
+        aliveObject.setAcceleration(acceleration);
     }
 }
