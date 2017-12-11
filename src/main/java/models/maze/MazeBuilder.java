@@ -10,14 +10,15 @@ public class MazeBuilder {
     private int width;
     private int cellSize;
     private Maze playingMaze;
-    private Map<MazeObject, Point> mazeObjectsMap ;
+    private Map<MazeObject, Point> mazeObjectsMap;
 
     public MazeBuilder() {
         this.length = 30;
         this.width = 30;
         this.cellSize = 40;
-        mazeObjectsMap = new LinkedHashMap<MazeObject , Point>();
+        mazeObjectsMap = new LinkedHashMap<MazeObject, Point>();
     }
+
     public MazeBuilder setLength(int length) {
         this.length = length;
         return this;
@@ -33,17 +34,16 @@ public class MazeBuilder {
         return this;
     }
 
-    public MazeBuilder addMazeObject(MazeObject object, Point relativePoint){
-        mazeObjectsMap.put(object , relativePoint);
+    public MazeBuilder addMazeObject(MazeObject object, Point relativePoint) {
+        mazeObjectsMap.put(object, relativePoint);
         return this;
     }
 
 
-    Maze buildMaze(){
+    Maze buildMaze() {
         playingMaze = new GameMaze(this.length, this.width, this.cellSize);
-        for (Map.Entry<MazeObject, Point> entry : mazeObjectsMap.entrySet())
-        {
-            playingMaze.addMazeObjectWithRelativePosition(entry.getKey(),entry.getValue());
+        for (Map.Entry<MazeObject, Point> entry : mazeObjectsMap.entrySet()) {
+            playingMaze.addMazeObjectWithRelativePosition(entry.getKey(), entry.getValue());
         }
         return playingMaze;
     }
