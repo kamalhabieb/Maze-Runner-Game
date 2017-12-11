@@ -49,5 +49,5 @@ public interface Matter {
      *
      * @param acceleration
      */
-    int setAcceleration(int acceleration);
+    void setAcceleration(int acceleration);
 }
