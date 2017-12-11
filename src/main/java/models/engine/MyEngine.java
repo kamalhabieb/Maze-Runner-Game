@@ -52,4 +52,7 @@ public class MyEngine implements Engine {
         velocity = object.getVelocity();
         acceleration = object.getAcceleration();
     }
+    public void stop(Matter object){
+        object.setVelocity(0);
+    }
 }

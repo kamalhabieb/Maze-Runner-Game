@@ -31,4 +31,9 @@ public interface Engine {
      */
     void moveWest(Matter object);
 
+    /**
+     * Stopes the object from moving
+     * @param object of type matter
+     */
+    void stop(Matter object);
 }
