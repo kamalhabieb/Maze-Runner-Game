@@ -13,6 +13,7 @@ public abstract class Person implements AliveObject {
 
     public Person() {
         health = MAX_HEALTH;
+        position = new Point();
     }
 
     @Override
