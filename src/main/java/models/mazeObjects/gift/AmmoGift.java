@@ -4,18 +4,19 @@ import models.charcter.Person;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 
+import java.awt.*;
 import java.util.Random;
 
 public class AmmoGift extends Gift implements Visitor {
     private int type;
-    public AmmoGift(int type) {
+    public AmmoGift(int type, Point pos) {
         if(type > 0 && type < 6) {
             assignGiftType(type);
         }
         else {
            throw new RuntimeException();
         }
-
+    this.setPosition(pos.x, pos.y);
     }
     @Override
     public void assignGiftType(int giftType) {
