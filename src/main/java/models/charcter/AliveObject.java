@@ -2,7 +2,7 @@ package models.charcter;
 
 import models.matter.Matter;
 
-public interface Character extends Matter {
+public interface AliveObject extends Matter {
 
     /**
      * Get the health of the character.
@@ -18,7 +18,4 @@ public interface Character extends Matter {
      * @return true if the health is affected by any amount in that range ]0,effect], false otherwise.
      */
     boolean affectHealthBy(int effect);
-
-
-
 }

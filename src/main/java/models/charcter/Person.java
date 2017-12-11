@@ -1,10 +1,9 @@
 package models.charcter;
 
-import models.matter.Matter;
 
 import java.awt.*;
 
-public abstract class Person implements Character {
+public abstract class Person implements AliveObject {
     private int health;
     private final int MAX_HEALTH = 100;
     private final int MIN_HEALTH = 0;
