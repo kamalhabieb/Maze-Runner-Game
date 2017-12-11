@@ -2,7 +2,7 @@ package models.mazeObjects;
 
 import models.maze.MazeObject;
 
-public interface Bomb extends MazeObject {
+public interface Bomb_I extends MazeObject {
     /**
      * gets the damaging effect
      *

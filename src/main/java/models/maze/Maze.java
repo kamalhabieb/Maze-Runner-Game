@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
-public interface Maze {
+interface Maze {
     /**
      * Gets the size of the maze.
      * @return size maze.
@@ -13,28 +13,47 @@ public interface Maze {
 
     /**Add new object to the array list of maze objects.
      * @param object the maze object which will be added to the maze objects list.
-     * @param position the relative position in the maze.
+     * @param relativePosition the relative position of the object in the maze.
      */
-    void addMazeObject(MazeObject object, Point position);
+    void addMazeObjectWithRelativePosition(MazeObject object, Point relativePosition);
+
+    /**
+     * Add new object to the array list of maze objects.
+     *
+     * @param object           the maze object which will be added to the maze objects list.
+     * @param absolutePosition the absolute position of the object in the maze.
+     */
+    void addMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition);
 
     /**
      * Remove object from the array list of maze objects.
      *
      * @param object the maze object which will be removed from the maze objects list.
+     * @param relativePosition the relative position of the object in the maze.
      */
-    void RemoveMazeObject(MazeObject object);
+    void RemoveMazeObjectWithRelativePosition(MazeObject object, Point relativePosition);
 
     /**
-     * Gets an array list holds all of the maze objects.
-     * @return arrayList of the maze objects.
+     * Remove object from the array list of maze objects.
+     *
+     * @param object           the maze object which will be removed from the maze objects list.
+     * @param absolutePosition the absolute position of the object in the maze.
      */
-    ArrayList getMazeObjects();
+    void RemoveMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition);
 
     /**
-     * get maze object at a position on tha maze.
-     * @param position the relative position of the wanted object.
+     * get maze object at a position on the maze.
+     * @param relativePosition the relative position of the wanted object.
      * @return the wanted maze object.
-    /home/islam/IdeaProjects/CRT     */
-    MazeObject getMazeObjectAt(Point position);
+     */
+    MazeObject getMazeObjectAtRelativePosition(Point relativePosition);
+
+    /**
+     * get maze object at a position on the maze.
+     *
+     * @param absolutePosition the absolute position of the wanted object.
+     * @return the wanted maze object.
+     */
+    MazeObject getMazeObjectAtAbsolutePosition(Point absolutePosition);
 
 }
