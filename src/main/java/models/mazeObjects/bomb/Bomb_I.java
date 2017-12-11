@@ -1,6 +1,8 @@
-package models.mazeObjects;
+package models.mazeObjects.bomb;
 
 import models.maze.MazeObject;
+
+import java.awt.*;
 
 public interface Bomb_I extends MazeObject {
     /**
@@ -30,4 +32,14 @@ public interface Bomb_I extends MazeObject {
      */
 
     void setTimer(int time);
+
+    void setPosition(int x, int y);
+
+    Point getPosition();
+
+    long getExplodeTime();
+
+    void setExplodeTime(long birthTime);
+
+    void explode();
 }
