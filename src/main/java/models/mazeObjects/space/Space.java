@@ -1,6 +1,7 @@
-package models.mazeObjects;
+package models.mazeObjects.space;
 
 import models.maze.MazeObject;
+import models.mazeObjects.Visitor;
 
 import java.awt.*;
 

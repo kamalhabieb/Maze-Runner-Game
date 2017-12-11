@@ -1,8 +1,10 @@
-package models.mazeObjects.gift;
+package models.mazeObjects;
 
 import models.maze.MazeObject;
-import models.mazeObjects.Space;
+import models.mazeObjects.space.Space;
 import models.mazeObjects.bomb.Bomb;
+import models.mazeObjects.gift.AmmoGift;
+import models.mazeObjects.gift.HealthGift;
 
 import java.awt.*;
 
