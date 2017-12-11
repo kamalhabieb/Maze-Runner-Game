@@ -1,8 +1,8 @@
 package models.facade.Configuration;
 
 import models.maze.MazeBuilder;
+import models.mazeObjects.ObjectsFactory;
 import models.mazeObjects.bomb.Bomb;
-import models.mazeObjects.gift.ObjectsFactory;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -43,7 +43,7 @@ public  class Configuration {
             int range=rand.nextInt(5)+1;
 
             if (!listOfWallPositions.contains(bombPosition))
-                bomb =ObjectsFactory.produce(ObjectsFactory.BOMB,range,bombPosition);
+                bomb = ObjectsFactory.produce(ObjectsFactory.BOMB,range,bombPosition);
         }
     }
 
