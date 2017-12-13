@@ -11,9 +11,11 @@ import java.util.Random;
 
 public  class Configuration {
 
-    private int num_of_bomb_types =5;
-    private int num_of_gift_types=5;
+    private int range_of_bomb_actions =5;
+    private int range_of_gift_actions=5;
 
+    private int mazeLength;
+    private int mazeWidth;
     private int bombsNum;
     private int giftsNum;
     private int monstersNum;
@@ -24,6 +26,8 @@ public  class Configuration {
 
     public Configuration(Properties info)
     {
+        this.mazeLength=30; //replace 30 with maze Length of the template
+        this.mazeWidth=30; //replace 30 with maze Width of the template
         this.bombsNum= Integer.parseInt(info.getProperty("number_of_bombs"));
         this.giftsNum=Integer.parseInt(info.getProperty("number_of_gifts"));
         this.monstersNum=Integer.parseInt(info.getProperty("number_of_monsters"));
@@ -39,11 +43,11 @@ public  class Configuration {
         /*Adding Bombs to MazeBuilder in Random valid positions*/
         for (int i=0;i<bombsNum;i++)
         {
-            int x=rand.nextInt(30);//replace 30 with maze Width of the template
-            int y=rand.nextInt(30);//replace 30 with maze Length of the template
+            int x=rand.nextInt(mazeWidth);
+            int y=rand.nextInt(mazeLength);
             Point bombPosition = new Point(x,y);
             String bombPositionString = bombPosition.toString();
-            int range=rand.nextInt(num_of_bomb_types)+1;// a random number from the interval [1,num_of_bomb_types]
+            int range=rand.nextInt(range_of_bomb_actions)+1;// a random number from the interval [1,num_of_bomb_types]
 
             if ( !listOfTakenPositions.contains(bombPositionString) )
             {
@@ -55,16 +59,16 @@ public  class Configuration {
         /*Adding Gifts to MazeBuilder in Random valid positions*/
         for (int i=0;i<giftsNum;i++)
         {
-            int x=rand.nextInt(30);//replace 30 with maze Width of the template
-            int y=rand.nextInt(30);//replace 30 with maze Length of the template
+            int x=rand.nextInt(mazeWidth);
+            int y=rand.nextInt(mazeLength);
             Point giftPosition = new Point(x,y);
             String giftPositionString = giftPosition.toString();
-            int range=rand.nextInt(num_of_gift_types)+1;// a random number from the interval [1,num_of_gift_types]
+            int range=rand.nextInt(range_of_bomb_actions)+1;// a random number from the interval [1,num_of_gift_types]
 
             if ( !listOfTakenPositions.contains(giftPositionString) )
             {
                 boolean healthGift = rand.nextBoolean();
-                boolean  liveGift =  rand.nextBoolean();
+                boolean  liveGift = rand.nextBoolean();
                 if (healthGift)
                 {
                     MazeObject gift = ObjectsFactory.produce("HEAL_GIFT", range, giftPosition);
