@@ -1,17 +1,17 @@
 package models.charcter.decorations;
 
-import models.charcter.Decoration;
-import models.charcter.AliveObject;
+import models.charcter.Person;
+import models.charcter.Person;
 
 import java.awt.*;
 
-public abstract class AbstractDecoration implements Decoration {
+public abstract class AbstractDecoration extends Person {
     protected int health;
-    private AliveObject aliveObject;
+    protected Person person;
 
 
-    public AbstractDecoration(final AliveObject aliveObject) {
-        this.aliveObject = aliveObject;
+    public AbstractDecoration(final Person person) {
+        this.person = person;
         health = getMaxHealth();
     }
 
@@ -20,7 +20,7 @@ public abstract class AbstractDecoration implements Decoration {
 
     @Override
     public int getHealth() {
-        return health + aliveObject.getHealth();
+        return health + person.getHealth();
     }
 
     @Override
@@ -31,38 +31,48 @@ public abstract class AbstractDecoration implements Decoration {
         int diff = Math.abs(newHealth - health);
         health = newHealth;
         if (diff == effect) return true;
-        if (diff == 0) return aliveObject.affectHealthBy(effect);
-        aliveObject.affectHealthBy(effect - diff);
+        if (diff == 0) return person.affectHealthBy(effect);
+        person.affectHealthBy(effect - diff);
         return true;
     }
 
     @Override
     public void setPosition(final int x, final int y) {
-        aliveObject.setPosition(x, y);
+        person.setPosition(x, y);
     }
 
     @Override
     public Point getPosition() {
-        return aliveObject.getPosition();
+        return person.getPosition();
     }
 
     @Override
     public int getVelocity() {
-        return aliveObject.getVelocity();
+        return person.getVelocity();
     }
 
     @Override
     public void setVelocity(final int velocity) {
-        aliveObject.setVelocity(velocity);
+        person.setVelocity(velocity);
     }
 
     @Override
     public int getAcceleration() {
-        return aliveObject.getAcceleration();
+        return person.getAcceleration();
     }
 
     @Override
     public void setAcceleration(final int acceleration) {
-        aliveObject.setAcceleration(acceleration);
+        person.setAcceleration(acceleration);
+    }
+
+    @Override
+    public int getAmmo() {
+        return person.getAmmo();
+    }
+
+    @Override
+    public boolean affectAmmo(final int effect) {
+        return person.affectAmmo(effect);
     }
 }

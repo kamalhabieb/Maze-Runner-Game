@@ -1,10 +1,11 @@
 package models.mazeObjects.gift;
-import models.mazeObjects.Host;
+import models.charcter.AliveObject;
+import models.engine.Matter;
 import models.mazeObjects.Visitor;
 
 import java.awt.*;
 
-public abstract class Gift implements Gift_I {
+public abstract class Gift implements Gift_I,AliveObject,Matter,Visitor {
     private Point pos;
     private boolean isCovered = true;
 
