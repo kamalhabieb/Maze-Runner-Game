@@ -6,11 +6,12 @@ import models.facade.ControlTower;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class Player extends Person {
+
+
+public class Player extends Person implements PlayerObserver {
     private int animationIndex = 0;
     private int width;
 
-public class Player extends Person implements PlayerObserver {
     ArrayList<PlayerObserver> playerObservers;
     public Player(final ControlTower controlTower) {
         super(controlTower);
