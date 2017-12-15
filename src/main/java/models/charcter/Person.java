@@ -8,12 +8,14 @@ import models.charcter.weapons.Gun;
 import models.charcter.weapons.Weapon;
 import models.engine.Matter;
 import models.facade.ControlTower;
+import models.mazeObjects.Host;
+import models.mazeObjects.Visitor;
 
 import java.awt.*;
 
 import static models.charcter.states.StateFactory.state.*;
 
-public abstract class Person implements AliveObject, Machine, Matter, Armored {
+public abstract class Person implements AliveObject, Machine, Matter, Armored,Host {
     protected final Weapon weapon;
     private int health;
     private final int MAX_HEALTH = 100;
@@ -22,7 +24,7 @@ public abstract class Person implements AliveObject, Machine, Matter, Armored {
     private int velocity;
     private int acceleration;
     private State state;
-    private ControlTower controlTower;
+    protected ControlTower controlTower;
 
     public Person(ControlTower controlTower) {
         this.controlTower = controlTower;
@@ -91,5 +93,10 @@ public abstract class Person implements AliveObject, Machine, Matter, Armored {
     @Override
     public boolean affectAmmo(final int effect) {
         return weapon.affectAmmo(effect);
+    }
+
+    @Override
+    public void accept(final Visitor visitor) {
+        visitor.visit(this);
     }
 }
