@@ -1,5 +1,7 @@
 package models.facade.Configuration;
 
+import models.engine.Engine;
+import models.engine.EngineFactory;
 import models.maze.MazeBuilder;
 import models.maze.MazeObject;
 import models.mazeObjects.ObjectsFactory;
@@ -62,7 +64,7 @@ public  class Configuration {
             int y=rand.nextInt(mazeLength);
             Point giftPosition = new Point(x,y);
             String giftPositionString = giftPosition.toString();
-            int range=rand.nextInt(range_of_bomb_actions)+1;// a random number from the interval [1,num_of_gift_types]
+            int range=rand.nextInt(range_of_gift_actions)+1;// a random number from the interval [1,num_of_gift_types]
 
             if ( !listOfTakenPositions.contains(giftPositionString) )
             {
@@ -102,6 +104,7 @@ public  class Configuration {
 
             else i--;
         }
+
     }
 
 

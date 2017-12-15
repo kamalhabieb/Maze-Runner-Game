@@ -1,6 +1,6 @@
 number_of_bombs : 5
 number_of_gifts : 5
 number_of_monsters : 5
-game_mode : "earth"
+game_mode : "default"
 
 tempWallsList : "(1,5) (2,5) (3,6)" //a temporary string till templates are ready
