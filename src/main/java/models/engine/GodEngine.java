@@ -1,28 +1,10 @@
 package models.engine;
 
-public class GodEngine implements Engine  {
-    @Override
-    public void moveNorth(Matter object) {
-
-    }
-
-    @Override
-    public void moveEast(Matter object) {
-
-    }
-
-    @Override
-    public void moveSouth(Matter object) {
-
-    }
-
-    @Override
-    public void moveWest(Matter object) {
-
-    }
-
-    @Override
-    public void stop(Matter object) {
-
+public class GodEngine extends AbstractEngine{
+    public GodEngine(){
+        super.acceleration = 10;
+        super.horizontalFactor = 1;
+        super.verticalFactor = 1;
+        super.modeRate = 1;
     }
 }

@@ -5,8 +5,15 @@ import models.engine.Engine;
 import models.engine.EngineFactory;
 import models.facade.Configuration.Configuration;
 import models.maze.GameMaze;
+import models.maze.InvalidPositionException;
 import models.maze.Maze;
+import models.maze.MazeObject;
+import models.mazeObjects.Host;
+import models.mazeObjects.Visitor;
+import models.mazeObjects.space.Space;
+import models.wall.Wall;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -37,5 +44,23 @@ public class Facade implements ControlTower,Observer {
     }
     public void doAction(){
 
+    }
+
+    @Override
+    public boolean grantPermission(final Host host, final Point newPosition) {
+        MazeObject mazeObject;
+        try {
+            mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+        } catch (InvalidPositionException e) {
+            return false;
+        }
+        if (mazeObject instanceof Wall) {
+            return false;
+        }
+        if (mazeObject instanceof Visitor) {
+            host.accept((Visitor) mazeObject);
+            return true;
+        }
+        return true;
     }
 }

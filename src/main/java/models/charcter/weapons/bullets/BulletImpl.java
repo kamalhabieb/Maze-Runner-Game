@@ -1,8 +1,12 @@
 package models.charcter.weapons.bullets;
 
+import models.charcter.AliveObject;
+import models.mazeObjects.Host;
+import models.mazeObjects.Visitor;
+
 import java.awt.*;
 
-public class BulletImpl implements Bullet {
+public class BulletImpl implements Bullet,Visitor {
     private int damageRate;
     private int lifetime;
     private int birthTime;
@@ -78,5 +82,15 @@ public class BulletImpl implements Bullet {
     public void setAcceleration(final int acceleration) {
 
         this.acceleration = acceleration;
+    }
+
+    @Override
+    public void visit(final Host host) {
+        try{
+            AliveObject aliveObject = (AliveObject) host;
+            aliveObject.affectHealthBy(this.getDamageRate());
+        } catch (ClassCastException e){
+            //TODO handle object is not alive
+        }
     }
 }
