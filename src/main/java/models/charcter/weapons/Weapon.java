@@ -11,4 +11,5 @@ public interface Weapon extends Matter {
 
     Bullet Shoot() throws NoRemainingAmmoException;
 
+    boolean affectAmmo(int effect);
 }

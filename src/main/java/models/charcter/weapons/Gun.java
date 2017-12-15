@@ -12,6 +12,7 @@ import static models.charcter.weapons.bullets.BulletPool.*;
 public class Gun implements Weapon {
 
     private static final int MAXIMUM_AMMO = 6;
+    private static final int Minimum_Ammo = 0;
     private static final Properties properties = new Properties();
 
 
@@ -47,6 +48,16 @@ public class Gun implements Weapon {
         Bullet bullet = BulletPool.getInstance().checkOut(properties);
         bullet.setPosition(position.x,position.y);
         return bullet;
+    }
+
+    @Override
+    public boolean affectAmmo(final int effect) {
+        int newAmmo = effect + currentAmmo;
+        if (newAmmo < Minimum_Ammo) newAmmo = Minimum_Ammo;
+        if (newAmmo > MAXIMUM_AMMO) newAmmo = MAXIMUM_AMMO;
+        int diff = Math.abs(newAmmo - currentAmmo);
+        currentAmmo = newAmmo;
+        return diff == 0;
     }
 
     @Override
