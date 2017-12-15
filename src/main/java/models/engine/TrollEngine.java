@@ -14,7 +14,7 @@ public class TrollEngine implements Engine{
     public void moveNorth(Matter object) {
         getInfo(object);
         int  rand = random.nextInt(3) -1;
-        yDistance= (int) (yDistance+ rand*velocity + 0.5* acceleration);// x = vo *t+0.5*a*t^2
+        yDistance= (int) (yDistance+ rand*(velocity + 0.5* acceleration));// x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
         object.setVelocity(velocity);
@@ -24,7 +24,7 @@ public class TrollEngine implements Engine{
     public void moveEast(Matter object) {
         getInfo(object);
         int  rand = random.nextInt(3) -1;
-        xDistance = (int) (xDistance + rand*velocity + 0.5* acceleration);// x = vo *t+0.5*a*t^2
+        xDistance = (int) (xDistance + rand*(velocity + 0.5* acceleration));// x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
         object.setVelocity(velocity);
@@ -34,7 +34,7 @@ public class TrollEngine implements Engine{
     public void moveSouth(Matter object) {
         getInfo(object);
         int  rand = random.nextInt(3) -1;
-        yDistance = (int) (yDistance + rand*velocity + 0.5* acceleration);// x = vo *t+0.5*a*t^2
+        yDistance = (int) (yDistance + rand*(velocity + 0.5* acceleration));// x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
         object.setVelocity(velocity);
@@ -44,7 +44,7 @@ public class TrollEngine implements Engine{
     public void moveWest(Matter object) {
         getInfo(object);
         int  rand = random.nextInt(3) -1;
-        xDistance = (int) (xDistance + rand*velocity + 0.5* acceleration);// x = vo *t+0.5*a*t^2
+        xDistance = (int) (xDistance + rand*(velocity + 0.5* acceleration));// x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
         object.setVelocity(velocity);
