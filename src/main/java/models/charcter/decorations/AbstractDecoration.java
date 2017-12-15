@@ -11,6 +11,7 @@ public abstract class AbstractDecoration extends Person {
 
 
     public AbstractDecoration(final Person person) {
+        super(person.getControlTower());
         this.person = person;
         health = getMaxHealth();
     }

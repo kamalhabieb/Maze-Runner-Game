@@ -23,7 +23,7 @@ public class EngineFactory  {
 
             case BLIND  : return new BlindEngine();
 
-            default       : return null;
+            default     : return new DefaultEngine();
         }
     }
 }

@@ -10,12 +10,13 @@ import models.engine.Matter;
 import models.facade.ControlTower;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
+import views.Drawable;
 
 import java.awt.*;
 
 import static models.charcter.states.StateFactory.state.*;
 
-public abstract class Person implements AliveObject, Machine, Matter, Armored,Host {
+public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host {
     protected final Weapon weapon;
     private int health;
     private final int MAX_HEALTH = 100;
@@ -23,7 +24,7 @@ public abstract class Person implements AliveObject, Machine, Matter, Armored,Ho
     private Point position;
     private int velocity;
     private int acceleration;
-    private State state;
+    protected State state;
     protected ControlTower controlTower;
 
     public Person(ControlTower controlTower) {
@@ -98,5 +99,9 @@ public abstract class Person implements AliveObject, Machine, Matter, Armored,Ho
     @Override
     public void accept(final Visitor visitor) {
         visitor.visit(this);
+    }
+
+    public ControlTower getControlTower() {
+        return controlTower;
     }
 }
