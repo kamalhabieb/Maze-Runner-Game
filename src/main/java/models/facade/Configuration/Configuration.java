@@ -20,7 +20,6 @@ public  class Configuration {
     private int giftsNum;
     private int monstersNum;
     private String gameMode;
-    private int difficulty;
     private HashSet <String> listOfTakenPositions;
     private Random rand= new Random();
 
@@ -32,7 +31,6 @@ public  class Configuration {
         this.giftsNum=Integer.parseInt(info.getProperty("number_of_gifts"));
         this.monstersNum=Integer.parseInt(info.getProperty("number_of_monsters"));
         this.gameMode=info.getProperty("game_mode");
-        this.difficulty=Integer.parseInt(info.getProperty("difficulty"));
         this.listOfTakenPositions= this.makeSetOFWallCellsPositions(info.getProperty("tempWallsList"));
     }
 
@@ -51,9 +49,10 @@ public  class Configuration {
 
             if ( !listOfTakenPositions.contains(bombPositionString) )
             {
-                MazeObject bomb = ObjectsFactory.produce("BOMB", range, bombPosition);
+                MazeObject bomb = ObjectsFactory.produce(ObjectsFactory.BOMB, range, bombPosition);
                 builder.addMazeObject(bomb,bombPosition);
             }
+            else i--;
         }
 
         /*Adding Gifts to MazeBuilder in Random valid positions*/
@@ -71,7 +70,7 @@ public  class Configuration {
                 boolean  liveGift = rand.nextBoolean();
                 if (healthGift)
                 {
-                    MazeObject gift = ObjectsFactory.produce("HEAL_GIFT", range, giftPosition);
+                    MazeObject gift = ObjectsFactory.produce(ObjectsFactory.HEAL_GIFT, range, giftPosition);
                     builder.addMazeObject(gift,giftPosition);
                 }
                 else if (liveGift)
@@ -80,10 +79,11 @@ public  class Configuration {
                 }
                 else
                 {
-                    MazeObject gift = ObjectsFactory.produce("AMMO_GIFT", range, giftPosition);
+                    MazeObject gift = ObjectsFactory.produce(ObjectsFactory.AMMO_GIFT, range, giftPosition);
                     builder.addMazeObject(gift,giftPosition);
                 }
             }
+            else i--;
         }
         /*Adding Ghosts to MazeBuilder in Random valid positions*/
         for (int i=0;i<monstersNum;i++)
@@ -99,6 +99,8 @@ public  class Configuration {
                 //make an object from class monster
                 //add monster to the make
             }
+
+            else i--;
         }
     }
 
