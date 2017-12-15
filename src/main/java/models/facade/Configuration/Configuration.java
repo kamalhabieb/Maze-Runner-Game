@@ -110,7 +110,7 @@ public  class Configuration {
 
 
     /*
-    * takes a String of points of wall cells
+    * takes a String of points of Wall cells
     * and convert it to a hash set
     */
     private HashSet makeSetOFWallCellsPositions (String WallPositions)
