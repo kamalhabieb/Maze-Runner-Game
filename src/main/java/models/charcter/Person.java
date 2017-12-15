@@ -104,4 +104,6 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public ControlTower getControlTower() {
         return controlTower;
     }
+
+
 }
