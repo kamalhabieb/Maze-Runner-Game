@@ -1,5 +1,7 @@
 package models.facade;
 
+import controllers.command.Command;
+import controllers.command.Receiver;
 import models.charcter.Player;
 import models.engine.Engine;
 import models.engine.EngineFactory;
@@ -47,8 +49,8 @@ public class Facade implements ControlTower,Observer {
        player = new Player(this);
        player.setPosition(Integer.parseInt(gameInfo.getProperty(START_POINT_X)), Integer.parseInt(gameInfo.getProperty(START_POINT_Y)));
     }
-    public void doAction(){
-
+    public void excute(Command command){
+        command.execute((Receiver) player);
     }
 
     @Override
@@ -68,4 +70,5 @@ public class Facade implements ControlTower,Observer {
         }
         return true;
     }
+
 }
