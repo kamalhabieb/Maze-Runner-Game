@@ -49,10 +49,14 @@ public class MazeBuilder {
     }
 
 
-    public Maze buildMaze() throws InvalidPositionException {
+    public Maze buildMaze() {
         playingMaze = new GameMaze(this.length, this.width, this.cellSize, this.startPoint, this.endPoint);
         for (Map.Entry<MazeObject, Point> entry : mazeObjectsMap.entrySet()) {
-            playingMaze.addMazeObjectWithRelativePosition(entry.getKey(), entry.getValue());
+            try {
+                playingMaze.addMazeObjectWithRelativePosition(entry.getKey(), entry.getValue());
+            } catch (InvalidPositionException e) {
+                e.printStackTrace();
+            }
         }
         return playingMaze;
     }
