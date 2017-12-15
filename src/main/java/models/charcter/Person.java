@@ -1,6 +1,7 @@
 package models.charcter;
 
 
+import controllers.command.Receiver;
 import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
@@ -17,7 +18,7 @@ import java.awt.*;
 
 import static models.charcter.states.StateFactory.state.*;
 
-public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host {
+public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host, Receiver {
     protected final Weapon weapon;
     private int health;
     private final int MAX_HEALTH = 100;
@@ -101,6 +102,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public void accept(final Visitor visitor) {
         visitor.visit(this);
     }
+
 
     public ControlTower getControlTower() {
         return controlTower;
