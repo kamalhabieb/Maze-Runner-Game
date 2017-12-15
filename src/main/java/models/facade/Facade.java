@@ -24,6 +24,9 @@ public class Facade implements ControlTower,Observer {
     public final String EASY="/easy.configuration";
     public final String MEDIUM="/medium.configuration";
     public final String HARD="/easy.configuration";
+    public final String GAME_MODE="game_mode";
+    public final String START_POINT_X="start_X";
+    public final String START_POINT_Y="start_Y";
 
 
 
@@ -40,7 +43,9 @@ public class Facade implements ControlTower,Observer {
         }
         Configuration configuration = new Configuration(gameInfo);
         mazeG = configuration.loadConfiguration();
-       gameEngine = EngineFactory.getInstance(gameInfo.getProperty("game_mode"));
+       gameEngine = EngineFactory.getInstance(gameInfo.getProperty(GAME_MODE));
+       player = new Player(this);
+       player.setPosition(Integer.parseInt(gameInfo.getProperty(START_POINT_X)), Integer.parseInt(gameInfo.getProperty(START_POINT_Y)));
     }
     public void doAction(){
 
