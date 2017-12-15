@@ -4,13 +4,17 @@ package models.charcter;
 import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
+import models.charcter.weapons.Gun;
+import models.charcter.weapons.Weapon;
 import models.engine.Matter;
+import models.facade.ControlTower;
 
 import java.awt.*;
 
 import static models.charcter.states.StateFactory.state.*;
 
 public abstract class Person implements AliveObject, Machine, Matter, Armored {
+    protected final Weapon weapon;
     private int health;
     private final int MAX_HEALTH = 100;
     private final int MIN_HEALTH = 0;
@@ -18,11 +22,14 @@ public abstract class Person implements AliveObject, Machine, Matter, Armored {
     private int velocity;
     private int acceleration;
     private State state;
+    private ControlTower controlTower;
 
-    public Person() {
+    public Person(ControlTower controlTower) {
+        this.controlTower = controlTower;
         health = MAX_HEALTH;
         position = new Point();
         state = StateFactory.getState(reset);
+        weapon = new Gun();
     }
 
     @Override
@@ -74,5 +81,15 @@ public abstract class Person implements AliveObject, Machine, Matter, Armored {
     @Override
     public void setState(final State state) {
         this.state = state;
+    }
+
+    @Override
+    public int getAmmo() {
+        return weapon.getRemainingAmmo();
+    }
+
+    @Override
+    public boolean affectAmmo(final int effect) {
+        return weapon.affectAmmo(effect);
     }
 }
