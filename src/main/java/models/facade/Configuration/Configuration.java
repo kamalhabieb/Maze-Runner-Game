@@ -85,6 +85,21 @@ public  class Configuration {
                 }
             }
         }
+        /*Adding Ghosts to MazeBuilder in Random valid positions*/
+        for (int i=0;i<monstersNum;i++)
+        {
+            int x=rand.nextInt(mazeWidth);
+            int y=rand.nextInt(mazeLength);
+            Point bombPosition = new Point(x,y);
+            String bombPositionString = bombPosition.toString();
+            int range=rand.nextInt(range_of_bomb_actions)+1;// a random number from the interval [1,num_of_bomb_types]
+
+            if ( !listOfTakenPositions.contains(bombPositionString) )
+            {
+                //make an object from class monster
+                //add monster to the make
+            }
+        }
     }
 
 
