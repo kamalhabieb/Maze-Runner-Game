@@ -4,15 +4,15 @@ public interface Wall {
 
     /**
      * make the cell either breakable or not .
-     * @param makeBreakable if true then make the cell breakable , else make it unbreakable .
+     * @param breakable if true then make the cell breakable , else make it unbreakable .
      */
-    void setCellState(boolean makeBreakable);
+    void setBreakable(boolean breakable);
 
     /**
      * Get wither the cell is breakable or not .
      * @return true if the cell is breakable or false if it is unbreakable .
      */
-    boolean getCellState();
+    boolean isBreakable();
 
     /**
      * Get the health of the cell if breakable.

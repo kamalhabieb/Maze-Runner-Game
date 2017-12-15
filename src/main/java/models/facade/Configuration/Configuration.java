@@ -1,7 +1,4 @@
 package models.facade.Configuration;
-
-import models.engine.Engine;
-import models.engine.EngineFactory;
 import models.maze.Maze;
 import models.maze.MazeBuilder;
 import models.maze.MazeObject;
@@ -12,6 +9,9 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Random;
 
+
+//todo Life Gifts adding
+//todo adding maze walls
 public  class Configuration {
 
     private int range_of_bomb_actions =5;
@@ -87,25 +87,7 @@ public  class Configuration {
             }
             else i--;
         }
-        /*Adding Ghosts to MazeBuilder in Random valid positions*/
-        for (int i=0;i<monstersNum;i++)
-        {
-            int x=rand.nextInt(mazeWidth);
-            int y=rand.nextInt(mazeLength);
-            Point bombPosition = new Point(x,y);
-            String bombPositionString = bombPosition.toString();
-            int range=rand.nextInt(range_of_bomb_actions)+1;// a random number from the interval [1,num_of_bomb_types]
-
-            if ( !listOfTakenPositions.contains(bombPositionString) )
-            {
-                //make an object from class monster
-                //add monster to the make
-            }
-
-            else i--;
-        }
-
-        return builder.buildMaze();
+                return builder.buildMaze();
     }
 
 
@@ -131,5 +113,4 @@ public  class Configuration {
 
         return setOfWallCells;
     }
-
 }
