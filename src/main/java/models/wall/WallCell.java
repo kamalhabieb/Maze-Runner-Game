@@ -41,7 +41,7 @@ public class WallCell extends Drawable implements Wall  {
 
     @Override
     public boolean affectHealthBy(int effect) {
-        if (breakable)
+        if (breakable && health > MIN_HEALTH)
         {
             health-=effect;
             return true;
