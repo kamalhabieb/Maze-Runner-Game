@@ -6,6 +6,7 @@ import models.charcter.states.State;
 import models.charcter.states.StateFactory;
 import models.charcter.weapons.Gun;
 import models.charcter.weapons.Weapon;
+import models.engine.Engine;
 import models.engine.Matter;
 import models.facade.ControlTower;
 import models.mazeObjects.Host;
@@ -105,5 +106,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         return controlTower;
     }
 
-
+    public void update(Engine engine){
+        state.update(this,engine);
+    }
 }
