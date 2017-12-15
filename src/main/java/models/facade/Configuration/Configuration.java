@@ -37,7 +37,7 @@ public  class Configuration {
     }
 
     /*initializations for new game*/
-    public void loadConfiguration(){
+    public MazeBuilder loadConfiguration(){
         MazeBuilder builder = new MazeBuilder();
 
         /*Adding Bombs to MazeBuilder in Random valid positions*/
@@ -105,6 +105,7 @@ public  class Configuration {
             else i--;
         }
 
+        return builder;
     }
 
 
