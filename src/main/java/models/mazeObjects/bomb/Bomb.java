@@ -1,15 +1,13 @@
 package models.mazeObjects.bomb;
 
-import models.facade.ControlTower;
-import models.maze.MazeObject;
+import models.charcter.AliveObject;
+import models.engine.Matter;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.function.ToDoubleBiFunction;
 
-public class Bomb implements Bomb_I , Visitor, Host{
+public class Bomb implements Bomb_I, Visitor, Host, Matter, AliveObject {
     private int type;
     private int damageRate;
     private int timer;
@@ -20,7 +18,7 @@ public class Bomb implements Bomb_I , Visitor, Host{
     private boolean isCovered = true;
 
     public Bomb(int type, Point pos) {
-        if(type == 0) {
+        if (type == 0) {
             type = 1;
         }
         this.type = type;
@@ -82,7 +80,7 @@ public class Bomb implements Bomb_I , Visitor, Host{
 
     @Override
     public void setPosition(int x, int y) {
-        this.position = new Point(x,y);
+        this.position = new Point(x, y);
     }
 
     @Override
@@ -95,10 +93,12 @@ public class Bomb implements Bomb_I , Visitor, Host{
         }*/
         // TODO: 11/12/17 (DO onExplodeFunction to remove bomb from 2D Array)
     }
+
     @Override
     public long getExplodeTime() {
         return this.explodeTime;
     }
+
     @Override
     public void setExplodeTime(long explodeTime) {
         this.explodeTime = explodeTime;
@@ -109,10 +109,6 @@ public class Bomb implements Bomb_I , Visitor, Host{
         visitor.visit(this);
     }
 
-    @Override
-    public void affectAmmo(int ammo) {
-        throw new RuntimeException();
-    }
 
     @Override
     public int getHealth() {
@@ -131,6 +127,12 @@ public class Bomb implements Bomb_I , Visitor, Host{
 
     @Override
     public void visit(Host host) {
-        host.affectHealthBy(this.getDamageRate());
+        try{
+            AliveObject aliveObject = (AliveObject) host;
+            aliveObject.affectHealthBy(this.getDamageRate());
+        } catch (ClassCastException e){
+            //TODO handle object is not alive
+        }
+
     }
 }

@@ -12,15 +12,48 @@ public class GameMaze implements Maze {
     final private int height;
     final private int width;
     final private int cellSize;
+    final private Point startPoint;
+    final private Point endPoint;
     private final MazeObject space = new Space();
 
-    public GameMaze(int height, int width, int cellSize) {
+    public GameMaze(int height, int width, int cellSize, Point startPoint, Point endPoint) {
         this.height = height;
         this.width = width;
         this.cellSize = cellSize;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
         this.mazeArray = new MazeObject[height][width];
         this.initializeArray();
         objectsArray = new ArrayList<MazeObject>();
+    }
+    @Override
+    public ArrayList getObjectsArray() {
+        return this.objectsArray;
+    }
+
+    @Override
+    public int getHeight() {
+        return this.height;
+    }
+
+    @Override
+    public int getWidth() {
+        return this.width;
+    }
+
+    @Override
+    public int getCellSize() {
+        return this.cellSize;
+    }
+
+    @Override
+    public Point getStartPoint() {
+        return this.startPoint;
+    }
+
+    @Override
+    public Point getEndPoint() {
+        return this.endPoint;
     }
 
 

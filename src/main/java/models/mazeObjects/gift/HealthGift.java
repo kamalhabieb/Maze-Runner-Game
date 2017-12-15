@@ -1,5 +1,6 @@
 package models.mazeObjects.gift;
 
+import models.charcter.AliveObject;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 
@@ -23,16 +24,20 @@ public class HealthGift  extends Gift implements Visitor{
 
     @Override
     public boolean affectHealthBy(int effect) {
+        //TODO gift can be visited ?
+
         throw new RuntimeException();
     }
 
-    @Override
-    public void affectAmmo(int ammo) {
-        throw new RuntimeException();
-    }
 
     @Override
     public void visit(Host host) {
-        host.affectHealthBy(type * 20);
+        try{
+            AliveObject aliveObject = (AliveObject) host;
+            aliveObject.affectHealthBy(type * 20);
+
+        }catch (ClassCastException e){
+            //TODO handle the host is not alive
+        }
     }
 }

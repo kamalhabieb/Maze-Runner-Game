@@ -6,6 +6,18 @@ import java.util.ArrayList;
 
 public interface Maze {
 
+    ArrayList getObjectsArray();
+
+    int getHeight();
+
+    int getWidth();
+
+    int getCellSize();
+
+    Point getStartPoint();
+
+    Point getEndPoint();
+
     /**Add new object to the array list of maze objects.
      * @param object the maze object which will be added to the maze objects list.
      * @param relativePosition the relative position of the object in the maze.

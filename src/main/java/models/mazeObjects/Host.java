@@ -1,9 +1,6 @@
 package models.mazeObjects;
 
-import models.charcter.AliveObject;
 
-public interface Host extends AliveObject {
+public interface Host  {
     void accept(Visitor visitor);
-
-    void affectAmmo(int ammo);
 }

@@ -1,13 +1,11 @@
 package models.mazeObjects.gift;
 
-import models.charcter.Person;
+import models.charcter.Armored;
 import models.mazeObjects.Host;
-import models.mazeObjects.Visitor;
 
 import java.awt.*;
-import java.util.Random;
 
-public class AmmoGift extends Gift implements Visitor {
+public class AmmoGift extends Gift {
     private int type;
     public AmmoGift(int type, Point pos) {
         if(type > 0 && type < 6) {
@@ -25,16 +23,18 @@ public class AmmoGift extends Gift implements Visitor {
 
     @Override
     public boolean affectHealthBy(int effect) {
+        //TODO gift can be visited
         throw new RuntimeException();
     }
 
     @Override
     public void visit(Host host) {
-        host.affectAmmo(type);
+        try{
+            Armored armored = (Armored) host;
+            armored.affectAmmo(type);
+        }catch (ClassCastException e){
+            //TODO handle given a host that is not armored
+        }
     }
 
-    @Override
-    public void affectAmmo(int ammo) {
-        throw new RuntimeException();
-    }
 }
