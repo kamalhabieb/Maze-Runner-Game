@@ -2,6 +2,7 @@ package models.facade.Configuration;
 
 import models.engine.Engine;
 import models.engine.EngineFactory;
+import models.maze.Maze;
 import models.maze.MazeBuilder;
 import models.maze.MazeObject;
 import models.mazeObjects.ObjectsFactory;
@@ -15,7 +16,6 @@ public  class Configuration {
 
     private int range_of_bomb_actions =5;
     private int range_of_gift_actions=5;
-
     private int mazeLength;
     private int mazeWidth;
     private int bombsNum;
@@ -37,7 +37,7 @@ public  class Configuration {
     }
 
     /*initializations for new game*/
-    public MazeBuilder loadConfiguration(){
+    public Maze loadConfiguration(){
         MazeBuilder builder = new MazeBuilder();
 
         /*Adding Bombs to MazeBuilder in Random valid positions*/
@@ -105,7 +105,7 @@ public  class Configuration {
             else i--;
         }
 
-        return builder;
+        return builder.buildMaze();
     }
 
 
