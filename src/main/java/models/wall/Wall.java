@@ -1,6 +1,6 @@
 package models.wall;
 
-public interface wall {
+public interface Wall {
 
     /**
      * make the cell either breakable or not .
