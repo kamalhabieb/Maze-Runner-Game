@@ -43,6 +43,7 @@ public class MazeBuilder {
     public void setEndPoint(Point endPoint) {
         this.endPoint = endPoint;
     }
+
     public MazeBuilder addMazeObject(MazeObject object, Point relativePoint) {
         mazeObjectsMap.put(object, relativePoint);
         return this;
