@@ -12,7 +12,9 @@ public class Player extends Person implements PlayerObserver {
     private int animationIndex = 0;
     private int width;
 
+
     ArrayList<PlayerObserver> playerObservers;
+
     public Player(final ControlTower controlTower) {
         super(controlTower);
     }
