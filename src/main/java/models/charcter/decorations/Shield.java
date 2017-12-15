@@ -1,5 +1,6 @@
 package models.charcter.decorations;
 
+import javafx.scene.image.Image;
 import models.charcter.Person;
 
 public class Shield extends AbstractDecoration {
@@ -22,4 +23,9 @@ public class Shield extends AbstractDecoration {
     }
 
 
+    @Override
+    public Image getImage() {
+        //TODO shield Image
+        return null;
+    }
 }
