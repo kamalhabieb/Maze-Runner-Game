@@ -9,6 +9,8 @@ public class MazeBuilder {
     private int length;
     private int width;
     private int cellSize;
+    private Point startPoint;
+    private Point endPoint;
     private Maze playingMaze;
     private Map<MazeObject, Point> mazeObjectsMap;
 
@@ -34,6 +36,13 @@ public class MazeBuilder {
         return this;
     }
 
+    public void setStartPoint(Point startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public void setEndPoint(Point endPoint) {
+        this.endPoint = endPoint;
+    }
     public MazeBuilder addMazeObject(MazeObject object, Point relativePoint) {
         mazeObjectsMap.put(object, relativePoint);
         return this;
@@ -41,7 +50,7 @@ public class MazeBuilder {
 
 
     public Maze buildMaze() throws InvalidPositionException {
-        playingMaze = new GameMaze(this.length, this.width, this.cellSize);
+        playingMaze = new GameMaze(this.length, this.width, this.cellSize, this.startPoint, this.endPoint);
         for (Map.Entry<MazeObject, Point> entry : mazeObjectsMap.entrySet()) {
             playingMaze.addMazeObjectWithRelativePosition(entry.getKey(), entry.getValue());
         }
