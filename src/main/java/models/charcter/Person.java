@@ -1,11 +1,13 @@
 package models.charcter;
 
 
+import controllers.command.Receiver;
 import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
 import models.charcter.weapons.Gun;
 import models.charcter.weapons.Weapon;
+import models.engine.Engine;
 import models.engine.Matter;
 import models.facade.ControlTower;
 import models.mazeObjects.Host;
@@ -16,7 +18,7 @@ import java.awt.*;
 
 import static models.charcter.states.StateFactory.state.*;
 
-public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host {
+public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host, Receiver {
     protected final Weapon weapon;
     private int health;
     private final int MAX_HEALTH = 100;
@@ -101,7 +103,12 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         visitor.visit(this);
     }
 
+
     public ControlTower getControlTower() {
         return controlTower;
+    }
+
+    public void update(Engine engine){
+        state.update(this,engine);
     }
 }

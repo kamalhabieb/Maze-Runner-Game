@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class GameMaze implements Maze {
     final private MazeObject[][] mazeArray;
-    final private ArrayList objectsArray;
+    final private ArrayList<MazeObject> objectsArray;
     final private int height;
     final private int width;
     final private int cellSize;
@@ -137,6 +137,7 @@ public class GameMaze implements Maze {
         testValidPoint(absolutePosition);
         return mazeArray[(int) absolutePosition.getX()]
                 [(int) absolutePosition.getY()];
+
     }
 
     @Override

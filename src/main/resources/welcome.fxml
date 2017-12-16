@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1300.0" styleClass="anchor" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GUIController">
+    <stylesheets>
+        <URL value="@welcomeStyle.css" />
+    </stylesheets>
+   <children>
+      <Label fx:id="startLabel" alignment="CENTER" layoutX="535.0" layoutY="521.0" onMouseEntered="#onMouseEnteredWelcome" onMouseExited="#onMouseExitedWelcome" prefHeight="17.0" prefWidth="304.0" text="New  Game" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Lucida Fax Regular" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="loadLabel" alignment="CENTER" layoutX="535.0" layoutY="565.0" onMouseEntered="#onMouseEnteredWelcome" onMouseExited="#onMouseExitedWelcome" prefHeight="17.0" prefWidth="304.0" text="Load Game" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Lucida Fax Regular" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="exitLabel" alignment="CENTER" layoutX="523.0" layoutY="614.0" onMouseEntered="#onMouseEnteredWelcome" onMouseExited="#onMouseExitedWelcome" prefHeight="17.0" prefWidth="304.0" text="Exit" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Lucida Fax Regular" size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
