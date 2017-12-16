@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class PlayerImage {
     //TODO set correct resource paths
-    public final static String IDLE = "/character/characterStop.png";
+    public final static String IDLE = "/images/RegularMode/character/characterstop.png";
     public static final String NORTH = "/character/characterStop.png";
     public static final String SOUTH = "/character/characterStop.png";
     public static final String EAST = "/character/characterStop.png";
@@ -22,7 +22,7 @@ public class PlayerImage {
             case IDLE:
                 return idleImage;
             default:
-                return null;
+                return idleImage;
         }
     }
 

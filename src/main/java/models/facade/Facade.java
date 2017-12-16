@@ -49,6 +49,7 @@ public class Facade implements ControlTower, Observer {
         player.update(gameEngine);
         //monsters.stream().forEach(n -> n.update(gameEngine));
         populateDrawables();
+        player.getImage();
         notifyDraw();
     }
 

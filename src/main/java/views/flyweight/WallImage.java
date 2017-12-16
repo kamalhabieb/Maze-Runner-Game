@@ -4,11 +4,11 @@ import javafx.scene.image.Image;
 
 public class WallImage {
 
-    public final static String unBreakable = "/wall/wallUnBreakable.png";
-    public final static String breakable = "/wall/wallBreakable.png"; //wall health [76,100]
-    public final static String breakingState1 = "/wall/wallStage1.png";//wall health [51,75]
-    public final static String breakingState2 = "/wall/wallStage2.png";//wall health [26,50]
-    public final static String breakingState3 = "/wall/wallStage3.png";//wall health [1,25]
+    public final static String unBreakable = "/images/RegularMode/mazeObjects/mainwall.png";
+    public final static String breakable = "/RegularMode/mazeObjects/mainwall.png"; //wall health [76,100]
+    public final static String breakingState1 = "/RegularMode/mazeObjects/mainwall.png";//wall health [51,75]
+    public final static String breakingState2 = "/RegularMode/mazeObjects/mainwall.png";//wall health [26,50]
+    public final static String breakingState3 = "/RegularMode/mazeObjects/mainwall.png";//wall health [1,25]
 
     private static final Image unBreakableImage;
     private static final Image breakableImage;
@@ -26,14 +26,14 @@ public class WallImage {
         switch (state) {
             case unBreakable:
                 return unBreakableImage;
-            case breakable:
-                return breakableImage;
-            case breakingState1:
-                return breakingState1Image;
-            case breakingState2:
-                return breakingState2Image;
-            case breakingState3:
-                return breakingState3Image;
+//            case breakable:
+//                return breakableImage;
+//            case breakingState1:
+//                return breakingState1Image;
+//            case breakingState2:
+//                return breakingState2Image;
+//            case breakingState3:
+//                return breakingState3Image;
             default:
                 return unBreakableImage;
         }

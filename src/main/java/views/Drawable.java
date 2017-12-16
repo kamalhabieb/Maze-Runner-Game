@@ -10,6 +10,43 @@ public abstract class Drawable {
     private int destinationY;
     private boolean animated = false;
     private int animationWidth;
+    private int srcWidth;
+    private int srcHeight;
+    private int destinationHeight;
+
+    public int getSrcWidth() {
+        return srcWidth;
+    }
+
+    public void setSrcWidth(final int srcWidth) {
+        this.srcWidth = srcWidth;
+    }
+
+    public int getSrcHeight() {
+        return srcHeight;
+    }
+
+    public void setSrcHeight(final int srcHeight) {
+        this.srcHeight = srcHeight;
+    }
+
+    public int getDestinationHeight() {
+        return destinationHeight;
+    }
+
+    public void setDestinationHeight(final int destinationHeight) {
+        this.destinationHeight = destinationHeight;
+    }
+
+    public int getDestinationWidth() {
+        return destinationWidth;
+    }
+
+    public void setDestinationWidth(final int destinationWidth) {
+        this.destinationWidth = destinationWidth;
+    }
+
+    private int destinationWidth;
 
     public abstract Image getImage();
 
