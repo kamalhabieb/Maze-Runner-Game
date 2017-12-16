@@ -31,31 +31,36 @@ public class Facade implements ControlTower, Observer {
     public final String GAME_MODE = "game_mode";
     public final String START_POINT_X = "start_X";
     public final String START_POINT_Y = "start_Y";
+    public final String END_POINT_X = "end_X";
+    public final String END_POINT_Y = "end_Y";
     private ArrayList<Monster> monsters;
     private ArrayList<DrawObserver> drawObservers;
+    private BigBen clockTower;
 
     public Facade() {
         drawables = new ArrayList<>();
         drawObservers = new ArrayList<>();
+        clockTower = BigBen.getInstance(17);
+        clockTower.registerObserver(this);
     }
 
     @Override
     public void notifyNewTick() {
         player.update(gameEngine);
-        monsters.stream().forEach(n -> n.update(gameEngine));
+        //monsters.stream().forEach(n -> n.update(gameEngine));
         populateDrawables();
         notifyDraw();
     }
 
     private void notifyDraw() {
-        drawObservers.stream().forEach(n->n.notifyDraw(drawables));
+        drawObservers.stream().forEach(n -> n.notifyDraw(drawables));
     }
 
     private void populateDrawables() {
         drawables.clear();
         drawables.addAll(mazeG.getMazeObjectsArray());
         drawables.add(player);
-        drawables.addAll(monsters);
+        //drawables.addAll(monsters);
     }
 
     public void initializeGame(String mode) {
@@ -70,6 +75,7 @@ public class Facade implements ControlTower, Observer {
         gameEngine = EngineFactory.getInstance(gameInfo.getProperty(GAME_MODE));
         player = new Player(this);
         player.setPosition(Integer.parseInt(gameInfo.getProperty(START_POINT_X)), Integer.parseInt(gameInfo.getProperty(START_POINT_Y)));
+        clockTower.begin();
     }
 
     public void excute(Command command) {

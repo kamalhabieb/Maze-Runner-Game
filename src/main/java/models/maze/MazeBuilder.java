@@ -15,8 +15,8 @@ public class MazeBuilder {
     private Map<MazeObject, Point> mazeObjectsMap;
 
     public MazeBuilder() {
-        this.length = 30;
-        this.width = 30;
+        this.length = 31;
+        this.width = 31;
         this.cellSize = 40;
         mazeObjectsMap = new LinkedHashMap<MazeObject, Point>();
     }

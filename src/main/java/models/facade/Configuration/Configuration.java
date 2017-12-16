@@ -18,6 +18,8 @@ import java.util.Random;
 //todo hashMap for time complexity
 public  class Configuration {
 
+    private final Point startPoint;
+    private final Point endPoint;
     private int range_of_bomb_actions =5;
     private int range_of_gift_actions=5;
     private int mazeLength;
@@ -33,12 +35,16 @@ public  class Configuration {
 
     public Configuration(Properties info)
     {
-        this.mazeLength=30; //replace 30 with maze Length of the template
-        this.mazeWidth=30; //replace 30 with maze Width of the template
+        this.mazeLength=Integer.parseInt(info.getProperty("height")); //replace 30 with maze Length of the template
+        this.mazeWidth=Integer.parseInt(info.getProperty("width")); //replace 30 with maze Width of the template
         this.bombsNum= Integer.parseInt(info.getProperty("number_of_bombs"));
         this.giftsNum=Integer.parseInt(info.getProperty("number_of_gifts"));
         this.monstersNum=Integer.parseInt(info.getProperty("number_of_monsters"));
         this.gameMode=info.getProperty("game_mode");
+        startPoint = new Point(Integer.parseInt(info.getProperty("start_X")), Integer.parseInt(info
+                .getProperty("start_Y")));
+        endPoint = new Point(Integer.parseInt(info.getProperty("end_X")), Integer.parseInt(info
+                .getProperty("end_Y")));
         this.listOfTakenPositions= this.makeSetOFWallCellsPositions(info.getProperty("tempWallsList"));
     }
 
@@ -46,7 +52,8 @@ public  class Configuration {
     public Maze loadConfiguration(){
         MazeBuilder builder = new MazeBuilder();
 
-
+        builder.setStartPoint(startPoint);
+        builder.setEndPoint(endPoint);
         /*Adding Bombs to MazeBuilder in Random valid positions*/
         for (int i=0;i<listOfTakenPositions.size();i++)
         {
