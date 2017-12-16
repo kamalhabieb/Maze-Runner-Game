@@ -25,9 +25,9 @@ public class Facade implements ControlTower, Observer {
     private Engine gameEngine;
     private Player player;
     private ArrayList<Drawable> drawables;
-    public final String EASY = "/easy.configuration";
-    public final String MEDIUM = "/medium.configuration";
-    public final String HARD = "/easy.configuration";
+    public static final String EASY = "/configurations/easy.configuration";
+    public final String MEDIUM = "/configurations/medium.configuration";
+    public final String HARD = "/configurations/easy.configuration";
     public final String GAME_MODE = "game_mode";
     public final String START_POINT_X = "start_X";
     public final String START_POINT_Y = "start_Y";
