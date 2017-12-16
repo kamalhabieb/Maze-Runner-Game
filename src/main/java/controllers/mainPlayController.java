@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class mainPlayController implements Initializable , DrawObserver{
+public class mainPlayController implements Initializable, DrawObserver {
 
     @FXML
     private Canvas canvas;
@@ -23,8 +23,9 @@ public class mainPlayController implements Initializable , DrawObserver{
     public void initialize(URL location, ResourceBundle resources) {
         facade = new Facade();
         facade.initializeGame(Facade.EASY);
-        canvas.setWidth(31 * 40);
-        canvas.setHeight(31 * 40);
+        canvas.setLayoutX(750);
+        canvas.setWidth(31 * 20);
+        canvas.setHeight(31 * 20);
         facade.registerObserver(this);
         facade.populateDrawables();
         facade.notifyDraw();
@@ -34,7 +35,7 @@ public class mainPlayController implements Initializable , DrawObserver{
     public void notifyDraw(ArrayList<Drawable> drawables) {
         int listSize = drawables.size();
         GraphicsContext canvas2D = canvas.getGraphicsContext2D();
-        for(int i = 0; i < listSize; i++) {
+        for (int i = 0; i < listSize; i++) {
             Drawable currentObject = drawables.get(i);
             Image icon = currentObject.getImage();
             int sx = currentObject.getSrcX();
@@ -45,8 +46,8 @@ public class mainPlayController implements Initializable , DrawObserver{
             int sh = currentObject.getSrcHeight();
             int dw = currentObject.getDestinationWidth();
             int dh = currentObject.getDestinationHeight();
-            //canvas2D.drawImage(icon, sx,sy,sw,sh,dx,dy,dw,dh);
-            canvas2D.drawImage(icon, 0,0,40,40,0 + 40*i,0 + 40*i,20 ,20);
+            canvas2D.drawImage(icon, sx,sy,sw,sh,dx,dy,dw,dh);
+            //canvas2D.drawImage(icon, 0, 0, 40, 40, 10 *( i % 31),  10*(i/31), 10, 10);
         }
     }
 }

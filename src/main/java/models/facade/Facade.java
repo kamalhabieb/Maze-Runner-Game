@@ -75,8 +75,15 @@ public class Facade implements ControlTower, Observer {
         mazeG = configuration.loadConfiguration();
         gameEngine = EngineFactory.getInstance(gameInfo.getProperty(GAME_MODE));
         player = new Player(this);
-        player.setPosition(Integer.parseInt(gameInfo.getProperty(START_POINT_X)), Integer.parseInt(gameInfo.getProperty(START_POINT_Y)));
-        clockTower.begin();
+        player.setSrcX(0);
+        player.setSrcY(0);
+        player.setSrcWidth(40);
+        player.setSrcHeight(40);
+        player.setDestinationWidth(10);
+        player.setDestinationHeight(10);
+        player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * 10);
+        player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * 10);
+        //clockTower.begin();
     }
 
     public void excute(Command command) {
@@ -101,7 +108,7 @@ public class Facade implements ControlTower, Observer {
         return true;
     }
 
-    public void registerObserver(DrawObserver observer){
+    public void registerObserver(DrawObserver observer) {
         drawObservers.add(observer);
     }
 }
