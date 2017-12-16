@@ -1,5 +1,6 @@
 package models.wall;
 import javafx.scene.image.Image;
+import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.WallImage;
 
@@ -71,5 +72,10 @@ public class WallCell extends Drawable implements Wall  {
         }
 
         return WallImage.getImage(WallImage.unBreakable);
+    }
+
+    @Override
+    public void accept(final Visitor visitor) {
+
     }
 }

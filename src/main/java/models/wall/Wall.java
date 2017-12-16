@@ -1,6 +1,8 @@
 package models.wall;
 
-public interface Wall {
+import models.maze.MazeObject;
+
+public interface Wall extends MazeObject {
 
     /**
      * make the cell either breakable or not .

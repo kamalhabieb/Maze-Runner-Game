@@ -137,6 +137,7 @@ public class GameMaze implements Maze {
         testValidPoint(absolutePosition);
         return mazeArray[(int) absolutePosition.getX()]
                 [(int) absolutePosition.getY()];
+
     }
 
     @Override
