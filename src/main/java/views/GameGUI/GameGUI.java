@@ -19,5 +19,7 @@ public class GameGUI extends Application {
         Scene scene = new Scene(loader.load());
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setResizable(false);
+        primaryStage.setFullScreen(true);
     }
 }
