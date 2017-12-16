@@ -11,16 +11,16 @@ public class WallImage {
     public final static String breakingState3 = "/RegularMode/mazeObjects/mainwall.png";//wall health [1,25]
 
     private static final Image unBreakableImage;
-    private static final Image breakableImage;
-    private static final Image breakingState1Image;
-    private static final Image breakingState2Image;
-    private static final Image breakingState3Image;
+//    private static final Image breakableImage;
+//    private static final Image breakingState1Image;
+//    private static final Image breakingState2Image;
+//    private static final Image breakingState3Image;
     static {
         unBreakableImage = new Image(PlayerImage.class.getResourceAsStream(unBreakable));
-        breakableImage = new Image(PlayerImage.class.getResourceAsStream(breakable));
-        breakingState1Image = new Image(PlayerImage.class.getResourceAsStream(breakingState1));
-        breakingState2Image = new Image(PlayerImage.class.getResourceAsStream(breakingState2));
-        breakingState3Image = new Image(PlayerImage.class.getResourceAsStream(breakingState3));
+//        breakableImage = new Image(PlayerImage.class.getResourceAsStream(breakable));
+//        breakingState1Image = new Image(PlayerImage.class.getResourceAsStream(breakingState1));
+//        breakingState2Image = new Image(PlayerImage.class.getResourceAsStream(breakingState2));
+//        breakingState3Image = new Image(PlayerImage.class.getResourceAsStream(breakingState3));
     }
     public static Image getImage(String state) {
         switch (state) {

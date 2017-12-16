@@ -45,6 +45,8 @@ public class BigBen {
     public void begin() {
         isTicking = true;
         clock.run();
+        //TODO FIX THE CLOCK BY ADDING A THREAD TO DO CLOCK.RUN
+
     }
 
     public void stop() {

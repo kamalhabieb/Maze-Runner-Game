@@ -6,7 +6,7 @@ public class GiftImage {
     private static final Image image;
 
     static {
-        image = new Image(GiftImage.class.getResourceAsStream("/images/RegularMode/mazeObjeccts/bomb"));
+        image = new Image(GiftImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/gift.png"));
     }
 
     public static Image getImage() {

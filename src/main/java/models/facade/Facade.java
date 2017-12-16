@@ -53,11 +53,11 @@ public class Facade implements ControlTower, Observer {
         notifyDraw();
     }
 
-    private void notifyDraw() {
+    public void notifyDraw() {
         drawObservers.stream().forEach(n -> n.notifyDraw(drawables));
     }
 
-    private void populateDrawables() {
+    public void populateDrawables() {
         drawables.clear();
         drawables.addAll(mazeG.getMazeObjectsArray());
         drawables.add(player);
@@ -101,4 +101,7 @@ public class Facade implements ControlTower, Observer {
         return true;
     }
 
+    public void registerObserver(DrawObserver observer){
+        drawObservers.add(observer);
+    }
 }

@@ -1,11 +1,14 @@
 package models.mazeObjects.gift;
+import javafx.scene.image.Image;
 import models.charcter.AliveObject;
 import models.engine.Matter;
 import models.mazeObjects.Visitor;
+import views.Drawable;
+import views.flyweight.GiftImage;
 
 import java.awt.*;
 
-public abstract class Gift implements Gift_I,AliveObject,Matter,Visitor {
+public abstract class Gift extends Drawable implements Gift_I,AliveObject,Matter,Visitor {
     private Point pos;
     private boolean isCovered = true;
 
@@ -52,4 +55,8 @@ public abstract class Gift implements Gift_I,AliveObject,Matter,Visitor {
     public void setAcceleration(int acceleration) {
     }
 
+    @Override
+    public Image getImage() {
+        return GiftImage.getImage();
+    }
 }

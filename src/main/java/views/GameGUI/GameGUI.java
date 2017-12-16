@@ -21,5 +21,6 @@ public class GameGUI extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setFullScreen(true);
+
     }
 }

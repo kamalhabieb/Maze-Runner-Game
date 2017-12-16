@@ -1,13 +1,16 @@
 package models.mazeObjects.bomb;
 
+import javafx.scene.image.Image;
 import models.charcter.AliveObject;
 import models.engine.Matter;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
+import views.Drawable;
+import views.flyweight.BombImage;
 
 import java.awt.*;
 
-public class Bomb implements Bomb_I, Visitor, Host, Matter, AliveObject {
+public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter, AliveObject {
     private int type;
     private int damageRate;
     private int timer;
@@ -134,5 +137,10 @@ public class Bomb implements Bomb_I, Visitor, Host, Matter, AliveObject {
             //TODO handle object is not alive
         }
 
+    }
+
+    @Override
+    public Image getImage() {
+        return BombImage.getImage();
     }
 }
