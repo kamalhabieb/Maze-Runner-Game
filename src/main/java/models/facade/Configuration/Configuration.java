@@ -3,15 +3,19 @@ import models.maze.Maze;
 import models.maze.MazeBuilder;
 import models.maze.MazeObject;
 import models.mazeObjects.ObjectsFactory;
+import models.wall.Wall;
+import models.wall.WallCell;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
 
 
 //todo Life Gifts adding
 //todo adding maze walls
+//todo hashMap for time complexity
 public  class Configuration {
 
     private int range_of_bomb_actions =5;
@@ -22,8 +26,10 @@ public  class Configuration {
     private int giftsNum;
     private int monstersNum;
     private String gameMode;
-    private HashSet <String> listOfTakenPositions;
+   // private LinkedList<String> listOfTakenPositions;
+   private LinkedList<Point> listOfTakenPositions;
     private Random rand= new Random();
+    private String template;
 
     public Configuration(Properties info)
     {
@@ -39,6 +45,15 @@ public  class Configuration {
     /*initializations for new game*/
     public Maze loadConfiguration(){
         MazeBuilder builder = new MazeBuilder();
+
+
+        /*Adding Bombs to MazeBuilder in Random valid positions*/
+        for (int i=0;i<listOfTakenPositions.size();i++)
+        {
+            Wall wall = new WallCell();
+            wall.setBreakable(false);
+            builder.addMazeObject(wall,listOfTakenPositions.get(i));
+        }
 
         /*Adding Bombs to MazeBuilder in Random valid positions*/
         for (int i=0;i<bombsNum;i++)
@@ -95,9 +110,10 @@ public  class Configuration {
     * takes a String of points of Wall cells
     * and convert it to a hash set
     */
-    private HashSet makeSetOFWallCellsPositions (String WallPositions)
+    private LinkedList makeSetOFWallCellsPositions (String WallPositions)
     {
-        HashSet<String> setOfWallCells = new HashSet();
+        //LinkedList<String> setOfWallCells = new LinkedList();
+        LinkedList<Point> setOfWallCells = new LinkedList();
         String[] pointString = WallPositions.split(" ");
         for (String s : pointString) {
             s=s.replace("(", "");
@@ -107,8 +123,8 @@ public  class Configuration {
             int y = Integer.parseInt(s.split(",")[1]);
 
             Point wallCellPoint = new Point(x, y);
-            String wallCellPointString = wallCellPoint.toString();
-            setOfWallCells.add(wallCellPointString);
+            //String wallCellPointString = wallCellPoint.toString();
+            setOfWallCells.add(wallCellPoint);
         }
 
         return setOfWallCells;
