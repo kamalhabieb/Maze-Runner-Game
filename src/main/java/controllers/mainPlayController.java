@@ -31,6 +31,7 @@ public class mainPlayController implements Initializable, DrawObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         facade = new Facade();
+        facade.registerObserver(this);
         facade.initializeGame(Facade.EASY);
 
         canvas.setLayoutX(850);
@@ -43,7 +44,6 @@ public class mainPlayController implements Initializable, DrawObserver {
         staticCanvas.setWidth(31 * 20);
         staticCanvas.setHeight(31 * 20);
 
-        facade.registerObserver(this);
        /* facade.populateDrawables();
         facade.notifyDraw();*/
     }
