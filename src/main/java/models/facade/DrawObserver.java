@@ -6,4 +6,6 @@ import java.util.ArrayList;
 
 public interface DrawObserver {
     void notifyDraw(ArrayList<Drawable> drawables);
+
+    void notifyDrawStatic(ArrayList<Drawable> drawables);
 }
