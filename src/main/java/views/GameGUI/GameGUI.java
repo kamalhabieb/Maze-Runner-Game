@@ -20,7 +20,7 @@ public class GameGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
 
     }
 }

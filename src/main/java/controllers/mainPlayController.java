@@ -23,7 +23,8 @@ public class mainPlayController implements Initializable, DrawObserver {
     public void initialize(URL location, ResourceBundle resources) {
         facade = new Facade();
         facade.initializeGame(Facade.EASY);
-        canvas.setLayoutX(750);
+        canvas.setLayoutX(850);
+        canvas.setLayoutY(500);
         canvas.setWidth(31 * 20);
         canvas.setHeight(31 * 20);
         facade.registerObserver(this);

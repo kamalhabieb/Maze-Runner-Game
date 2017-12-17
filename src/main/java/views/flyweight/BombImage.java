@@ -6,7 +6,7 @@ public class BombImage {
     private static final Image image;
 
     static {
-        image = new Image(BombImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/bomb.png"));
+       image = new Image(BombImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/bomb.png"));
     }
 
     public static Image getImage() {

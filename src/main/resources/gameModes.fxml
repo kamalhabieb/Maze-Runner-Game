@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<?import javafx.scene.text.Font?>
+<AnchorPane styleClass="anchor" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="700.0" prefWidth="1300.0"
+            fx:controller="controllers.gameModeController">
+    <stylesheets>
+        <URL value="@welcomeStyle.css" />
+    </stylesheets>
+    <Label fx:id="easyLabel" alignment="CENTER" layoutX="500.0" layoutY="521.0" onMouseClicked="#onMouseClickedEasy" onMouseEntered="#onMouseEnteredTransient" onMouseExited="#onMouseExitedTransient" prefHeight="17.0" prefWidth="304.0" text="Easy" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font size="36.0" fx:id="x1" />
+        </font>
+    </Label>
+    <Label fx:id="mediumLabel" alignment="CENTER" font="$x1" layoutX="500.0" layoutY="565.0" onMouseEntered="#onMouseEnteredTransient" onMouseExited="#onMouseExitedTransient" prefHeight="17.0" prefWidth="304.0" text="Medium" textAlignment="CENTER" textFill="WHITE" />
+    <Label fx:id="hardLabel" alignment="CENTER" font="$x1" layoutX="500.0" layoutY="614.0" onMouseEntered="#onMouseEnteredTransient" onMouseExited="#onMouseExitedTransient" prefHeight="17.0" prefWidth="304.0" text="Expert" textAlignment="CENTER" textFill="WHITE" />
+</AnchorPane>

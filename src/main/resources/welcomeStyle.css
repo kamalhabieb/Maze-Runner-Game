@@ -1,3 +1,8 @@
 .anchor {
     -fx-background-image:url('/images/welcome.jpg');
+    -fx-background-size: cover;
+}
+.anchorMaze {
+    -fx-background-image:url('/images/gameBackground3.jpg');
+    -fx-background-size: cover;
 }

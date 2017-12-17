@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
+<?import java.net.URL?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1366.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.mainPlayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1366.0" styleClass="anchorMaze" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.mainPlayController">
   <children>
-    <Canvas fx:id="canvas" height="200.0" layoutX="575.0" layoutY="454.0" scaleX="3.235" scaleY="2.41" width="200.0" />
+    <Canvas fx:id="canvas" height="200.0" layoutX="583.0" layoutY="350.0" scaleX="3.235" scaleY="2.41" width="200.0" />
   </children>
+  <stylesheets>
+    <URL value="@welcomeStyle.css" />
+  </stylesheets>
 </AnchorPane>

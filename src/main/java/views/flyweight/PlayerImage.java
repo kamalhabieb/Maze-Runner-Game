@@ -4,11 +4,11 @@ import javafx.scene.image.Image;
 
 public class PlayerImage {
     //TODO set correct resource paths
-    public final static String IDLE = "/images/RegularMode/character/characterstop.png";
-    public static final String NORTH = "/character/characterStop.png";
-    public static final String SOUTH = "/character/characterStop.png";
-    public static final String EAST = "/character/characterStop.png";
-    public static final String WEST = "/character/characterStop.png";
+    public final static String IDLE = "/images/RegularMode/character/right/characterStop.png";
+    public static final String NORTH = "/character/right/characterStop.png";
+    public static final String SOUTH = "/character/right/characterStop.png";
+    public static final String EAST = "/character/right/characterStop.png";
+    public static final String WEST = "/character/left/characterStop.png";
 
     private static final Image idleImage;
 
