@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +11,10 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import views.transientGUI.GameModesGUI;
 
 import javax.swing.text.Element;
@@ -55,5 +59,24 @@ public class GUIController implements Initializable {
     public void initialize(final URL location, final ResourceBundle resources) {
             startLabel.setContentDisplay(ContentDisplay.CENTER);
             exitLabel.setContentDisplay(ContentDisplay.CENTER);
+        PathTransition transition = new PathTransition();
+        PathTransition transition2 = new PathTransition();
+        PathTransition transition3 = new PathTransition();
+        Circle c = new Circle(100);
+        transition.setDuration(Duration.seconds(2));
+        transition2.setDuration(Duration.seconds(2));
+        transition3.setDuration(Duration.seconds(2));
+        transition.setCycleCount(1);
+        transition2.setCycleCount(1);
+        transition3.setCycleCount(1);
+        transition.setPath(c);
+        transition2.setPath(c);
+        transition3.setPath(c);
+        transition.setNode(startLabel);
+        transition.play();
+        transition2.setNode(loadLabel);
+        transition2.play();
+        transition3.setNode(exitLabel);
+        transition3.play();
     }
 }

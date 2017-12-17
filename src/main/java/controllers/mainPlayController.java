@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static controllers.command.CommandFactory.commands.moveEast;
+import static controllers.command.CommandFactory.commands.*;
 
 public class mainPlayController implements Initializable, DrawObserver {
 
@@ -60,8 +60,22 @@ public class mainPlayController implements Initializable, DrawObserver {
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
-//        keyEvent.getCode() == KeyCode.LEFT
-        facade.excute(CommandFactory.getCommand(moveEast));
+        if(keyEvent.getCode() == KeyCode.RIGHT) {
+            facade.excute(CommandFactory.getCommand(moveEast));
+        }
+        else if (keyEvent.getCode() == KeyCode.LEFT) {
+            facade.excute(CommandFactory.getCommand(moveWest));
+        }
+        else if (keyEvent.getCode() == KeyCode.UP) {
+            facade.excute(CommandFactory.getCommand(moveNorth));
+        }
+        else if (keyEvent.getCode() == KeyCode.DOWN) {
+            facade.excute(CommandFactory.getCommand(moveSouth));
+        }
 
+    }
+
+    public void onKeyReleased(KeyEvent keyEvent) {
+        facade.excute(CommandFactory.getCommand(idle));
     }
 }

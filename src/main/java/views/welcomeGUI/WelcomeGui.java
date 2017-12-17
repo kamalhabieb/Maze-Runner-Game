@@ -1,5 +1,6 @@
 package views.welcomeGUI;
 
+import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,13 +21,13 @@ public class WelcomeGui extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome.fxml"));
         Scene scene = new Scene(loader.load());
-        final URL resource = getClass().getResource("/music/entro.mp3");
+        /*final URL resource = getClass().getResource("/music/entro.mp3");
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        mediaPlayer.play();*/
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
     }
 }
