@@ -22,7 +22,7 @@ public class GameGUI extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         scene.setOnKeyPressed(((mainPlayController)loader.getController())::onKeyPressed);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
 
     }
 }

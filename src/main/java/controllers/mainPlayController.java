@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.charcter.states.MoveEast;
 import models.facade.DrawObserver;
@@ -41,6 +42,7 @@ public class mainPlayController implements Initializable, DrawObserver {
     public void notifyDraw(ArrayList<Drawable> drawables) {
         int listSize = drawables.size();
         GraphicsContext canvas2D = canvas.getGraphicsContext2D();
+        canvas2D.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int i = 0; i < listSize; i++) {
             Drawable currentObject = drawables.get(i);
             Image icon = currentObject.getImage();
@@ -58,6 +60,8 @@ public class mainPlayController implements Initializable, DrawObserver {
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
+//        keyEvent.getCode() == KeyCode.LEFT
+        facade.excute(CommandFactory.getCommand(moveEast));
 
     }
 }

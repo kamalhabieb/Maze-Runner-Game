@@ -106,6 +106,7 @@ public class Configuration {
                 setPositionOf((Drawable) gift,giftPosition);
             } else i--;
         }
+        builder.setCellSize(cellWidth);
         return builder.buildMaze();
     }
 

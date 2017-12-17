@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
 public abstract class Drawable {
     private int srcX;
     private int srcY;
-    private int destinationX;
-    private int destinationY;
+    protected int destinationX;
+    protected int destinationY;
     private boolean animated = false;
     private int animationWidth;
     private int srcWidth;

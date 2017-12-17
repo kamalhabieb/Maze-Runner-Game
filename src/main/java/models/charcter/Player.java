@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 
-
 public class Player extends Person implements PlayerObserver {
     private int animationIndex = 0;
     private int width;
@@ -23,21 +22,21 @@ public class Player extends Person implements PlayerObserver {
     public void setPosition(final int x, final int y) {
         if (controlTower.grantPermission(this, new Point(x, y))) {
             super.setPosition(x, y);
-            setDestinationX(x*10);
-            setDestinationY(y*10);
+            destinationX = x;
+            destinationY = y;
         }
     }
 
     @Override
     public void setDestinationX(final int destinationX) {
         super.setDestinationX(destinationX);
-        super.setPosition(destinationX,getPosition().y);
+        super.setPosition(destinationX, getPosition().y);
     }
 
     @Override
     public void setDestinationY(final int destinationY) {
         super.setDestinationY(destinationY);
-        super.setPosition(getPosition().x,destinationY);
+        super.setPosition(getPosition().x, destinationY);
 
     }
 

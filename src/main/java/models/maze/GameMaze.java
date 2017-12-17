@@ -26,6 +26,7 @@ public class GameMaze implements Maze {
         this.initializeArray();
         objectsArray = new ArrayList<MazeObject>();
     }
+
     @Override
     public ArrayList getObjectsArray() {
         return this.objectsArray;
@@ -132,8 +133,8 @@ public class GameMaze implements Maze {
 
     @Override
     public MazeObject getMazeObjectAtAbsolutePosition(Point absolutePosition) throws InvalidPositionException {
-        absolutePosition.x = (int) (absolutePosition.getX() / cellSize);
-        absolutePosition.y = (int) (absolutePosition.getY() / cellSize);
+        absolutePosition.x = (int) ((absolutePosition.getX() + cellSize / 2) / cellSize);
+        absolutePosition.y = (int) ((absolutePosition.getY() + cellSize / 2) / cellSize);
         testValidPoint(absolutePosition);
         return mazeArray[(int) absolutePosition.getX()]
                 [(int) absolutePosition.getY()];
