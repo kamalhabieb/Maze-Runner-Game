@@ -13,6 +13,8 @@ public abstract class Drawable {
     private int srcWidth;
     private int srcHeight;
     private int destinationHeight;
+    private int animationIndex = 0;
+    protected int imageWidth;
 
     public int getSrcWidth() {
         return srcWidth;
@@ -97,6 +99,19 @@ public abstract class Drawable {
         }
         else {
             return 0;
+        }
+    }
+
+    protected void setCoordinates() {
+        animationIndex++;
+        if(animationIndex == 15 ) {
+            int newX = (getSrcX() + getAnimationWidth());
+            if (newX + getAnimationWidth() >= imageWidth) {
+                setSrcX(0);
+            } else {
+                setSrcX(newX);
+            }
+            animationIndex = 0;
         }
     }
 

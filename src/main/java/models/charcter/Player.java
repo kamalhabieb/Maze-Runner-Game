@@ -43,15 +43,12 @@ public class Player extends Person implements PlayerObserver {
     @Override
     public Image getImage() {
         Image image = state.getImage();
-        this.width = (int) image.getWidth();
-        if (this.isAnimated()) setCoordinates();
+        super.imageWidth = (int) image.getWidth();
+        if (this.isAnimated()) super.setCoordinates();
         return image;
     }
 
-    private void setCoordinates() {
-        animationIndex = (animationIndex + 1) % (width / getAnimationWidth());
-        setSrcX(getSrcX() + animationIndex * getAnimationWidth());
-    }
+
 
     public void registerObserver(PlayerObserver observer) {
         playerObservers.add(observer);

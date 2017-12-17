@@ -84,6 +84,7 @@ public class Facade implements ControlTower, Observer {
         player.setSrcY(0);
         player.setSrcWidth(33);
         player.setSrcHeight(50);
+        player.setAnimated(true,33);
         player.setDestinationWidth(Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationHeight(Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
