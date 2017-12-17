@@ -48,7 +48,7 @@ public class BigBen {
         observers = new ArrayList<>();
     }
 
-    public void begin() {
+        public void begin() {
         isTicking = true;
         clockRunner.run();
     }
