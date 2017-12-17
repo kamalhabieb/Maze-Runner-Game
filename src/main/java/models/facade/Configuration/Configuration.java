@@ -15,9 +15,8 @@ import java.util.Properties;
 import java.util.Random;
 
 
-//todo Life Gifts adding
-//todo adding maze walls
-//todo hashMap for time complexity
+//todo Life Gifts adding after its implementation
+//todo hashMap for time complexity instead of linkedList
 public class Configuration {
 
     private final Point startPoint;
@@ -71,10 +70,11 @@ public class Configuration {
             int x = rand.nextInt(mazeWidth);
             int y = rand.nextInt(mazeLength);
             Point bombPosition = new Point(x, y);
-            String bombPositionString = bombPosition.toString();
+           // String bombPositionString = bombPosition.toString();
             int range = rand.nextInt(range_of_bomb_actions) + 1;// a random number from the interval [1,num_of_bomb_types]
 
-            if (!listOfTakenPositions.contains(bombPositionString)) {
+            if (!listOfTakenPositions.contains(bombPosition)) {
+                listOfTakenPositions.add(bombPosition);
                 MazeObject bomb = ObjectsFactory.produce(ObjectsFactory.BOMB, range, bombPosition);
                 setPositionOf((Drawable) bomb,bombPosition);
                 builder.addMazeObject(bomb, bombPosition);
@@ -86,10 +86,11 @@ public class Configuration {
             int x = rand.nextInt(mazeWidth);
             int y = rand.nextInt(mazeLength);
             Point giftPosition = new Point(x, y);
-            String giftPositionString = giftPosition.toString();
+           // String giftPositionString = giftPosition.toString();
             int range = rand.nextInt(range_of_gift_actions) + 1;// a random number from the interval [1,num_of_gift_types]
 
-            if (!listOfTakenPositions.contains(giftPositionString)) {
+            if (!listOfTakenPositions.contains(giftPosition)) {
+                listOfTakenPositions.add(giftPosition);
                 boolean healthGift = rand.nextBoolean();
                 boolean liveGift = rand.nextBoolean();
                 MazeObject gift = null;
