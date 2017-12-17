@@ -44,6 +44,7 @@ public class Facade implements ControlTower, Observer {
     public Facade() {
         drawables = new ArrayList<>();
         drawObservers = new ArrayList<>();
+        monsters = new ArrayList<>();
         clockTower = BigBen.getInstance(17);
         clockTower.registerObserver(this);
     }
@@ -68,7 +69,7 @@ public class Facade implements ControlTower, Observer {
         //drawables.addAll(monsters);
     }
 
-    public void initializeGame(String mode) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void initializeGame(String mode)  {
         Properties gameInfo = new Properties();
         try {
             gameInfo.load(getClass().getResourceAsStream(mode));

@@ -22,8 +22,9 @@ public class MonstersFactory {
             if(monsterType.equalsIgnoreCase(MonstersType.get(i).getSimpleName())){
                 try {
                     final Constructor<? extends Monster> constructor = MonstersType.get(i)
-                            .getConstructor();
+                            .getConstructor(ControlTower.class);
                         instance = constructor.newInstance(controlTower);
+                        break;
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
