@@ -3,6 +3,7 @@ package models.facade;
 import controllers.command.Command;
 import controllers.command.Receiver;
 import models.charcter.Monster;
+import models.charcter.MonstersFactory;
 import models.charcter.Player;
 import models.engine.Engine;
 import models.engine.EngineFactory;
@@ -17,6 +18,7 @@ import views.Drawable;
 
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -25,15 +27,17 @@ public class Facade implements ControlTower, Observer {
     private Engine gameEngine;
     private Player player;
     private ArrayList<Drawable> drawables;
+    private ArrayList<Monster> monsters;
     public static final String EASY = "/configurations/easy.configuration";
     public final String MEDIUM = "/configurations/medium.configuration";
     public final String HARD = "/configurations/easy.configuration";
+    public final String GAME_DIFFICULTY = "difficulty";
     public final String GAME_MODE = "game_mode";
+    public final String MONSTERS_NUMBER = "number_of_monsters";
     public final String START_POINT_X = "start_X";
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
-    private ArrayList<Monster> monsters;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
 
@@ -64,7 +68,7 @@ public class Facade implements ControlTower, Observer {
         //drawables.addAll(monsters);
     }
 
-    public void initializeGame(String mode) {
+    public void initializeGame(String mode) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         Properties gameInfo = new Properties();
         try {
             gameInfo.load(getClass().getResourceAsStream(mode));
@@ -83,6 +87,7 @@ public class Facade implements ControlTower, Observer {
         player.setDestinationHeight(10);
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * 10);
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * 10);
+        this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
         //clockTower.begin();
     }
 
@@ -111,4 +116,14 @@ public class Facade implements ControlTower, Observer {
     public void registerObserver(DrawObserver observer) {
         drawObservers.add(observer);
     }
+
+    private void generateMonsters(int numberOfMonsters, String mode){
+        MonstersFactory monstersFactory = new MonstersFactory();
+        for (int i = 0; i < numberOfMonsters ; i++) {
+            monsters.add(monstersFactory.GetMonster(mode+ "monster" , this));
+        }
+        //TODO randomize the monsters places
+    }
 }
+
+
