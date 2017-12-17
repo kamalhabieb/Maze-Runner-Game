@@ -28,8 +28,8 @@ public class mainPlayController implements Initializable, DrawObserver {
         canvas.setWidth(31 * 20);
         canvas.setHeight(31 * 20);
         facade.registerObserver(this);
-        facade.populateDrawables();
-        facade.notifyDraw();
+        //facade.populateDrawables();
+        //facade.notifyDraw();
     }
 
     @Override

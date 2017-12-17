@@ -89,7 +89,7 @@ public class Facade implements ControlTower, Observer {
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * 10);
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * 10);
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
-        //clockTower.begin();
+        clockTower.begin();
     }
 
     public void excute(Command command) {

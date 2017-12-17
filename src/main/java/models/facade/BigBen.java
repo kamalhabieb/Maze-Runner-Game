@@ -25,6 +25,7 @@ public class BigBen {
         }
     };
 
+    private Thread clockThread = new Thread(clock);
     private Runnable clockRunner = new Runnable() {
         @Override
         public void run() {
@@ -48,9 +49,9 @@ public class BigBen {
         observers = new ArrayList<>();
     }
 
-        public void begin() {
+    public void begin() {
         isTicking = true;
-        clockRunner.run();
+        clockThread.start();
     }
 
     public void stop() {
