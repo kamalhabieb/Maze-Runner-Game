@@ -18,7 +18,7 @@ public class AbstractEngine implements Engine {
         // x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
-        object.setVelocity(velocity);
+       //object.setVelocity(velocity);
     }
 
     @Override
@@ -38,17 +38,18 @@ public class AbstractEngine implements Engine {
         // x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
-        object.setVelocity(velocity);
+       // object.setVelocity(velocity);
     }
 
     @Override
     public void moveWest(Matter object) {
         getInfo(object);
-        xDistance = (int) (xDistance + horizontalFactor*(velocity* modeRate + 0.5* acceleration* modeRate));
+        xDistance = (int) (xDistance - horizontalFactor*(velocity* modeRate +
+                0.5* acceleration* modeRate));
         // x = vo *t+0.5*a*t^2
         object.setPosition(xDistance,yDistance);
         velocity += acceleration;//v = vo + a
-        object.setVelocity(velocity);
+        //object.setVelocity(velocity);
     }
 
     @Override
