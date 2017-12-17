@@ -1,10 +1,13 @@
 package controllers;
 
+import controllers.command.CommandFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import models.charcter.states.MoveEast;
 import models.facade.DrawObserver;
 import models.facade.Facade;
 import views.Drawable;
@@ -12,6 +15,8 @@ import views.Drawable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static controllers.command.CommandFactory.commands.moveEast;
 
 public class mainPlayController implements Initializable, DrawObserver {
 
@@ -47,8 +52,12 @@ public class mainPlayController implements Initializable, DrawObserver {
             int sh = currentObject.getSrcHeight();
             int dw = currentObject.getDestinationWidth();
             int dh = currentObject.getDestinationHeight();
-            canvas2D.drawImage(icon, sx,sy,sw,sh,dx,dy,dw,dh);
+            canvas2D.drawImage(icon, sx, sy, sw, sh, dx, dy, dw, dh);
             //canvas2D.drawImage(icon, 0, 0, 40, 40, 10 *( i % 31),  10*(i/31), 10, 10);
         }
+    }
+
+    public void onKeyPressed(KeyEvent keyEvent) {
+
     }
 }

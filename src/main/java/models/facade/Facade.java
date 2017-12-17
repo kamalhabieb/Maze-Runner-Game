@@ -84,10 +84,10 @@ public class Facade implements ControlTower, Observer {
         player.setSrcY(0);
         player.setSrcWidth(40);
         player.setSrcHeight(40);
-        player.setDestinationWidth(10);
-        player.setDestinationHeight(10);
-        player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * 10);
-        player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * 10);
+        player.setDestinationWidth(Integer.parseInt((String) gameInfo.get("cell_width")));
+        player.setDestinationHeight(Integer.parseInt((String) gameInfo.get("cell_width")));
+        player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
+        player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
         clockTower.begin();
     }

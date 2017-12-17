@@ -1,5 +1,6 @@
 package views.GameGUI;
 
+import controllers.mainPlayController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +21,8 @@ public class GameGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        //primaryStage.setFullScreen(true);
+        scene.setOnKeyPressed(((mainPlayController)loader.getController())::onKeyPressed);
+        primaryStage.setFullScreen(true);
 
     }
 }
