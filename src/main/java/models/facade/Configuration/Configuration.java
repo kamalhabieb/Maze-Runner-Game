@@ -36,8 +36,8 @@ public class Configuration {
     private String template;
 
     public Configuration(Properties info) {
-        this.mazeLength = Integer.parseInt(info.getProperty("height")); //replace 30 with maze Length of the template
-        this.mazeWidth = Integer.parseInt(info.getProperty("width")); //replace 30 with maze Width of the template
+        this.mazeLength = Integer.parseInt(info.getProperty("height"));
+        this.mazeWidth = Integer.parseInt(info.getProperty("width"));
         this.bombsNum = Integer.parseInt(info.getProperty("number_of_bombs"));
         this.giftsNum = Integer.parseInt(info.getProperty("number_of_gifts"));
         this.monstersNum = Integer.parseInt(info.getProperty("number_of_monsters"));

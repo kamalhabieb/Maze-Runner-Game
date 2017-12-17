@@ -25,6 +25,12 @@ public class BigBen {
         }
     };
 
+    private Runnable clockRunner = new Runnable() {
+        @Override
+        public void run() {
+            clock.run();
+        }
+    };
 
     public static BigBen getInstance() {
         if (ourInstance == null) ourInstance = new BigBen(DEFAULT_TIME_STEP);
@@ -44,9 +50,7 @@ public class BigBen {
 
     public void begin() {
         isTicking = true;
-        clock.run();
-        //TODO FIX THE CLOCK BY ADDING A THREAD TO DO CLOCK.RUN
-
+        clockRunner.run();
     }
 
     public void stop() {
