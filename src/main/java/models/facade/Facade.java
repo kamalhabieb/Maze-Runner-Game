@@ -38,6 +38,7 @@ public class Facade implements ControlTower, Observer {
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
+    public final int REFRESH_STEP = 34;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
 
@@ -45,7 +46,7 @@ public class Facade implements ControlTower, Observer {
         drawables = new ArrayList<>();
         drawObservers = new ArrayList<>();
         monsters = new ArrayList<>();
-        clockTower = BigBen.getInstance(17);
+        clockTower = BigBen.getInstance(REFRESH_STEP);
         clockTower.registerObserver(this);
     }
 
