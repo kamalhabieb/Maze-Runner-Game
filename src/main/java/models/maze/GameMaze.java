@@ -69,7 +69,9 @@ public class GameMaze implements Maze {
         mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
                 = object;
-        objectsArray.add(object);
+        if (!object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
+            objectsArray.add(object);
+        }
         return true;
 
     }
@@ -87,7 +89,9 @@ public class GameMaze implements Maze {
         mazeArray[(int) absolutePosition.getX()]
                 [(int) absolutePosition.getY()]
                 = object;
-        objectsArray.add(object);
+        if (!object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
+            objectsArray.add(object);
+        }
         return true;
     }
 
