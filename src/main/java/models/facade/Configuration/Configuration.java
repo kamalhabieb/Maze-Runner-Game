@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
 
-
+//todo No bombs nor gifts at the starting point
 //todo Life Gifts adding after its implementation
 //todo hashMap for time complexity instead of linkedList
 public class Configuration {

@@ -6,7 +6,9 @@ import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
 import models.charcter.weapons.Gun;
+import models.charcter.weapons.NoRemainingAmmoException;
 import models.charcter.weapons.Weapon;
+import models.charcter.weapons.bullets.Bullet;
 import models.engine.Engine;
 import models.engine.Matter;
 import models.facade.ControlTower;
@@ -128,5 +130,16 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public void revive() {
         this.health = MAX_HEALTH;
         controlTower.notifyResurrectionOf(this);
+    }
+
+    @Override
+    public Bullet fireWeapon() {
+        try {
+            weapon.setPosition(this.position.x,this.position.y);
+            return weapon.Shoot();
+        } catch (NoRemainingAmmoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

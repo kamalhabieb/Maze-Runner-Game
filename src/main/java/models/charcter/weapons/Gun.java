@@ -9,7 +9,7 @@ import java.util.Properties;
 import static javafx.scene.input.KeyCode.X;
 import static models.charcter.weapons.bullets.BulletPool.*;
 
-public class Gun implements Weapon {
+public class Gun implements Weapon{
 
     private static final int MAXIMUM_AMMO = 6;
     private static final int Minimum_Ammo = 0;
@@ -29,6 +29,7 @@ public class Gun implements Weapon {
     private int currentAmmo;
 
     public Gun() {
+        position= new Point();
         currentAmmo = MAXIMUM_AMMO;
     }
 
@@ -42,6 +43,7 @@ public class Gun implements Weapon {
         return currentAmmo;
     }
 
+    //todo bullet.setPostion causes error
     @Override
     public Bullet Shoot() throws NoRemainingAmmoException {
         if (currentAmmo == 0) throw new NoRemainingAmmoException();
