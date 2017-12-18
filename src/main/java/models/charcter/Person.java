@@ -89,6 +89,10 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         this.state = state;
     }
 
+    public State getState() {
+        return this.state;
+    }
+
     @Override
     public int getAmmo() {
         return weapon.getRemainingAmmo();

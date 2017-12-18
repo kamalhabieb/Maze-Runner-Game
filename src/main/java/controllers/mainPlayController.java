@@ -27,6 +27,7 @@ import static controllers.command.CommandFactory.commands.*;
 
 public class mainPlayController implements Initializable, DrawObserver {
 
+    private static final int CAMERA_MOVE = 100;
     @FXML
     private Canvas canvas;
     @FXML
@@ -39,13 +40,14 @@ public class mainPlayController implements Initializable, DrawObserver {
         //GUI COMPONENTS INITIALIZATION COMES FIRST
         canvas.setLayoutX(850);
         canvas.setLayoutY(500);
-        canvas.setWidth(31 * 20);
-        canvas.setHeight(31 * 20);
+        //todo Get constants not numbers
+        canvas.setWidth(31 * 30);
+        canvas.setHeight(31 * 30);
 
         staticCanvas.setLayoutX(850);
         staticCanvas.setLayoutY(500);
-        staticCanvas.setWidth(31 * 20);
-        staticCanvas.setHeight(31 * 20);
+        staticCanvas.setWidth(31 * 30);
+        staticCanvas.setHeight(31 * 30);
 
 
 
@@ -115,6 +117,32 @@ public class mainPlayController implements Initializable, DrawObserver {
         }
         else if (keyEvent.getCode() == KeyCode.SPACE) {
             //facade.excute(CommandFactory.getCommand());
+        }
+        if (keyEvent.getCode() == KeyCode.P) {
+            GameGUI.camera.setTranslateZ(GameGUI.camera.getTranslateZ() + CAMERA_MOVE);
+        }
+        else if (keyEvent.getCode() == KeyCode.MINUS) {
+            GameGUI.camera.setTranslateZ(GameGUI.camera.getTranslateZ() - CAMERA_MOVE);
+        }
+        else if (keyEvent.getCode() == KeyCode.W) {
+            if(!(GameGUI.camera.getTranslateY() - CAMERA_MOVE < 900/2)) {
+                GameGUI.camera.setTranslateY(GameGUI.camera.getTranslateY() - CAMERA_MOVE);
+            }
+        }
+        else if (keyEvent.getCode() == KeyCode.S) {
+            GameGUI.camera.setTranslateY(GameGUI.camera.getTranslateY() + CAMERA_MOVE);
+        }
+        else if (keyEvent.getCode() == KeyCode.A) {
+            if(!(GameGUI.camera.getTranslateX() - CAMERA_MOVE < 1366/2)) {
+                GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() - CAMERA_MOVE);
+            }
+        }
+        else if (keyEvent.getCode() == KeyCode.D) {
+            GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() + CAMERA_MOVE);
+        }
+        else {
+            GameGUI.camera.setTranslateX(facade.player.getDestinationX()+ 1366 / 2);
+            GameGUI.camera.setTranslateY(facade.player.getDestinationY() + 900 / 2);
         }
 
     }
