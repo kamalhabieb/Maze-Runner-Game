@@ -32,6 +32,7 @@ public class AmmoGift extends Gift {
         try{
             Armored armored = (Armored) host;
             armored.affectAmmo(type);
+            destroy();
         }catch (ClassCastException e){
             //TODO handle given a host that is not armored
         }

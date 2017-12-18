@@ -16,6 +16,7 @@ public class Player extends Person implements PlayerObserver {
 
     public Player(final ControlTower controlTower) {
         super(controlTower);
+        playerObservers = new ArrayList<>();
     }
 
     @Override

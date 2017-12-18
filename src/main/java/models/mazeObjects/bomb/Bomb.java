@@ -1,7 +1,10 @@
 package models.mazeObjects.bomb;
 
 import javafx.scene.image.Image;
+import models.Observer.Observed;
+import models.Observer.Observer;
 import models.charcter.AliveObject;
+import models.charcter.LifeObserver;
 import models.engine.Matter;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
@@ -9,8 +12,10 @@ import views.Drawable;
 import views.flyweight.BombImage;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter, AliveObject {
+public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
+        AliveObject, Observed {
     private int type;
     private int damageRate;
     private int timer;
@@ -25,15 +30,14 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter, Ali
             type = 1;
         }
         this.type = type;
-        setDamageRate(20 * type);
+        setDamageRate(-20 * type);
         if (getDamageRate() == 0) {
-            setDamageRate(20);
+            setDamageRate(-20);
         }
         setTimer(type);
         if (getTimer() > 5) {
             setTimer(5);
         }
-
         setPosition(pos.x, pos.y);
     }
 
@@ -129,11 +133,22 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter, Ali
     }
 
     @Override
+    public void destroy() {
+        observers.stream().forEach(n -> ((LifeObserver) n).notifyFuneralOf(Bomb.this));
+    }
+
+    @Override
+    public void revive() {
+        observers.stream().forEach(n -> ((LifeObserver) n).notifyResurrectionOf(Bomb.this));
+    }
+
+    @Override
     public void visit(Host host) {
-        try{
+        try {
             AliveObject aliveObject = (AliveObject) host;
             aliveObject.affectHealthBy(this.getDamageRate());
-        } catch (ClassCastException e){
+            destroy();
+        } catch (ClassCastException e) {
             //TODO handle object is not alive
         }
 

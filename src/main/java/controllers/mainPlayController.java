@@ -20,6 +20,7 @@ import views.GameGUI.GameGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static controllers.command.CommandFactory.commands.*;
@@ -79,7 +80,7 @@ public class mainPlayController implements Initializable, DrawObserver {
     }
 
     @Override
-    public void notifyDrawStatic(ArrayList<Drawable> drawables) {
+    public void notifyDrawStatic(List<Drawable> drawables) {
         System.out.println(drawables.size());
         int listSize = drawables.size();
         GraphicsContext canvas2D = staticCanvas.getGraphicsContext2D();

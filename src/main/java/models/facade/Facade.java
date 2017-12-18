@@ -2,11 +2,11 @@ package models.facade;
 
 import controllers.command.Command;
 import controllers.command.Receiver;
-import models.charcter.Monster;
-import models.charcter.MonstersFactory;
-import models.charcter.Player;
+import models.Observer.Observed;
+import models.charcter.*;
 import models.engine.Engine;
 import models.engine.EngineFactory;
+import models.engine.Matter;
 import models.facade.Configuration.Configuration;
 import models.maze.InvalidPositionException;
 import models.maze.Maze;
@@ -18,11 +18,13 @@ import views.Drawable;
 
 import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
-public class Facade implements ControlTower, Observer {
+public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
     private Engine gameEngine;
     private Player player;
@@ -38,9 +40,10 @@ public class Facade implements ControlTower, Observer {
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
-    public final int REFRESH_STEP = 17;
+    public final int REFRESH_STEP = 60;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
+    private Properties gameInfo;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -64,13 +67,17 @@ public class Facade implements ControlTower, Observer {
 
     public void populateDrawables() {
         drawables.clear();
-        //drawables.addAll(mazeG.getMazeObjectsArray());
+        drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
         drawables.add(player);
         //drawables.addAll(monsters);
     }
 
+    private Collection<? extends Drawable> filterWalls(final ArrayList<Drawable> mazeObjectsArray) {
+        return mazeObjectsArray.stream().filter(n -> !(n instanceof Wall)).collect(Collectors.toList());
+    }
+
     public void initializeGame(String mode) {
-        Properties gameInfo = new Properties();
+        gameInfo = new Properties();
         try {
             gameInfo.load(getClass().getResourceAsStream(mode));
         } catch (IOException e) {
@@ -90,12 +97,24 @@ public class Facade implements ControlTower, Observer {
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
+        observe(mazeG.getMazeObjectsArray());
         clockTower.begin();
         notifyDrawStatic(mazeG.getMazeObjectsArray());
     }
 
+    private void observe(final ArrayList<MazeObject> mazeObjectsArray) {
+        mazeObjectsArray.forEach(n -> {
+            if (n instanceof Observed) {
+                ((Observed) n).registerObserver((models.Observer.Observer) Facade.this);
+            }
+        });
+    }
+
     private void notifyDrawStatic(final ArrayList<Drawable> mazeObjectsArray) {
-        drawObservers.stream().forEach(n -> n.notifyDrawStatic(mazeObjectsArray));
+        drawObservers.stream().forEach(n ->
+                n.notifyDrawStatic(mazeObjectsArray.stream()
+                        .filter(x -> x instanceof Wall)
+                        .collect(Collectors.toList())));
     }
 
     public void excute(Command command) {
@@ -118,6 +137,28 @@ public class Facade implements ControlTower, Observer {
             return true;
         }
         return true;
+    }
+
+    @Override
+    public void notifyFuneralOf(final AliveObject wasAlive) {
+        if (wasAlive == player) {
+            lose();
+        }
+        try {
+            mazeG.RemoveMazeObjectWithRelativePosition((MazeObject) wasAlive, ((Matter) wasAlive).getPosition());
+        } catch (InvalidPositionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void lose() {
+        //TODO implement lose scenario
+    }
+
+    @Override
+    public void notifyResurrectionOf(final AliveObject wasDead) {
+        player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
+        player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
     }
 
     public void registerObserver(DrawObserver observer) {

@@ -35,7 +35,7 @@ public class HealthGift  extends Gift implements Visitor{
         try{
             AliveObject aliveObject = (AliveObject) host;
             aliveObject.affectHealthBy(type * 20);
-
+            destroy();
         }catch (ClassCastException e){
             //TODO handle the host is not alive
         }
