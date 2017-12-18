@@ -3,16 +3,21 @@ package controllers;
 import controllers.command.CommandFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import models.charcter.states.MoveEast;
 import models.facade.DrawObserver;
 import models.facade.Facade;
 import views.Drawable;
+import views.GameGUI.GameGUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -107,10 +112,25 @@ public class mainPlayController implements Initializable, DrawObserver {
         else if (keyEvent.getCode() == KeyCode.DOWN) {
             facade.excute(CommandFactory.getCommand(moveSouth));
         }
+        else if (keyEvent.getCode() == KeyCode.SPACE) {
+            //facade.excute(CommandFactory.getCommand());
+        }
 
     }
 
     public void onKeyReleased(KeyEvent keyEvent) {
         facade.excute(CommandFactory.getCommand(idle));
+    }
+
+    public void clickOnNewGame(MouseEvent mouseEvent) {
+        //todo , we need to stop the clock thread first ya mario
+       /* ((Node)(mouseEvent.getSource())).getScene().getWindow().hide();
+        GameGUI newGame = new GameGUI();
+        Stage s = new Stage();
+        try {
+            newGame.start(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }
