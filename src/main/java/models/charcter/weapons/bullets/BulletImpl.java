@@ -98,7 +98,7 @@ public class BulletImpl extends Drawable implements Bullet,Visitor {
     }
 
     @Override
-    public Image getImage() {
-        return null;
+    public  Image getImage() {
+        return (BulletImage.getImage());
     }
 }

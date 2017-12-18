@@ -9,6 +9,8 @@ import models.charcter.weapons.Gun;
 import models.charcter.weapons.NoRemainingAmmoException;
 import models.charcter.weapons.Weapon;
 import models.charcter.weapons.bullets.Bullet;
+import models.charcter.weapons.bullets.BulletImage;
+import models.charcter.weapons.bullets.BulletImpl;
 import models.engine.Engine;
 import models.engine.Matter;
 import models.facade.ControlTower;
