@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
     private Engine gameEngine;
-    private Player player;
+    public Player player;
     private ArrayList<Drawable> drawables;
     private ArrayList<Monster> monsters;
     public static final String EASY = "/configurations/easy.configuration";

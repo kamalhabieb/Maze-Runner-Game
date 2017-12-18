@@ -17,7 +17,7 @@ public class BulletImpl extends Drawable implements Bullet,Visitor {
     private int acceleration;
 
     public BulletImpl() {
-        position= new Point();
+        position= new Point2D.Double();
         damageRate = 5;
         lifetime = 5;
         position = new Point2D.Double();
