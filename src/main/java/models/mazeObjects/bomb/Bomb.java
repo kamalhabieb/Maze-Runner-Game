@@ -2,6 +2,7 @@ package models.mazeObjects.bomb;
 
 import javafx.scene.image.Image;
 import models.Observer.Observed;
+import models.Observer.Observer;
 import models.charcter.AliveObject;
 import models.charcter.LifeObserver;
 import models.engine.Matter;
@@ -12,6 +13,8 @@ import views.flyweight.BombImage;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
         AliveObject, Observed {
@@ -23,6 +26,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     private int health = 1;
     private long triggeringStartTime;
     private boolean isCovered = true;
+    private List<Observer> observers;
 
     public Bomb(int type, Point pos) {
         if (type == 0) {
@@ -38,6 +42,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
             setTimer(5);
         }
         setPosition(pos.x, pos.y);
+        observers = new ArrayList<>();
     }
 
     @Override
@@ -156,5 +161,15 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     @Override
     public Image getImage() {
         return BombImage.getImage();
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public boolean canObserve(final Observer observer) {
+        return observer instanceof LifeObserver;
     }
 }

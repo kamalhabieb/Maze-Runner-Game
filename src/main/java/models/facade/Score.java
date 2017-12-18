@@ -3,7 +3,7 @@ package models.facade;
 import models.Observer.Observer;
 import models.charcter.PlayerObserver;
 
-public class Score implements PlayerObserver,Observer {
+public class Score implements PlayerObserver {
     private static final double GIFT_FACTOR = 10.0;
     private int currentScore;
 

@@ -2,17 +2,19 @@ package models.charcter;
 
 import javafx.scene.image.Image;
 import models.Observer.Observed;
+import models.Observer.Observer;
 import models.facade.ControlTower;
 import models.facade.Score;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class Player extends Person implements PlayerObserver,Observed {
+public class Player extends Person implements PlayerObserver, Observed {
 
-    ArrayList<PlayerObserver> playerObservers;
+    List<Observer> playerObservers;
     private Score score;
 
     public Player(final ControlTower controlTower) {
@@ -20,7 +22,7 @@ public class Player extends Person implements PlayerObserver,Observed {
         playerObservers = new ArrayList<>();
         setVelocity(1);
         score = new Score();
-        registerObserver(score);
+        this.registerObserver(score);
     }
 
     @Override
@@ -55,27 +57,21 @@ public class Player extends Person implements PlayerObserver,Observed {
     }
 
 
-
-
     @Override
     public void notifyAboutHealth(int effect) {
-        for (PlayerObserver observer : playerObservers) {
-            observer.notifyAboutHealth(effect);
-        }
+        playerObservers.forEach(n -> ((PlayerObserver) n).notifyAboutHealth(effect));
     }
 
     @Override
     public void notifyAboutAmmo(int effect) {
-        for (PlayerObserver observer : playerObservers) {
-            observer.notifyAboutAmmo(effect);
-        }
+        playerObservers.forEach(n -> ((PlayerObserver) n).notifyAboutAmmo(effect));
+
     }
 
     @Override
     public void notifyAboutLives(int effect) {
-        for (PlayerObserver observer : playerObservers) {
-            observer.notifyAboutLives(effect);
-        }
+        playerObservers.forEach(n -> ((PlayerObserver) n).notifyAboutLives(effect));
+
     }
 
     @Override
@@ -92,5 +88,15 @@ public class Player extends Person implements PlayerObserver,Observed {
 
     public int getScore() {
         return score.getScore();
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return playerObservers;
+    }
+
+    @Override
+    public boolean canObserve(final Observer observer) {
+        return observer instanceof PlayerObserver;
     }
 }

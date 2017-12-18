@@ -2,6 +2,7 @@ package models.charcter;
 
 
 import controllers.command.Receiver;
+import models.charcter.states.Directions;
 import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
@@ -18,10 +19,7 @@ import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
-
-import static models.charcter.states.StateFactory.state.*;
 
 public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host, Receiver {
     protected final Weapon weapon;
@@ -39,7 +37,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         this.controlTower = controlTower;
         health = MAX_HEALTH;
         position = new Point2D.Double();
-        state = StateFactory.getState(reset);
+        state = StateFactory.getState(Directions.reset);
         weapon = new Gun();
     }
 
