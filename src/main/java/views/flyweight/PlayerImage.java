@@ -10,8 +10,8 @@ public class PlayerImage {
     public final static String IDLE  = "/images/RegularMode/character/right/characterStop.png";
     public static final String NORTH = "/images/RegularMode/character/right/characterUp.png";
     public static final String SOUTH = "/images/RegularMode/character/right/characterDown.png";
-    public static final String EAST  = "/images/RegularMode/character/right/characterWalk.png";
-    public static final String WEST  = "/images/RegularMode/character/left/characterRun.png";
+    public static final String EAST  = "/images/RegularMode/character/right/characterRun.png";
+    public static final String WEST  = "/images/RegularMode/character/left/characterWalk.png";
 
     private static final Image idleImage;
     private static final Image eastImage;
