@@ -45,6 +45,7 @@ public class Player extends Person implements PlayerObserver {
         Image image = state.getImage();
         super.imageWidth = (int) image.getWidth();
         if (this.isAnimated()) super.setCoordinates();
+       // System.out.println("spriteViewChanged");
         return image;
     }
 

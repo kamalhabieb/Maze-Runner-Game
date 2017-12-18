@@ -95,6 +95,11 @@ public class mainPlayController implements Initializable, DrawObserver {
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
+
+        if (keyEvent.getCode()==KeyCode.SPACE)
+        {
+            facade.excute(CommandFactory.getCommand(shootABullet));
+        }
         if(keyEvent.getCode() == KeyCode.RIGHT) {
             facade.excute(CommandFactory.getCommand(moveEast));
         }

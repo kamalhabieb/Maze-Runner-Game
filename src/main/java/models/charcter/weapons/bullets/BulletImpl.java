@@ -1,12 +1,14 @@
 package models.charcter.weapons.bullets;
 
+import javafx.scene.image.Image;
 import models.charcter.AliveObject;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
+import views.Drawable;
 
 import java.awt.*;
 
-public class BulletImpl implements Bullet,Visitor {
+public class BulletImpl extends Drawable implements Bullet,Visitor {
     private int damageRate;
     private int lifetime;
     private int birthTime;
@@ -15,6 +17,7 @@ public class BulletImpl implements Bullet,Visitor {
     private int acceleration;
 
     public BulletImpl() {
+        position= new Point();
         damageRate = 5;
         lifetime = 5;
     }
@@ -92,5 +95,10 @@ public class BulletImpl implements Bullet,Visitor {
         } catch (ClassCastException e){
             //TODO handle object is not alive
         }
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
     }
 }

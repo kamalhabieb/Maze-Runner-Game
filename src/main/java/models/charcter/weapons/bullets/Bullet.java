@@ -1,8 +1,9 @@
 package models.charcter.weapons.bullets;
 
 import models.engine.Matter;
+import views.Drawable;
 
-public interface Bullet extends Matter{
+public interface Bullet extends Matter  {
     //Todo person observe pullet.
 
     int getDamageRate();

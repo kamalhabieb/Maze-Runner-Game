@@ -133,6 +133,9 @@ public class GameMaze implements Maze {
 
     @Override
     public MazeObject getMazeObjectAtAbsolutePosition(Point absolutePosition) throws InvalidPositionException {
+        System.out.print(absolutePosition.x + " ");
+        System.out.println(absolutePosition.y);
+
         absolutePosition.x = (int) ((absolutePosition.getX() + cellSize / 2) / cellSize);
         absolutePosition.y = (int) ((absolutePosition.getY() + cellSize / 2) / cellSize);
         testValidPoint(absolutePosition);
