@@ -1,13 +1,14 @@
 package models.facade;
 
+import models.Observer.Observed;
+
 import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 
-public class BigBen {
+public class BigBen implements Observed {
     private static final long DEFAULT_TIME_STEP = 500;
     private static BigBen ourInstance;
-    private ArrayList<Observer> observers;
     private boolean isTicking;
     private long timeStep;
 
@@ -46,7 +47,6 @@ public class BigBen {
 
     private BigBen(final long timeStep) {
         this.timeStep = timeStep;
-        observers = new ArrayList<>();
     }
 
     public void begin() {
@@ -58,18 +58,9 @@ public class BigBen {
         isTicking = false;
     }
 
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
 
     private void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.notifyNewTick();
-        }
+        observers.forEach(n -> ((ClockObserver) n).notifyNewTick());
     }
 
     public void setTimeStep(final long timeStep) {

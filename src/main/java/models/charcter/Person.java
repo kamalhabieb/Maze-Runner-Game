@@ -30,6 +30,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     private int acceleration;
     protected State state;
     protected ControlTower controlTower;
+    private int lives;
 
     public Person(ControlTower controlTower) {
         this.controlTower = controlTower;
@@ -90,6 +91,10 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         this.state = state;
     }
 
+    public State getState() {
+        return this.state;
+    }
+
     @Override
     public int getAmmo() {
         return weapon.getRemainingAmmo();
@@ -110,8 +115,21 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         return controlTower;
     }
 
-    public void update(Engine engine){
-        state.update(this,engine);
+    public void update(Engine engine) {
+        state.update(this, engine);
+    }
+
+    @Override
+    public void destroy() {
+        controlTower.notifyFuneralOf(this);
+        lives--;
+        if (lives > 0) revive();
+    }
+
+    @Override
+    public void revive() {
+        this.health = MAX_HEALTH;
+        controlTower.notifyResurrectionOf(this);
     }
 
     @Override
