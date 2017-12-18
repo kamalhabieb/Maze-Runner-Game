@@ -2,7 +2,6 @@ package models.mazeObjects.bomb;
 
 import javafx.scene.image.Image;
 import models.Observer.Observed;
-import models.Observer.Observer;
 import models.charcter.AliveObject;
 import models.charcter.LifeObserver;
 import models.engine.Matter;
@@ -12,14 +11,14 @@ import views.Drawable;
 import views.flyweight.BombImage;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.geom.Point2D;
 
 public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
         AliveObject, Observed {
     private int type;
     private int damageRate;
     private int timer;
-    private Point position;
+    private Point2D position;
     private long explodeTime;
     private int health = 1;
     private long triggeringStartTime;
@@ -62,7 +61,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return this.position;
     }
 
@@ -86,8 +85,8 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     }
 
     @Override
-    public void setPosition(int x, int y) {
-        this.position = new Point(x, y);
+    public void setPosition(final double x, final double y) {
+        this.position = new Point2D.Double(x, y);
     }
 
     @Override

@@ -5,6 +5,6 @@ public class DefaultEngine extends AbstractEngine {
         super.acceleration = 4;
         super.horizontalFactor = 1;
         super.verticalFactor = 1;
-        super.modeRate = 1;
+        super.modeRate = 0.07;
     }
 }

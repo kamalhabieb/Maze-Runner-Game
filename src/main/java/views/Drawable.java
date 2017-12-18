@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
 public abstract class Drawable {
     private int srcX;
     private int srcY;
-    protected int destinationX;
-    protected int destinationY;
+    protected double destinationX;
+    protected double destinationY;
     private boolean animated = false;
     private int animationWidth;
     private int srcWidth;
@@ -68,7 +68,7 @@ public abstract class Drawable {
         this.srcY = srcY;
     }
 
-    public int getDestinationX() {
+    public double getDestinationX() {
         return this.destinationX;
     }
 
@@ -76,7 +76,7 @@ public abstract class Drawable {
         this.destinationX = destinationX;
     }
 
-    public int getDestinationY() {
+    public double getDestinationY() {
         return this.destinationY;
     }
 
@@ -94,17 +94,16 @@ public abstract class Drawable {
     }
 
     public int getAnimationWidth() {
-        if(this.animated) {
+        if (this.animated) {
             return this.animationWidth;
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
     protected void setCoordinates() {
         animationIndex++;
-        if(animationIndex == 15 ) {
+        if (animationIndex == 15) {
             int newX = (getSrcX() + getAnimationWidth());
             if (newX + getAnimationWidth() >= imageWidth) {
                 setSrcX(0);

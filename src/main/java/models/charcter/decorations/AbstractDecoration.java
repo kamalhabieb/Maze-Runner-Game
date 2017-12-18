@@ -1,9 +1,8 @@
 package models.charcter.decorations;
 
 import models.charcter.Person;
-import models.charcter.Person;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
 public abstract class AbstractDecoration extends Person {
     protected int health;
@@ -38,12 +37,12 @@ public abstract class AbstractDecoration extends Person {
     }
 
     @Override
-    public void setPosition(final int x, final int y) {
+    public void setPosition(final double x, final double y) {
         person.setPosition(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return person.getPosition();
     }
 

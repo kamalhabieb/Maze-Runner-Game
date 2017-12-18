@@ -9,11 +9,12 @@ import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.GiftImage;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
+
 
 public abstract class Gift extends Drawable implements Gift_I, AliveObject,
         Matter, Visitor, Observed {
-    private Point pos;
+    private Point2D pos;
     private boolean isCovered = true;
 
     @Override
@@ -31,12 +32,12 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
     }
 
     @Override
-    public void setPosition(int x, int y) {
-        this.pos = new Point(x, y);
+    public void setPosition(final double x, final double y) {
+        this.pos = new Point2D.Double(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return this.pos;
     }
 

@@ -4,13 +4,13 @@ import models.engine.Matter;
 import models.maze.MazeObject;
 import models.mazeObjects.Visitor;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Space implements MazeObject, Matter {
-    private Point position;
+    private Point2D position;
 
     public Space() {
-        position = new Point();
+        position = new Point2D.Double();
     }
 
     @Override
@@ -20,13 +20,12 @@ public class Space implements MazeObject, Matter {
 
 
     @Override
-    public void setPosition(int x, int y) {
-        position.x = x;
-        position.y = y;
+    public void setPosition(final double x, final double y) {
+        position.setLocation(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 

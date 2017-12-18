@@ -4,9 +4,9 @@ import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletPool;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.Properties;
 
-import static javafx.scene.input.KeyCode.X;
 import static models.charcter.weapons.bullets.BulletPool.*;
 
 public class Gun implements Weapon{
@@ -17,13 +17,13 @@ public class Gun implements Weapon{
 
 
     static {
-        properties.put(DAMAGE_RATE,10);
-        properties.put(LIFETIME,3000);
-        properties.put(VELOCITY,50);
-        properties.put(ACCELERATION,0);
+        properties.put(DAMAGE_RATE, 10);
+        properties.put(LIFETIME, 3000);
+        properties.put(VELOCITY, 50);
+        properties.put(ACCELERATION, 0);
     }
 
-    private Point position;
+    private Point2D position;
     private int velocity;
     private int acceleration;
     private int currentAmmo;
@@ -31,6 +31,7 @@ public class Gun implements Weapon{
     public Gun() {
         position= new Point();
         currentAmmo = MAXIMUM_AMMO;
+        position = new Point2D.Double();
     }
 
     @Override
@@ -48,7 +49,7 @@ public class Gun implements Weapon{
     public Bullet Shoot() throws NoRemainingAmmoException {
         if (currentAmmo == 0) throw new NoRemainingAmmoException();
         Bullet bullet = BulletPool.getInstance().checkOut(properties);
-        bullet.setPosition(position.x,position.y);
+        bullet.setPosition(position.getX(), position.getY());
         return bullet;
     }
 
@@ -63,13 +64,12 @@ public class Gun implements Weapon{
     }
 
     @Override
-    public void setPosition(final int x, final int y) {
-        position.x = x;
-        position.y = y;
+    public void setPosition(final double x, final double y) {
+        position.setLocation(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 

@@ -1,6 +1,7 @@
 package models.engine;
 
-import java.awt.*;
+
+import java.awt.geom.Point2D;
 
 public interface Matter {
 
@@ -11,14 +12,14 @@ public interface Matter {
      * @param x coordinate
      * @param y coordinate
      */
-    void setPosition(int x, int y);
+    void setPosition(double x, double y);
 
     /**
      * gets the object's position as a point
      *
      * @return Point(x, y) indicating the object's position
      */
-    Point getPosition();
+    Point2D getPosition();
 
     /**
      * gets the velocity of the object

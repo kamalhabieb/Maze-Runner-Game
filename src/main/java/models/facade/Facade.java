@@ -2,6 +2,7 @@ package models.facade;
 
 import controllers.command.Command;
 import controllers.command.Receiver;
+import javafx.geometry.Point2D;
 import models.Observer.Observed;
 import models.charcter.*;
 import models.engine.Engine;
@@ -40,10 +41,11 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
-    public final int REFRESH_STEP = 100;
+    public final int REFRESH_STEP = 50;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
     private Properties gameInfo;
+    private GameMetadata metadata;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -51,6 +53,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         monsters = new ArrayList<>();
         clockTower = BigBen.getInstance(REFRESH_STEP);
         clockTower.registerObserver(this);
+        metadata = new GameMetadata();
     }
 
     @Override
@@ -58,7 +61,14 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.update(gameEngine);
         //monsters.stream().forEach(n -> n.update(gameEngine));
         populateDrawables();
+        updateMetadata();
         notifyDraw();
+    }
+
+    private void updateMetadata() {
+        metadata.setAmmo(player.getAmmo());
+        metadata.setHealth(player.getHealth());
+        metadata.setScore(player.getScore());
     }
 
     public void notifyDraw() {
@@ -122,7 +132,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     @Override
-    public boolean grantPermission(final Host host, final Point newPosition) {
+    public boolean grantPermission(final Host host, final java.awt.geom.Point2D newPosition) {
         MazeObject mazeObject;
         try {
             mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
@@ -171,6 +181,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             monsters.add(monstersFactory.GetMonster(mode + "monster", this));
         }
         //TODO randomize the monsters places
+    }
+
+    public void shutdown() {
+        clockTower.stop();
     }
 }
 

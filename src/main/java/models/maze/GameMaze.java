@@ -2,7 +2,7 @@ package models.maze;
 
 import models.mazeObjects.space.Space;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,11 +12,11 @@ public class GameMaze implements Maze {
     final private int height;
     final private int width;
     final private int cellSize;
-    final private Point startPoint;
-    final private Point endPoint;
+    final private Point2D startPoint;
+    final private Point2D endPoint;
     private final MazeObject space = new Space();
 
-    public GameMaze(int height, int width, int cellSize, Point startPoint, Point endPoint) {
+    public GameMaze(int height, int width, int cellSize, Point2D startPoint, Point2D endPoint) {
         this.height = height;
         this.width = width;
         this.cellSize = cellSize;
@@ -48,18 +48,18 @@ public class GameMaze implements Maze {
     }
 
     @Override
-    public Point getStartPoint() {
+    public Point2D getStartPoint() {
         return this.startPoint;
     }
 
     @Override
-    public Point getEndPoint() {
+    public Point2D getEndPoint() {
         return this.endPoint;
     }
 
 
     @Override
-    public boolean addMazeObjectWithRelativePosition(MazeObject object, Point relativePosition) throws InvalidPositionException {
+    public boolean addMazeObjectWithRelativePosition(MazeObject object, Point2D relativePosition) throws InvalidPositionException {
         this.testValidPoint(relativePosition);
         if (mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
@@ -77,26 +77,20 @@ public class GameMaze implements Maze {
     }
 
     @Override
-    public boolean addMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition) throws InvalidPositionException {
-        absolutePosition.x = (int) (absolutePosition.getX() / cellSize);
-        absolutePosition.y = (int) (absolutePosition.getY() / cellSize);
-        testValidPoint(absolutePosition);
-        if (mazeArray[(int) absolutePosition.getX()]
-                [(int) absolutePosition.getY()]
-                != space) {
+    public boolean addMazeObjectWithAbsolutePosition(MazeObject object, Point2D absolutePosition) throws InvalidPositionException {
+        int x = (int) (absolutePosition.getX() / cellSize);
+        int y = (int) (absolutePosition.getY() / cellSize);
+        testValidPoint(x, y);
+        if (mazeArray[x][y] != space) {
             return false;
         }
-        mazeArray[(int) absolutePosition.getX()]
-                [(int) absolutePosition.getY()]
-                = object;
-        //if (!object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
-            objectsArray.add(object);
-        //}
+        mazeArray[x][y] = object;
+        objectsArray.add(object);
         return true;
     }
 
     @Override
-    public boolean RemoveMazeObjectWithRelativePosition(MazeObject object, Point relativePosition) throws InvalidPositionException {
+    public boolean RemoveMazeObjectWithRelativePosition(MazeObject object, Point2D relativePosition) throws InvalidPositionException {
         testValidPoint(relativePosition);
         if (mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
@@ -111,40 +105,32 @@ public class GameMaze implements Maze {
     }
 
     @Override
-    public boolean RemoveMazeObjectWithAbsolutePosition(MazeObject object, Point absolutePosition) throws InvalidPositionException {
-        absolutePosition.x = (int) (absolutePosition.getX() / cellSize);
-        absolutePosition.y = (int) (absolutePosition.getY() / cellSize);
-        testValidPoint(absolutePosition);
-        if (mazeArray[(int) absolutePosition.getX()]
-                [(int) absolutePosition.getY()]
-                == space) {
+    public boolean RemoveMazeObjectWithAbsolutePosition(MazeObject object, Point2D absolutePosition) throws InvalidPositionException {
+        int x = (int) (absolutePosition.getX() / cellSize);
+        int y = (int) (absolutePosition.getY() / cellSize);
+        testValidPoint(x, y);
+        if (mazeArray[x][y] == space) {
             return false;
         }
-        mazeArray[(int) absolutePosition.getX()]
-                [(int) absolutePosition.getY()]
-                = space;
+        mazeArray[x][y] = space;
         objectsArray.remove(object);
         return true;
 
     }
 
     @Override
-    public MazeObject getMazeObjectAtRelativePosition(Point relativePosition) throws InvalidPositionException {
+    public MazeObject getMazeObjectAtRelativePosition(Point2D relativePosition) throws InvalidPositionException {
         testValidPoint(relativePosition);
         return mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()];
     }
 
     @Override
-    public MazeObject getMazeObjectAtAbsolutePosition(Point absolutePosition) throws InvalidPositionException {
-        System.out.print(absolutePosition.x + " ");
-        System.out.println(absolutePosition.y);
-
-        absolutePosition.x = (int) ((absolutePosition.getX() + cellSize / 2) / cellSize);
-        absolutePosition.y = (int) ((absolutePosition.getY() + cellSize / 2) / cellSize);
-        testValidPoint(absolutePosition);
-        return mazeArray[(int) absolutePosition.getX()]
-                [(int) absolutePosition.getY()];
+    public MazeObject getMazeObjectAtAbsolutePosition(Point2D absolutePosition) throws InvalidPositionException {
+        int x = (int) ((absolutePosition.getX() + cellSize / 2) / cellSize);
+        int y = (int) ((absolutePosition.getY() + cellSize / 2) / cellSize);
+        testValidPoint(x, y);
+        return mazeArray[x][y];
 
     }
 
@@ -159,8 +145,12 @@ public class GameMaze implements Maze {
         }
     }
 
-    private void testValidPoint(Point point) throws InvalidPositionException {
-        if (point.getX() > width - 1 || point.getY() > height - 1) {
+    private void testValidPoint(Point2D point) throws InvalidPositionException {
+        testValidPoint((int) point.getX(), (int) point.getY());
+    }
+
+    private void testValidPoint(int x, int y) throws InvalidPositionException {
+        if (x > width - 1 || y > height - 1 || x < 0 || y < 0) {
             throw new InvalidPositionException();
         }
     }
