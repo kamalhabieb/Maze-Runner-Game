@@ -19,6 +19,7 @@ import models.mazeObjects.Visitor;
 import views.Drawable;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 import static models.charcter.states.StateFactory.state.*;
 
@@ -27,7 +28,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     private int health;
     private final int MAX_HEALTH = 100;
     private final int MIN_HEALTH = 0;
-    private Point position;
+    private Point2D position;
     private int velocity;
     private int acceleration;
     protected State state;
@@ -37,7 +38,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public Person(ControlTower controlTower) {
         this.controlTower = controlTower;
         health = MAX_HEALTH;
-        position = new Point();
+        position = new Point2D.Double();
         state = StateFactory.getState(reset);
         weapon = new Gun();
     }
@@ -58,13 +59,12 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     }
 
     @Override
-    public void setPosition(final int x, final int y) {
-        position.x = x;
-        position.y = y;
+    public void setPosition(final double x, final double y) {
+        position.setLocation(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 

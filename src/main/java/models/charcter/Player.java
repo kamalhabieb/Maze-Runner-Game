@@ -1,25 +1,31 @@
 package models.charcter;
 
 import javafx.scene.image.Image;
+import models.Observer.Observed;
 import models.facade.ControlTower;
+import models.facade.Score;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 
-public class Player extends Person implements PlayerObserver {
+public class Player extends Person implements PlayerObserver,Observed {
 
     ArrayList<PlayerObserver> playerObservers;
+    private Score score;
 
     public Player(final ControlTower controlTower) {
         super(controlTower);
         playerObservers = new ArrayList<>();
         setVelocity(1);
+        score = new Score();
+        registerObserver(score);
     }
 
     @Override
-    public void setPosition(final int x, final int y) {
-        if (controlTower.grantPermission(this, new Point(x, y))) {
+    public void setPosition(final double x, final double y) {
+        if (controlTower.grantPermission(this, new Point2D.Double(x, y))) {
             super.setPosition(x, y);
             destinationX = x;
             destinationY = y;
@@ -29,13 +35,13 @@ public class Player extends Person implements PlayerObserver {
     @Override
     public void setDestinationX(final int destinationX) {
         super.setDestinationX(destinationX);
-        super.setPosition(destinationX, getPosition().y);
+        super.setPosition(destinationX, getPosition().getY());
     }
 
     @Override
     public void setDestinationY(final int destinationY) {
         super.setDestinationY(destinationY);
-        super.setPosition(getPosition().x, destinationY);
+        super.setPosition(getPosition().getX(), destinationY);
 
     }
 
@@ -82,5 +88,9 @@ public class Player extends Person implements PlayerObserver {
     public boolean affectAmmo(int effect) {
         notifyAboutAmmo(effect);
         return super.affectAmmo(effect);
+    }
+
+    public int getScore() {
+        return score.getScore();
     }
 }
