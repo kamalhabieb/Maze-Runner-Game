@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
     private Engine gameEngine;
-    public static Player player;
+    private Player player;
     private ArrayList<Drawable> drawables;
     private ArrayList<Monster> monsters;
     public static final String EASY = "/configurations/easy.configuration";
@@ -40,7 +40,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
-    public final int REFRESH_STEP = 17;
+    public final int REFRESH_STEP = 100;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
     private Properties gameInfo;
@@ -97,7 +97,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
-        //observe(mazeG.getMazeObjectsArray());
+        observe(mazeG.getMazeObjectsArray());
         clockTower.begin();
         notifyDrawStatic(mazeG.getMazeObjectsArray());
     }

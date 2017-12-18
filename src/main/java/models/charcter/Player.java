@@ -8,15 +8,13 @@ import java.util.ArrayList;
 
 
 public class Player extends Person implements PlayerObserver {
-    private int animationIndex = 0;
-    private int width;
-
 
     ArrayList<PlayerObserver> playerObservers;
 
     public Player(final ControlTower controlTower) {
         super(controlTower);
         playerObservers = new ArrayList<>();
+        setVelocity(1);
     }
 
     @Override
@@ -52,13 +50,6 @@ public class Player extends Person implements PlayerObserver {
 
 
 
-    public void registerObserver(PlayerObserver observer) {
-        playerObservers.add(observer);
-    }
-
-    public void removeObserver(PlayerObserver observer) {
-        playerObservers.remove(observer);
-    }
 
     @Override
     public void notifyAboutHealth(int effect) {
