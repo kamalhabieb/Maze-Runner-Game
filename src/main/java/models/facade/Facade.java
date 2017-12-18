@@ -41,7 +41,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
-    public final int REFRESH_STEP = 50;
+    public final int REFRESH_STEP = 10;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
     private Properties gameInfo;
