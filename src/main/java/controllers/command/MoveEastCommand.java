@@ -2,7 +2,7 @@ package controllers.command;
 
 import models.charcter.states.StateFactory;
 
-import static models.charcter.states.StateFactory.state.movingEast;
+import static models.charcter.states.Directions.movingEast;
 
 public class MoveEastCommand implements Command{
 
