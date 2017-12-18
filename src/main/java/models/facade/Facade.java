@@ -55,7 +55,6 @@ public class Facade implements ControlTower, Observer {
         player.update(gameEngine);
         //monsters.stream().forEach(n -> n.update(gameEngine));
         populateDrawables();
-        player.getImage();
         notifyDraw();
     }
 
@@ -65,12 +64,12 @@ public class Facade implements ControlTower, Observer {
 
     public void populateDrawables() {
         drawables.clear();
-        drawables.addAll(mazeG.getMazeObjectsArray());
+        //drawables.addAll(mazeG.getMazeObjectsArray());
         drawables.add(player);
         //drawables.addAll(monsters);
     }
 
-    public void initializeGame(String mode)  {
+    public void initializeGame(String mode) {
         Properties gameInfo = new Properties();
         try {
             gameInfo.load(getClass().getResourceAsStream(mode));
@@ -85,13 +84,18 @@ public class Facade implements ControlTower, Observer {
         player.setSrcY(0);
         player.setSrcWidth(33);
         player.setSrcHeight(50);
-        player.setAnimated(true,33);
+        player.setAnimated(true, 33);
         player.setDestinationWidth(Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationHeight(Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
         clockTower.begin();
+        notifyDrawStatic(mazeG.getMazeObjectsArray());
+    }
+
+    private void notifyDrawStatic(final ArrayList<Drawable> mazeObjectsArray) {
+        drawObservers.stream().forEach(n -> n.notifyDrawStatic(mazeObjectsArray));
     }
 
     public void excute(Command command) {
@@ -120,10 +124,10 @@ public class Facade implements ControlTower, Observer {
         drawObservers.add(observer);
     }
 
-    private void generateMonsters(int numberOfMonsters, String mode){
+    private void generateMonsters(int numberOfMonsters, String mode) {
         MonstersFactory monstersFactory = new MonstersFactory();
-        for (int i = 0; i < numberOfMonsters ; i++) {
-            monsters.add(monstersFactory.GetMonster(mode+ "monster" , this));
+        for (int i = 0; i < numberOfMonsters; i++) {
+            monsters.add(monstersFactory.GetMonster(mode + "monster", this));
         }
         //TODO randomize the monsters places
     }
