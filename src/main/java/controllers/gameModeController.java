@@ -52,9 +52,9 @@ public class gameModeController implements Initializable {
         PathTransition transition2 = new PathTransition();
         PathTransition transition3 = new PathTransition();
         Circle c = new Circle(100);
-        transition.setDuration(Duration.seconds(2));
-        transition2.setDuration(Duration.seconds(2));
-        transition3.setDuration(Duration.seconds(2));
+        transition.setDuration(Duration.seconds(1.5));
+        transition2.setDuration(Duration.seconds(1));
+        transition3.setDuration(Duration.seconds(0.5));
         transition.setCycleCount(1);
         transition2.setCycleCount(1);
         transition3.setCycleCount(1);
