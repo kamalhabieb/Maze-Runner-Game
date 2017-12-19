@@ -183,7 +183,6 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         for (int i = 0; i < numberOfMonsters; i++) {
             monsters.add(monstersFactory.GetMonster(mode + "monster", this));
         }
-        //TODO randomize the monsters places
     }
 
    public void monstersPositions(LinkedList<Point> listOfTakenPositions){
