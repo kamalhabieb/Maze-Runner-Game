@@ -3,6 +3,9 @@ package models.charcter;
 import javafx.scene.image.Image;
 import models.Observer.Observed;
 import models.Observer.Observer;
+import models.charcter.autonomous.Flame;
+import models.charcter.autonomous.Moth;
+import models.charcter.autonomous.Path;
 import models.facade.ControlTower;
 import models.facade.Score;
 
@@ -12,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Player extends Person implements PlayerObserver, Observed {
+public class Player extends Person implements PlayerObserver, Observed, Flame {
 
     List<Observer> playerObservers;
     private Score score;
@@ -52,7 +55,6 @@ public class Player extends Person implements PlayerObserver, Observed {
         Image image = state.getImage();
         super.imageWidth = (int) image.getWidth();
         if (this.isAnimated()) super.setCoordinates();
-       // System.out.println("spriteViewChanged");
         return image;
     }
 
@@ -98,5 +100,10 @@ public class Player extends Person implements PlayerObserver, Observed {
     @Override
     public boolean canObserve(final Observer observer) {
         return observer instanceof PlayerObserver;
+    }
+
+    @Override
+    public Path draw(final Moth moth) {
+        return null;
     }
 }
