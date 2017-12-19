@@ -294,8 +294,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         bullet.setSrcY(0);
         bullet.setSrcWidth(40);
         bullet.setSrcHeight(40);
-        bullet.setDestinationX((int) (bullet.getPosition().getX()* 40));
-        bullet.setDestinationY((int) (bullet.getPosition().getY()* 40));
+        bullet.setDestinationX((int) (bullet.getPosition().getX()* cellSize));
+        bullet.setDestinationY((int) (bullet.getPosition().getY()* cellSize));
         bullet.setDestinationWidth(cellSize);
 
     }
