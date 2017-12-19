@@ -13,16 +13,17 @@ import models.maze.InvalidPositionException;
 import models.maze.Maze;
 import models.maze.MazeObject;
 import models.mazeObjects.Host;
+import models.mazeObjects.ObjectsFactory;
 import models.mazeObjects.Visitor;
 import models.wall.Wall;
 import views.Drawable;
+import java.util.Random;
+
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
@@ -108,6 +109,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
+        this.monstersPositions(configuration.getListOfTakenPositions());
         observe(mazeG.getBombsGiftsArray());
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
@@ -183,6 +185,20 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         }
         //TODO randomize the monsters places
     }
+
+   public void monstersPositions(LinkedList<Point> listOfTakenPositions){
+        Random rand = new Random();
+       for (int i = 0; i < monsters.size() ; i++) {
+           int x = rand.nextInt(mazeG.getWidth());
+           int y = rand.nextInt(mazeG.getHeight());
+           Point ghostPosition = new Point(x, y);
+           if (!listOfTakenPositions.contains(ghostPosition)) {
+               listOfTakenPositions.add(ghostPosition);
+               monsters.get(i).setDestinationX(x);
+               monsters.get(i).setDestinationY(y);
+           } else i--;
+       }
+   }
 
     public void shutdown() {
         clockTower.stop();
