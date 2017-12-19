@@ -144,4 +144,8 @@ public class Configuration {
 
         return setOfWallCells;
     }
+
+    public LinkedList<Point> getListOfTakenPositions() {
+        return listOfTakenPositions;
+    }
 }

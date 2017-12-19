@@ -107,8 +107,9 @@ public class mainPlayController implements Initializable, DrawObserver {
         if (keyEvent.getCode()==KeyCode.SPACE)
         {
             facade.excute(CommandFactory.getCommand(shootABullet));
+            facade.fireWeapon();
         }
-        if(keyEvent.getCode() == KeyCode.RIGHT) {
+        else if(keyEvent.getCode() == KeyCode.RIGHT) {
             facade.excute(CommandFactory.getCommand(moveEast));
         }
         else if (keyEvent.getCode() == KeyCode.LEFT) {
@@ -120,10 +121,7 @@ public class mainPlayController implements Initializable, DrawObserver {
         else if (keyEvent.getCode() == KeyCode.DOWN) {
             facade.excute(CommandFactory.getCommand(moveSouth));
         }
-        else if (keyEvent.getCode() == KeyCode.SPACE) {
-            //facade.excute(CommandFactory.getCommand());
-        }
-        if (keyEvent.getCode() == KeyCode.P) {
+        else if (keyEvent.getCode() == KeyCode.P) {
             GameGUI.camera.setTranslateZ(GameGUI.camera.getTranslateZ() + CAMERA_MOVE);
         }
         else if (keyEvent.getCode() == KeyCode.MINUS) {
