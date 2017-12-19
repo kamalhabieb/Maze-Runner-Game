@@ -14,11 +14,11 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
 
-
 //todo Life Gifts adding after its implementation
 //todo hashMap for time complexity instead of linkedList
 public class Configuration {
 
+    private final Point entryPoint = new Point (0,0);
     private final Point startPoint;
     private final Point endPoint;
     private final int cellWidth;
@@ -73,7 +73,7 @@ public class Configuration {
            // String bombPositionString = bombPosition.toString();
             int range = rand.nextInt(range_of_bomb_actions) + 1;// a random number from the interval [1,num_of_bomb_types]
 
-            if (!listOfTakenPositions.contains(bombPosition) && bombPosition!=startPoint && bombPosition!= endPoint ) {
+            if (!listOfTakenPositions.contains(bombPosition) && bombPosition!=startPoint && bombPosition!= entryPoint ) {
                 listOfTakenPositions.add(bombPosition);
                 MazeObject bomb = ObjectsFactory.produce(ObjectsFactory.BOMB, range, bombPosition);
                 setPositionOf((Drawable) bomb,bombPosition);
@@ -89,7 +89,7 @@ public class Configuration {
            // String giftPositionString = giftPosition.toString();
             int range = rand.nextInt(range_of_gift_actions) + 1;// a random number from the interval [1,num_of_gift_types]
 
-            if (!listOfTakenPositions.contains(giftPosition) && giftPosition!=startPoint && giftPosition!= endPoint) {
+            if (!listOfTakenPositions.contains(giftPosition) && giftPosition!=startPoint && giftPosition!= entryPoint) {
                 listOfTakenPositions.add(giftPosition);
                 boolean healthGift = rand.nextBoolean();
                 boolean liveGift = rand.nextBoolean();

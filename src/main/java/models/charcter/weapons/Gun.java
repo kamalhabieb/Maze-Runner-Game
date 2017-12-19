@@ -1,6 +1,7 @@
 package models.charcter.weapons;
 
 import models.charcter.weapons.bullets.Bullet;
+import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.weapons.bullets.BulletPool;
 
 import java.awt.*;
@@ -45,9 +46,9 @@ public class Gun implements Weapon{
     }
 
     @Override
-    public Bullet Shoot() throws NoRemainingAmmoException {
+    public BulletImpl Shoot() throws NoRemainingAmmoException {
         if (currentAmmo == 0) throw new NoRemainingAmmoException();
-        Bullet bullet = BulletPool.getInstance().checkOut(properties);
+        BulletImpl bullet = (BulletImpl) BulletPool.getInstance().checkOut(properties);
         bullet.setPosition(position.getX(), position.getY());
         return bullet;
     }
