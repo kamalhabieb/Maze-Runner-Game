@@ -1,6 +1,8 @@
 package models.maze;
 
 
+import models.search.Path;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -71,4 +73,5 @@ public interface Maze {
     MazeObject getMazeObjectAtAbsolutePosition(Point2D absolutePosition) throws InvalidPositionException;
 
 
+    Path getPath(Point2D start, Point2D end);
 }
