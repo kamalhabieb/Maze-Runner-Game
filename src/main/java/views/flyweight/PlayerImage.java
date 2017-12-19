@@ -7,11 +7,11 @@ public class PlayerImage {
     //TODO set correct resource paths Kamal On it
     //TODO 1- North and South sprites , 2- No Running is covered
 
-    public final static String IDLE  = "/images/RegularMode/character/right/characterStop.png";
-    public static final String NORTH = "/images/RegularMode/character/right/characterUp.png";
-    public static final String SOUTH = "/images/RegularMode/character/right/characterDown.png";
-    public static final String EAST  = "/images/RegularMode/character/right/characterRun.png";
-    public static final String WEST  = "/images/RegularMode/character/left/characterWalk.png";
+    public final static String IDLE  = "/images/RegularMode/characterIslam/right/characterStop.png";
+    public static final String NORTH = "/images/RegularMode/characterIslam/right/characterUp.png";
+    public static final String SOUTH = "/images/RegularMode/characterIslam/right/characterDown.png";
+    public static final String EAST  = "/images/RegularMode/characterIslam/right/characterRun.png";
+    public static final String WEST  = "/images/RegularMode/characterIslam/left/characterWalk.png";
     public static final String shooting  = "/images/RegularMode/character/right/characterShoot.png";
 
     private static final Image idleImage;
