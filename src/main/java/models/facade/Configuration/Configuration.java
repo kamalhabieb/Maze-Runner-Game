@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
 
-//todo No bombs nor gifts at the starting point
 //todo Life Gifts adding after its implementation
 //todo hashMap for time complexity instead of linkedList
 public class Configuration {
@@ -73,7 +72,7 @@ public class Configuration {
            // String bombPositionString = bombPosition.toString();
             int range = rand.nextInt(range_of_bomb_actions) + 1;// a random number from the interval [1,num_of_bomb_types]
 
-            if (!listOfTakenPositions.contains(bombPosition)) {
+            if (!listOfTakenPositions.contains(bombPosition) && !bombPosition.equals(startPoint)  ) {
                 listOfTakenPositions.add(bombPosition);
                 MazeObject bomb = ObjectsFactory.produce(ObjectsFactory.BOMB, range, bombPosition);
                 setPositionOf((Drawable) bomb,bombPosition);
@@ -89,7 +88,7 @@ public class Configuration {
            // String giftPositionString = giftPosition.toString();
             int range = rand.nextInt(range_of_gift_actions) + 1;// a random number from the interval [1,num_of_gift_types]
 
-            if (!listOfTakenPositions.contains(giftPosition)) {
+            if (!listOfTakenPositions.contains(giftPosition) && !giftPosition.equals(startPoint)) {
                 listOfTakenPositions.add(giftPosition);
                 boolean healthGift = rand.nextBoolean();
                 boolean liveGift = rand.nextBoolean();

@@ -6,6 +6,7 @@ import javafx.geometry.Point2D;
 import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.weapons.bullets.Bullet;
+import models.charcter.weapons.bullets.BulletImpl;
 import models.engine.Engine;
 import models.engine.EngineFactory;
 import models.engine.Matter;
@@ -287,7 +288,15 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     public void fireWeapon() {
-        player.fireWeapon();
+        BulletImpl bullet =  player.fireWeapon();
+        bullet.setSrcX(0);
+        bullet.setSrcY(0);
+        bullet.setSrcWidth(40);
+        bullet.setSrcHeight(40);
+        bullet.setDestinationX((int) (bullet.getPosition().getX()* cellSize));
+        bullet.setDestinationY((int) (bullet.getPosition().getY()* cellSize));
+        bullet.setDestinationWidth(cellSize);
+
     }
 }
 
