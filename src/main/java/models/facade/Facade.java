@@ -53,8 +53,6 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private final int cellSize = 30;
     private final int offset = 3;
     private final int vertical_offset = 3;
-
-
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
     private Properties gameInfo;
@@ -296,6 +294,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         bullet.setDestinationY((int) (bullet.getPosition().getY() * cellSize));
         bullet.setDestinationWidth(cellSize);
 
+    }
+
+    public GameMetadata getMetadata() {
+        return metadata;
     }
 }
 
