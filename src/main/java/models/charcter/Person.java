@@ -136,7 +136,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public Bullet fireWeapon() {
         try {
             weapon.setPosition(this.position.getX(),this.position.getY());
-            return weapon.Shoot();
+            return  weapon.Shoot();
         } catch (NoRemainingAmmoException e) {
             e.printStackTrace();
             return null;
