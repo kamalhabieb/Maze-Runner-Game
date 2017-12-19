@@ -22,6 +22,7 @@ import models.mazeObjects.Visitor;
 import models.mazeObjects.space.Space;
 import models.wall.Wall;
 import views.Drawable;
+
 import java.util.Random;
 
 
@@ -37,6 +38,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public Player player;
     private ArrayList<Drawable> drawables;
     private ArrayList<Monster> monsters;
+    private ArrayList bullets;
     public static final String EASY = "/configurations/easy.configuration";
     public final String MEDIUM = "/configurations/medium.configuration";
     public final String HARD = "/configurations/easy.configuration";
@@ -65,6 +67,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         clockTower = BigBen.getInstance(REFRESH_STEP);
         clockTower.registerObserver(this);
         metadata = new GameMetadata();
+        bullets = new ArrayList<>();
     }
 
     @Override
@@ -88,8 +91,9 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void populateDrawables() {
         drawables.clear();
-       // drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
+        // drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
         drawables.addAll(mazeG.getBombsGiftsArray());
+        drawables.addAll( bullets);
         drawables.add(player);
         //drawables.addAll(monsters);
     }
@@ -148,8 +152,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public boolean grantPermission(final Host host, final java.awt.geom.Point2D newPosition) {
         MazeObject mazeObject;
         MazeObject mazeObject_2 = new Space();
-        int x = (int)newPosition.getX();
-        int y = (int)newPosition.getY();
+        int x = (int) newPosition.getX();
+        int y = (int) newPosition.getY();
         try {
             // Changes TO Avoid Hitting a Wall
            /* System.out.print(x + " ");
@@ -157,60 +161,51 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 */
             String state = player.getState().getClass().getSimpleName();
             System.out.println(state);
-            if(state.equalsIgnoreCase("moveeast")){
-                x = x +cellSize;
-                if(y%cellSize>=cellSize-offset){//Offset
-                    y = y + (cellSize-y%cellSize);
-                }
-                else if(y%cellSize<=offset && y%cellSize > 0){//Offset
-                    y = y - y%cellSize;
-                }
-                else if(y%cellSize>offset && y%cellSize < cellSize-offset){
-                    y = y - y%cellSize;
-                    newPosition.setLocation(x/cellSize,y/cellSize);
-                    mazeObject_2=mazeG.getMazeObjectAtAbsolutePosition(newPosition);
-                    y = y + cellSize;
-
-                }
-            }
-            else if(state.equalsIgnoreCase("movesouth")){
-                y = y +cellSize;
-                if(x%cellSize>=cellSize-vertical_offset){//Offset
-                    x = x + (cellSize-x%cellSize);
-                }
-                else if(x%cellSize<=vertical_offset && x%cellSize > 0){//Offset
-                    x = x - x%cellSize;
-                }
-                else if(x%cellSize>vertical_offset && x%cellSize < cellSize-vertical_offset){
-                    x = x - x%cellSize;
-                    newPosition.setLocation(x/cellSize,y/cellSize);
-                    mazeObject_2=mazeG.getMazeObjectAtAbsolutePosition(newPosition);
-                    x = x + cellSize;
-                }
-            }
-            else if(state.equalsIgnoreCase("movenorth")){
-                if(x%cellSize>=cellSize-vertical_offset){//Offset
-                    x = x + (cellSize-x%cellSize);
-                }
-                else if(x%cellSize<=vertical_offset && x%cellSize > 0){//Offset
-                    x= x - x%cellSize;
-                }
-                else if(x%cellSize>vertical_offset && x%cellSize < cellSize-vertical_offset){
-                    x = x - x%cellSize;
-                    newPosition.setLocation(x/cellSize,y/cellSize);
-                    mazeObject_2=mazeG.getMazeObjectAtAbsolutePosition(newPosition);
-                    x = x + cellSize;
-                }
-            }
-            else if(state.equalsIgnoreCase("movewest")) {
-                if (y % cellSize >= cellSize-offset) {//Offset
+            if (state.equalsIgnoreCase("moveeast")) {
+                x = x + cellSize;
+                if (y % cellSize >= cellSize - offset) {//Offset
                     y = y + (cellSize - y % cellSize);
                 } else if (y % cellSize <= offset && y % cellSize > 0) {//Offset
                     y = y - y % cellSize;
-                } else if (y % cellSize > offset && y % cellSize < cellSize-offset) {
+                } else if (y % cellSize > offset && y % cellSize < cellSize - offset) {
+                    y = y - y % cellSize;
+                    newPosition.setLocation(x / cellSize, y / cellSize);
+                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    y = y + cellSize;
+
+                }
+            } else if (state.equalsIgnoreCase("movesouth")) {
+                y = y + cellSize;
+                if (x % cellSize >= cellSize - vertical_offset) {//Offset
+                    x = x + (cellSize - x % cellSize);
+                } else if (x % cellSize <= vertical_offset && x % cellSize > 0) {//Offset
+                    x = x - x % cellSize;
+                } else if (x % cellSize > vertical_offset && x % cellSize < cellSize - vertical_offset) {
+                    x = x - x % cellSize;
+                    newPosition.setLocation(x / cellSize, y / cellSize);
+                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    x = x + cellSize;
+                }
+            } else if (state.equalsIgnoreCase("movenorth")) {
+                if (x % cellSize >= cellSize - vertical_offset) {//Offset
+                    x = x + (cellSize - x % cellSize);
+                } else if (x % cellSize <= vertical_offset && x % cellSize > 0) {//Offset
+                    x = x - x % cellSize;
+                } else if (x % cellSize > vertical_offset && x % cellSize < cellSize - vertical_offset) {
+                    x = x - x % cellSize;
+                    newPosition.setLocation(x / cellSize, y / cellSize);
+                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    x = x + cellSize;
+                }
+            } else if (state.equalsIgnoreCase("movewest")) {
+                if (y % cellSize >= cellSize - offset) {//Offset
+                    y = y + (cellSize - y % cellSize);
+                } else if (y % cellSize <= offset && y % cellSize > 0) {//Offset
+                    y = y - y % cellSize;
+                } else if (y % cellSize > offset && y % cellSize < cellSize - offset) {
                     y = y - y % cellSize;
 
-                    newPosition.setLocation(x/cellSize,y/cellSize);
+                    newPosition.setLocation(x / cellSize, y / cellSize);
                     mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
                     y = y + cellSize;
                 }
@@ -219,7 +214,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             System.out.println(y);
 */           /* x = (int) (newPosition.getX()/cellSize);
             y = (int) (newPosition.getY()/cellSize);*/
-            newPosition.setLocation(x/cellSize,y/cellSize);
+            newPosition.setLocation(x / cellSize, y / cellSize);
             mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
 
            /* System.out.print("2 ==>" +x + " ");
@@ -238,6 +233,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         }
         return true;
     }
+
     @Override
     public void notifyFuneralOf(final AliveObject wasAlive) {
         if (wasAlive == player) {
@@ -272,32 +268,32 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         //TODO randomize the monsters places
     }
 
-   public void monstersPositions(LinkedList<Point> listOfTakenPositions){
+    public void monstersPositions(LinkedList<Point> listOfTakenPositions) {
         Random rand = new Random();
-       for (int i = 0; i < monsters.size() ; i++) {
-           int x = rand.nextInt(mazeG.getWidth());
-           int y = rand.nextInt(mazeG.getHeight());
-           Point ghostPosition = new Point(x, y);
-           if (!listOfTakenPositions.contains(ghostPosition)) {
-               listOfTakenPositions.add(ghostPosition);
-               monsters.get(i).setDestinationX(x);
-               monsters.get(i).setDestinationY(y);
-           } else i--;
-       }
-   }
+        for (int i = 0; i < monsters.size(); i++) {
+            int x = rand.nextInt(mazeG.getWidth());
+            int y = rand.nextInt(mazeG.getHeight());
+            Point ghostPosition = new Point(x, y);
+            if (!listOfTakenPositions.contains(ghostPosition)) {
+                listOfTakenPositions.add(ghostPosition);
+                monsters.get(i).setDestinationX(x);
+                monsters.get(i).setDestinationY(y);
+            } else i--;
+        }
+    }
 
     public void shutdown() {
         clockTower.stop();
     }
 
     public void fireWeapon() {
-        BulletImpl bullet =  player.fireWeapon();
+        BulletImpl bullet = player.fireWeapon();
         bullet.setSrcX(0);
         bullet.setSrcY(0);
         bullet.setSrcWidth(40);
         bullet.setSrcHeight(40);
-        bullet.setDestinationX((int) (bullet.getPosition().getX()* cellSize));
-        bullet.setDestinationY((int) (bullet.getPosition().getY()* cellSize));
+        bullet.setDestinationX((int) (bullet.getPosition().getX() * cellSize));
+        bullet.setDestinationY((int) (bullet.getPosition().getY() * cellSize));
         bullet.setDestinationWidth(cellSize);
 
     }

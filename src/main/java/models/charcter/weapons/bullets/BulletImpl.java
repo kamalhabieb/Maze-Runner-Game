@@ -2,25 +2,31 @@ package models.charcter.weapons.bullets;
 
 import javafx.scene.image.Image;
 import models.charcter.AliveObject;
+import models.charcter.states.Directions;
+import models.charcter.states.Machine;
+import models.charcter.states.State;
+import models.charcter.states.StateFactory;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 
 import java.awt.geom.Point2D;
 
-public class BulletImpl extends Drawable implements Bullet,Visitor {
+public class BulletImpl extends Drawable implements Bullet, Visitor, Machine {
     private int damageRate;
     private int lifetime;
     private int birthTime;
     private Point2D position;
     private int velocity;
     private int acceleration;
+    private State state;
 
     public BulletImpl() {
-        position= new Point2D.Double();
+        position = new Point2D.Double();
         damageRate = 5;
         lifetime = 5;
         position = new Point2D.Double();
+        state = StateFactory.getState(Directions.reset);
     }
 
     @Override
@@ -96,7 +102,12 @@ public class BulletImpl extends Drawable implements Bullet,Visitor {
     }
 
     @Override
-    public  Image getImage() {
+    public Image getImage() {
         return (BulletImage.getImage());
+    }
+
+    @Override
+    public void setState(final State state) {
+        this.state = state;
     }
 }
