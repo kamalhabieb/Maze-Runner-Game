@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 public interface Maze {
 
-    ArrayList getObjectsArray();
+    ArrayList getWallsArray();
+
+    ArrayList getBombsGiftsArray();
 
     int getHeight();
 
@@ -68,10 +70,5 @@ public interface Maze {
      */
     MazeObject getMazeObjectAtAbsolutePosition(Point2D absolutePosition) throws InvalidPositionException;
 
-    /**
-     * get array list with the maze objects.
-     * @return array of objects.
-     */
-    ArrayList getMazeObjectsArray();
 
 }

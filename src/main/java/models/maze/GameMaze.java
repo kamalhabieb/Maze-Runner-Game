@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameMaze implements Maze {
-    final private MazeObject[][] mazeArray;
-    final private ArrayList<MazeObject> objectsArray;
+    private static MazeObject[][] mazeArray;
+    final private ArrayList<MazeObject> wallsArray;
+    final private ArrayList<MazeObject> bombsGiftsArray;
     final private int height;
     final private int width;
     final private int cellSize;
@@ -24,14 +25,17 @@ public class GameMaze implements Maze {
         this.endPoint = endPoint;
         this.mazeArray = new MazeObject[height][width];
         this.initializeArray();
-        objectsArray = new ArrayList<MazeObject>();
+        wallsArray = new ArrayList<MazeObject>();
+        bombsGiftsArray = new ArrayList<MazeObject>();
     }
 
     @Override
-    public ArrayList getObjectsArray() {
-        return this.objectsArray;
+    public ArrayList getWallsArray() {
+        return this.wallsArray;
     }
 
+    @Override
+    public ArrayList getBombsGiftsArray() { return bombsGiftsArray; }
     @Override
     public int getHeight() {
         return this.height;
@@ -69,9 +73,11 @@ public class GameMaze implements Maze {
         mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
                 = object;
-       // if (!object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
-            objectsArray.add(object);
-        //}
+        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
+            wallsArray.add(object);
+        }
+        else
+            bombsGiftsArray.add(object);
         return true;
 
     }
@@ -85,7 +91,11 @@ public class GameMaze implements Maze {
             return false;
         }
         mazeArray[x][y] = object;
-        objectsArray.add(object);
+        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
+            wallsArray.add(object);
+        }
+        else
+            bombsGiftsArray.add(object);
         return true;
     }
 
@@ -100,7 +110,11 @@ public class GameMaze implements Maze {
         mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
                 = space;
-        objectsArray.remove(object);
+        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
+            wallsArray.remove(object);
+        }
+        else
+            bombsGiftsArray.remove(object);
         return true;
     }
 
@@ -113,7 +127,11 @@ public class GameMaze implements Maze {
             return false;
         }
         mazeArray[x][y] = space;
-        objectsArray.remove(object);
+        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
+            wallsArray.remove(object);
+        }
+        else
+            bombsGiftsArray.remove(object);
         return true;
 
     }
@@ -134,10 +152,6 @@ public class GameMaze implements Maze {
 
     }
 
-    @Override
-    public ArrayList getMazeObjectsArray() {
-        return objectsArray;
-    }
 
     private void initializeArray() {
         for (int i = 0; i < this.mazeArray.length; i++) {

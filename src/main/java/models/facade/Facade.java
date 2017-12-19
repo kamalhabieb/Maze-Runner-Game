@@ -77,7 +77,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void populateDrawables() {
         drawables.clear();
-        drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
+       // drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
+        drawables.addAll(mazeG.getBombsGiftsArray());
         drawables.add(player);
         //drawables.addAll(monsters);
     }
@@ -107,9 +108,9 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
-        observe(mazeG.getMazeObjectsArray());
+        observe(mazeG.getBombsGiftsArray());
         clockTower.begin();
-        notifyDrawStatic(mazeG.getMazeObjectsArray());
+        notifyDrawStatic(mazeG.getWallsArray());
     }
 
     private void observe(final ArrayList<MazeObject> mazeObjectsArray) {
