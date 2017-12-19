@@ -6,22 +6,18 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import models.charcter.states.MoveEast;
 import models.facade.DrawObserver;
 import models.facade.Facade;
 import views.Drawable;
 import views.GameGUI.GameGUI;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +62,7 @@ public class mainPlayController implements Initializable, DrawObserver {
     @Override
     public void notifyDraw(ArrayList<Drawable> drawables) {
         GraphicsContext canvas2D = canvas.getGraphicsContext2D();
-        draw(canvas2D,drawables);
+        draw(canvas2D, drawables);
     }
 
     private void draw(GraphicsContext canvas2D, List<Drawable> drawables) {
@@ -90,7 +86,7 @@ public class mainPlayController implements Initializable, DrawObserver {
     @Override
     public void notifyDrawStatic(List<Drawable> drawables) {
         GraphicsContext canvas2D = staticCanvas.getGraphicsContext2D();
-        draw(canvas2D,drawables);
+        draw(canvas2D, drawables);
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
