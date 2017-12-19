@@ -3,6 +3,7 @@ package controllers;
 import controllers.command.CommandFactory;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -64,44 +65,32 @@ public class mainPlayController implements Initializable, DrawObserver {
 
     @Override
     public void notifyDraw(ArrayList<Drawable> drawables) {
-        int listSize = drawables.size();
         GraphicsContext canvas2D = canvas.getGraphicsContext2D();
-        canvas2D.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int i = 0; i < listSize; i++) {
-            Drawable currentObject = drawables.get(i);
-            Image icon = currentObject.getImage();
-            int sx = currentObject.getSrcX();
-            int sy = currentObject.getSrcY();
-            int dx = (int) currentObject.getDestinationX();
-            int dy = (int) currentObject.getDestinationY();
-            int sw = currentObject.getSrcWidth();
-            int sh = currentObject.getSrcHeight();
-            int dw = currentObject.getDestinationWidth();
-            int dh = currentObject.getDestinationHeight();
-            canvas2D.drawImage(icon, sx, sy, sw, sh, dx, dy, dw, dh);
-            //canvas2D.drawImage(icon, 0, 0, 40, 40, 10 *( i % 31),  10*(i/31), 10, 10);
-        }
+        draw(canvas2D,drawables);
+    }
+
+    private void draw(GraphicsContext canvas2D, List<Drawable> drawables) {
+        Platform.runLater(() -> {
+            canvas2D.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawables.forEach(currentObject -> {
+                Image icon = currentObject.getImage();
+                int sx = currentObject.getSrcX();
+                int sy = currentObject.getSrcY();
+                int dx = (int) currentObject.getDestinationX();
+                int dy = (int) currentObject.getDestinationY();
+                int sw = currentObject.getSrcWidth();
+                int sh = currentObject.getSrcHeight();
+                int dw = currentObject.getDestinationWidth();
+                int dh = currentObject.getDestinationHeight();
+                canvas2D.drawImage(icon, sx, sy, sw, sh, dx, dy, dw, dh);
+            });
+        });
     }
 
     @Override
     public void notifyDrawStatic(List<Drawable> drawables) {
-        System.out.println(drawables.size());
-        int listSize = drawables.size();
         GraphicsContext canvas2D = staticCanvas.getGraphicsContext2D();
-        canvas2D.clearRect(0, 0, staticCanvas.getWidth(), staticCanvas.getHeight());
-        for (int i = 0; i < listSize; i++) {
-            Drawable currentObject = drawables.get(i);
-            Image icon = currentObject.getImage();
-            int sx = currentObject.getSrcX();
-            int sy = currentObject.getSrcY();
-            int dx = (int) currentObject.getDestinationX();
-            int dy = (int) currentObject.getDestinationY();
-            int sw = currentObject.getSrcWidth();
-            int sh = currentObject.getSrcHeight();
-            int dw = currentObject.getDestinationWidth();
-            int dh = currentObject.getDestinationHeight();
-            canvas2D.drawImage(icon, sx, sy, sw, sh, dx, dy, dw, dh);
-        }
+        draw(canvas2D,drawables);
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
