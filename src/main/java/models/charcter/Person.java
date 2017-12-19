@@ -2,11 +2,16 @@ package models.charcter;
 
 
 import controllers.command.Receiver;
+import models.charcter.states.Directions;
 import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
 import models.charcter.weapons.Gun;
+import models.charcter.weapons.NoRemainingAmmoException;
 import models.charcter.weapons.Weapon;
+import models.charcter.weapons.bullets.Bullet;
+import models.charcter.weapons.bullets.BulletImage;
+import models.charcter.weapons.bullets.BulletImpl;
 import models.engine.Engine;
 import models.engine.Matter;
 import models.facade.ControlTower;
@@ -14,16 +19,14 @@ import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 
-import java.awt.*;
-
-import static models.charcter.states.StateFactory.state.*;
+import java.awt.geom.Point2D;
 
 public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host, Receiver {
     protected final Weapon weapon;
     private int health;
     private final int MAX_HEALTH = 100;
     private final int MIN_HEALTH = 0;
-    private Point position;
+    private Point2D position;
     private int velocity;
     private int acceleration;
     protected State state;
@@ -33,8 +36,8 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public Person(ControlTower controlTower) {
         this.controlTower = controlTower;
         health = MAX_HEALTH;
-        position = new Point();
-        state = StateFactory.getState(reset);
+        position = new Point2D.Double();
+        state = StateFactory.getState(Directions.reset);
         weapon = new Gun();
     }
 
@@ -54,13 +57,12 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     }
 
     @Override
-    public void setPosition(final int x, final int y) {
-        position.x = x;
-        position.y = y;
+    public void setPosition(final double x, final double y) {
+        position.setLocation(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 
@@ -128,5 +130,16 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     public void revive() {
         this.health = MAX_HEALTH;
         controlTower.notifyResurrectionOf(this);
+    }
+
+    @Override
+    public Bullet fireWeapon() {
+        try {
+            weapon.setPosition(this.position.getX(),this.position.getY());
+            return weapon.Shoot();
+        } catch (NoRemainingAmmoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

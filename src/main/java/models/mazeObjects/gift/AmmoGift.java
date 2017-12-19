@@ -7,15 +7,16 @@ import java.awt.*;
 
 public class AmmoGift extends Gift {
     private int type;
+
     public AmmoGift(int type, Point pos) {
-        if(type > 0 && type < 6) {
+        if (type > 0 && type < 6) {
             assignGiftType(type);
+        } else {
+            throw new RuntimeException();
         }
-        else {
-           throw new RuntimeException();
-        }
-    this.setPosition(pos.x, pos.y);
+        this.setPosition(pos.x, pos.y);
     }
+
     @Override
     public void assignGiftType(int giftType) {
         this.type = giftType;
@@ -29,11 +30,11 @@ public class AmmoGift extends Gift {
 
     @Override
     public void visit(Host host) {
-        try{
+        try {
             Armored armored = (Armored) host;
             armored.affectAmmo(type);
             destroy();
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             //TODO handle given a host that is not armored
         }
     }

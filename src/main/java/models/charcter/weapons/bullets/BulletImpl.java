@@ -1,22 +1,26 @@
 package models.charcter.weapons.bullets;
 
+import javafx.scene.image.Image;
 import models.charcter.AliveObject;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
+import views.Drawable;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
-public class BulletImpl implements Bullet,Visitor {
+public class BulletImpl extends Drawable implements Bullet,Visitor {
     private int damageRate;
     private int lifetime;
     private int birthTime;
-    private Point position;
+    private Point2D position;
     private int velocity;
     private int acceleration;
 
     public BulletImpl() {
+        position= new Point2D.Double();
         damageRate = 5;
         lifetime = 5;
+        position = new Point2D.Double();
     }
 
     @Override
@@ -31,13 +35,11 @@ public class BulletImpl implements Bullet,Visitor {
 
     @Override
     public void setDamageRate(final int damageRate) {
-
         this.damageRate = damageRate;
     }
 
     @Override
     public void setLifetime(final int lifetime) {
-
         this.lifetime = lifetime;
     }
 
@@ -52,13 +54,12 @@ public class BulletImpl implements Bullet,Visitor {
     }
 
     @Override
-    public void setPosition(final int x, final int y) {
-        position.x = x;
-        position.y = y;
+    public void setPosition(final double x, final double y) {
+        position.setLocation(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 
@@ -86,11 +87,16 @@ public class BulletImpl implements Bullet,Visitor {
 
     @Override
     public void visit(final Host host) {
-        try{
+        try {
             AliveObject aliveObject = (AliveObject) host;
             aliveObject.affectHealthBy(this.getDamageRate());
-        } catch (ClassCastException e){
+        } catch (ClassCastException e) {
             //TODO handle object is not alive
         }
+    }
+
+    @Override
+    public  Image getImage() {
+        return (BulletImage.getImage());
     }
 }

@@ -12,18 +12,21 @@ import views.Drawable;
 import views.flyweight.BombImage;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
         AliveObject, Observed {
     private int type;
     private int damageRate;
     private int timer;
-    private Point position;
+    private Point2D position;
     private long explodeTime;
     private int health = 1;
     private long triggeringStartTime;
     private boolean isCovered = true;
+    private List<Observer> observers;
 
     public Bomb(int type, Point pos) {
         if (type == 0) {
@@ -39,6 +42,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
             setTimer(5);
         }
         setPosition(pos.x, pos.y);
+        observers = new ArrayList<>();
     }
 
     @Override
@@ -62,7 +66,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return this.position;
     }
 
@@ -86,8 +90,8 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     }
 
     @Override
-    public void setPosition(int x, int y) {
-        this.position = new Point(x, y);
+    public void setPosition(final double x, final double y) {
+        this.position = new Point2D.Double(x, y);
     }
 
     @Override
@@ -157,5 +161,15 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     @Override
     public Image getImage() {
         return BombImage.getImage();
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public boolean canObserve(final Observer observer) {
+        return observer instanceof LifeObserver;
     }
 }

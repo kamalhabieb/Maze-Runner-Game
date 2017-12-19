@@ -70,8 +70,8 @@ public class mainPlayController implements Initializable, DrawObserver {
             Image icon = currentObject.getImage();
             int sx = currentObject.getSrcX();
             int sy = currentObject.getSrcY();
-            int dx = currentObject.getDestinationX();
-            int dy = currentObject.getDestinationY();
+            int dx = (int) currentObject.getDestinationX();
+            int dy = (int) currentObject.getDestinationY();
             int sw = currentObject.getSrcWidth();
             int sh = currentObject.getSrcHeight();
             int dw = currentObject.getDestinationWidth();
@@ -92,8 +92,8 @@ public class mainPlayController implements Initializable, DrawObserver {
             Image icon = currentObject.getImage();
             int sx = currentObject.getSrcX();
             int sy = currentObject.getSrcY();
-            int dx = currentObject.getDestinationX();
-            int dy = currentObject.getDestinationY();
+            int dx = (int) currentObject.getDestinationX();
+            int dy = (int) currentObject.getDestinationY();
             int sw = currentObject.getSrcWidth();
             int sh = currentObject.getSrcHeight();
             int dw = currentObject.getDestinationWidth();
@@ -103,6 +103,11 @@ public class mainPlayController implements Initializable, DrawObserver {
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
+
+        if (keyEvent.getCode()==KeyCode.SPACE)
+        {
+            facade.excute(CommandFactory.getCommand(shootABullet));
+        }
         if(keyEvent.getCode() == KeyCode.RIGHT) {
             facade.excute(CommandFactory.getCommand(moveEast));
         }
@@ -152,7 +157,6 @@ public class mainPlayController implements Initializable, DrawObserver {
     }
 
     public void clickOnNewGame(MouseEvent mouseEvent) {
-        //todo , we need to stop the clock thread first ya mario
        /* ((Node)(mouseEvent.getSource())).getScene().getWindow().hide();
         GameGUI newGame = new GameGUI();
         Stage s = new Stage();
@@ -161,5 +165,9 @@ public class mainPlayController implements Initializable, DrawObserver {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+    }
+
+    public void stop() {
+        facade.shutdown();
     }
 }

@@ -1,5 +1,6 @@
 package models.facade;
 
+import models.Observer.Observer;
 import models.charcter.PlayerObserver;
 
 public class Score implements PlayerObserver {
@@ -20,10 +21,13 @@ public class Score implements PlayerObserver {
         currentScore += Math.ceil(effect / GIFT_FACTOR);
 
     }
-
     @Override
     public void notifyAboutLives(int effect) {
         currentScore += effect*50;
 
+    }
+
+    public int getScore() {
+        return currentScore;
     }
 }

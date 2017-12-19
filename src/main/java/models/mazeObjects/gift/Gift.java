@@ -2,6 +2,7 @@ package models.mazeObjects.gift;
 
 import javafx.scene.image.Image;
 import models.Observer.Observed;
+import models.Observer.Observer;
 import models.charcter.AliveObject;
 import models.charcter.LifeObserver;
 import models.engine.Matter;
@@ -9,12 +10,20 @@ import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.GiftImage;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public abstract class Gift extends Drawable implements Gift_I, AliveObject,
         Matter, Visitor, Observed {
-    private Point pos;
+    private Point2D pos;
     private boolean isCovered = true;
+    private List<Observer> observers;
+
+    public Gift() {
+        observers = new ArrayList<>();
+    }
 
     @Override
     public void accept(Visitor visitor) {
@@ -31,12 +40,12 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
     }
 
     @Override
-    public void setPosition(int x, int y) {
-        this.pos = new Point(x, y);
+    public void setPosition(final double x, final double y) {
+        this.pos = new Point2D.Double(x, y);
     }
 
     @Override
-    public Point getPosition() {
+    public Point2D getPosition() {
         return this.pos;
     }
 
@@ -65,11 +74,21 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
 
     @Override
     public void destroy() {
-        observers.forEach(n->((LifeObserver) n).notifyFuneralOf(Gift.this));
+        getObservers().forEach(n -> ((LifeObserver) n).notifyFuneralOf(Gift.this));
     }
 
     @Override
     public void revive() {
-        observers.forEach(n->((LifeObserver) n).notifyResurrectionOf(Gift.this));
+        getObservers().forEach(n -> ((LifeObserver) n).notifyResurrectionOf(Gift.this));
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public boolean canObserve(final Observer observer) {
+        return observer instanceof LifeObserver;
     }
 }

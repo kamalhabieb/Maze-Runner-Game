@@ -2,6 +2,7 @@ package models.facade;
 
 import controllers.command.Command;
 import controllers.command.Receiver;
+import javafx.geometry.Point2D;
 import models.Observer.Observed;
 import models.charcter.*;
 import models.engine.Engine;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
     private Engine gameEngine;
-    public static Player player;
+    public Player player;
     private ArrayList<Drawable> drawables;
     private ArrayList<Monster> monsters;
     public static final String EASY = "/configurations/easy.configuration";
@@ -40,10 +41,11 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public final String START_POINT_Y = "start_Y";
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
-    public final int REFRESH_STEP = 17;
+    public final int REFRESH_STEP = 10;
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
     private Properties gameInfo;
+    private GameMetadata metadata;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -51,6 +53,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         monsters = new ArrayList<>();
         clockTower = BigBen.getInstance(REFRESH_STEP);
         clockTower.registerObserver(this);
+        metadata = new GameMetadata();
     }
 
     @Override
@@ -58,7 +61,14 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.update(gameEngine);
         //monsters.stream().forEach(n -> n.update(gameEngine));
         populateDrawables();
+        updateMetadata();
         notifyDraw();
+    }
+
+    private void updateMetadata() {
+        metadata.setAmmo(player.getAmmo());
+        metadata.setHealth(player.getHealth());
+        metadata.setScore(player.getScore());
     }
 
     public void notifyDraw() {
@@ -67,7 +77,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void populateDrawables() {
         drawables.clear();
-        drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
+       // drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
+        drawables.addAll(mazeG.getBombsGiftsArray());
         drawables.add(player);
         //drawables.addAll(monsters);
     }
@@ -97,10 +108,9 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
-        //observe(mazeG.getMazeObjectsArray());
-        //todo MARIOOOO A7AAAA KOSOM EL FUNCTION DI HEYA EL MBATA2A ELDENYAAAAA 555555 -regards, Islam.
+        observe(mazeG.getBombsGiftsArray());
         clockTower.begin();
-        notifyDrawStatic(mazeG.getMazeObjectsArray());
+        notifyDrawStatic(mazeG.getWallsArray());
     }
 
     private void observe(final ArrayList<MazeObject> mazeObjectsArray) {
@@ -123,7 +133,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     @Override
-    public boolean grantPermission(final Host host, final Point newPosition) {
+    public boolean grantPermission(final Host host, final java.awt.geom.Point2D newPosition) {
         MazeObject mazeObject;
         try {
             mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
@@ -172,6 +182,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             monsters.add(monstersFactory.GetMonster(mode + "monster", this));
         }
         //TODO randomize the monsters places
+    }
+
+    public void shutdown() {
+        clockTower.stop();
     }
 }
 

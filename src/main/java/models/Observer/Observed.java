@@ -1,15 +1,18 @@
 package models.Observer;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Observed {
-    ArrayList<Observer> observers = new ArrayList<>();
 
     default void registerObserver(Observer observer) {
-        observers.add(observer);
+        getObservers().add(observer);
     }
 
     default void removeObserver(Observer observer){
-        observers.remove(observer);
+        getObservers().remove(observer);
     }
+
+    List<Observer> getObservers();
+
+    boolean canObserve(Observer observer);
 }

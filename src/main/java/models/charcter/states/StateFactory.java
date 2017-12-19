@@ -1,16 +1,11 @@
 package models.charcter.states;
 
 public class StateFactory {
-    public enum state {
-        movingEast,
-        movingWest,
-        movingNorth,
-        movingSouth,
-        reset
-    }
 
-    public static State getState(state state) {
-        switch (state) {
+    public static State getState(Directions Directions) {
+        switch (Directions) {
+            case shooting :
+                return new shootingGun1();
             case movingEast:
                 return new MoveEast();
             case movingWest:

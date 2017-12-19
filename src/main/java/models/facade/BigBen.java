@@ -1,8 +1,10 @@
 package models.facade;
 
 import models.Observer.Observed;
+import models.Observer.Observer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -23,6 +25,7 @@ public class BigBen implements Observed {
                     e.printStackTrace();
                 }
             }
+
         }
     };
 
@@ -33,6 +36,7 @@ public class BigBen implements Observed {
             clock.run();
         }
     };
+    private List<Observer> clockObservers;
 
     public static BigBen getInstance() {
         if (ourInstance == null) ourInstance = new BigBen(DEFAULT_TIME_STEP);
@@ -47,6 +51,7 @@ public class BigBen implements Observed {
 
     private BigBen(final long timeStep) {
         this.timeStep = timeStep;
+        clockObservers = new ArrayList<>();
     }
 
     public void begin() {
@@ -60,10 +65,20 @@ public class BigBen implements Observed {
 
 
     private void notifyObservers() {
-        observers.forEach(n -> ((ClockObserver) n).notifyNewTick());
+        this.getObservers().forEach(n -> ((ClockObserver) n).notifyNewTick());
     }
 
     public void setTimeStep(final long timeStep) {
         this.timeStep = timeStep;
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return clockObservers;
+    }
+
+    @Override
+    public boolean canObserve(final Observer observer) {
+        return observer instanceof ClockObserver;
     }
 }

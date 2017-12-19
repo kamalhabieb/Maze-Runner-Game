@@ -1,7 +1,7 @@
 package controllers.command;
-
 public class CommandFactory {
     public enum commands {
+        shootABullet,
         moveEast,
         moveWest,
         moveSouth,
@@ -11,6 +11,8 @@ public class CommandFactory {
 
     public static Command getCommand(commands command) {
         switch (command) {
+            case shootABullet:
+                return new Shooting();
             case moveEast:
                 return new MoveEastCommand();
             case moveWest:

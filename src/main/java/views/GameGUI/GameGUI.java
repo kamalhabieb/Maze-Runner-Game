@@ -14,6 +14,8 @@ import java.io.IOException;
 
 public class GameGUI extends Application {
 
+    private mainPlayController controller;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -26,8 +28,10 @@ public class GameGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        scene.setOnKeyPressed(((mainPlayController)loader.getController())::onKeyPressed);
-        scene.setOnKeyReleased(((mainPlayController)loader.getController())::onKeyReleased);
+        controller  = (mainPlayController)loader.getController();
+
+        scene.setOnKeyPressed(controller::onKeyPressed);
+        scene.setOnKeyReleased(controller::onKeyReleased);
         camera = new PerspectiveCamera(true);
         //camera.setF
         camera.setTranslateZ(-2400);
@@ -44,5 +48,11 @@ public class GameGUI extends Application {
 
 
 
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        controller.stop();
     }
 }

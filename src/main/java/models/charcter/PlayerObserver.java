@@ -1,10 +1,13 @@
 package models.charcter;
 
-public interface PlayerObserver {
-    void notifyAboutHealth(int effect);
-    void notifyAboutAmmo(int effect);
-    void notifyAboutLives(int effect);
+import models.Observer.Observer;
 
+public interface PlayerObserver extends Observer {
+    void notifyAboutHealth(int effect);
+
+    void notifyAboutAmmo(int effect);
+
+    void notifyAboutLives(int effect);
 
 
 }

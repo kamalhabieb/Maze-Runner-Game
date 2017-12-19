@@ -3,6 +3,7 @@ package models.mazeObjects.bomb;
 import models.maze.MazeObject;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public interface Bomb_I extends MazeObject {
     /**
@@ -33,9 +34,9 @@ public interface Bomb_I extends MazeObject {
 
     void setTimer(int time);
 
-    void setPosition(int x, int y);
+    void setPosition(final double x, final double y);
 
-    Point getPosition();
+    Point2D getPosition();
 
     long getExplodeTime();
 
