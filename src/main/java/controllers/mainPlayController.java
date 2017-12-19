@@ -121,7 +121,7 @@ public class mainPlayController implements Initializable, DrawObserver {
         else if (keyEvent.getCode() == KeyCode.DOWN) {
             facade.excute(CommandFactory.getCommand(moveSouth));
         }
-        else if (keyEvent.getCode() == KeyCode.P) {
+        if (keyEvent.getCode() == KeyCode.P) {
             GameGUI.camera.setTranslateZ(GameGUI.camera.getTranslateZ() + CAMERA_MOVE);
         }
         else if (keyEvent.getCode() == KeyCode.MINUS) {

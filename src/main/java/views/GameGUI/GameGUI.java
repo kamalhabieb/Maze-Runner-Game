@@ -33,7 +33,6 @@ public class GameGUI extends Application {
         scene.setOnKeyPressed(controller::onKeyPressed);
         scene.setOnKeyReleased(controller::onKeyReleased);
         camera = new PerspectiveCamera(true);
-        //camera.setF
         camera.setTranslateZ(-2400);
         camera.setNearClip(0.1);
         camera.setFarClip(10000);
