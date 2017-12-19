@@ -1,4 +1,4 @@
-package models.charcter;
+package models.charcter.monsters;
 
 import models.facade.ControlTower;
 
