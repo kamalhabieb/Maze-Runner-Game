@@ -1,18 +1,18 @@
 package views.flyweight;
 
+import controllers.gameModeController;
 import javafx.scene.image.Image;
 import models.facade.Facade;
 
 public class PlayerImage {
     //TODO set correct resource paths Kamal On it
     //TODO 1- North and South sprites , 2- No Running is covered
-
-    public final static String IDLE  = "/images/RegularMode/characterIslam/right/characterStop.png";
-    public static final String NORTH = "/images/RegularMode/characterIslam/right/characterUp.png";
-    public static final String SOUTH = "/images/RegularMode/characterIslam/right/characterDown.png";
-    public static final String EAST  = "/images/RegularMode/characterIslam/right/characterRun.png";
-    public static final String WEST  = "/images/RegularMode/characterIslam/left/characterWalk.png";
-    public static final String shooting  = "/images/RegularMode/character/right/characterShoot.png";
+        public final static String IDLE = "/images/RegularMode/characterIslam/right/characterStop.png";
+        public static final String NORTH = "/images/RegularMode/characterIslam/right/characterUp.png";
+        public static final String SOUTH = "/images/RegularMode/characterIslam/right/characterDown.png";
+        public static final String EAST = "/images/RegularMode/characterIslam/right/characterRun.png";
+        public static final String WEST = "/images/RegularMode/characterIslam/left/characterWalk.png";
+        public static final String shooting = "/images/RegularMode/characterIslam/right/characterShoot.png";
 
     private static final Image idleImage;
     private static final Image eastImage;

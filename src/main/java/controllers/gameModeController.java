@@ -4,7 +4,10 @@ import javafx.animation.PathTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -25,6 +28,25 @@ public class gameModeController implements Initializable {
     private Label mediumLabel;
     @FXML
     private Label hardLabel;
+    @FXML
+    private Label playerLabel;
+    @FXML
+    private Button rightButton;
+    @FXML
+    private Button leftButton;
+
+    public static String player = "";
+
+    public void onMouseClickRight(MouseEvent event) {
+        Image image = new Image(getClass().getResourceAsStream("/images/playerIslam.png"));
+        playerLabel.setGraphic(new ImageView(image));
+        player = "Islam";
+    }
+    public void onMouseClickLeft(MouseEvent event) {
+        Image image = new Image(getClass().getResourceAsStream("/images/playerDefault.png"));
+        playerLabel.setGraphic(new ImageView(image));
+        player = "Default";
+    }
 
     @FXML
     void onMouseClickedEasy(MouseEvent event) {
@@ -67,5 +89,10 @@ public class gameModeController implements Initializable {
         transition2.play();
         transition3.setNode(hardLabel);
         transition3.play();
+
+        Image image = new Image(getClass().getResourceAsStream("/images/playerDefault.png"));
+        playerLabel.setGraphic(new ImageView(image));
+        player = "Default";
     }
+
 }
