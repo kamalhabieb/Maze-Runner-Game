@@ -44,7 +44,6 @@ public class Gun implements Weapon{
         return currentAmmo;
     }
 
-    //todo bullet.setPostion causes error
     @Override
     public Bullet Shoot() throws NoRemainingAmmoException {
         if (currentAmmo == 0) throw new NoRemainingAmmoException();
