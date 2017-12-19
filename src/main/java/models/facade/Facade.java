@@ -7,6 +7,8 @@ import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletImpl;
+import models.charcter.monsters.Monster;
+import models.charcter.monsters.MonstersFactory;
 import models.engine.Engine;
 import models.engine.EngineFactory;
 import models.engine.Matter;
