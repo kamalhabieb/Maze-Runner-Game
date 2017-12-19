@@ -5,6 +5,7 @@ import controllers.command.Receiver;
 import javafx.geometry.Point2D;
 import models.Observer.Observed;
 import models.charcter.*;
+import models.charcter.weapons.bullets.Bullet;
 import models.engine.Engine;
 import models.engine.EngineFactory;
 import models.engine.Matter;
@@ -201,6 +202,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void shutdown() {
         clockTower.stop();
+    }
+
+    public void fireWeapon() {
+        player.fireWeapon();
     }
 }
 
