@@ -3,16 +3,20 @@ package models.charcter;
 import javafx.scene.image.Image;
 import models.Observer.Observed;
 import models.Observer.Observer;
+import models.charcter.autonomous.Flame;
+import models.charcter.autonomous.Moth;
+import models.search.Path;
+import models.search.Path2D;
 import models.facade.ControlTower;
 import models.facade.Score;
 
-import java.awt.Point;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Player extends Person implements PlayerObserver, Observed {
+public class Player extends Person implements PlayerObserver, Observed, Flame {
 
     List<Observer> playerObservers;
     private Score score;
@@ -29,8 +33,6 @@ public class Player extends Person implements PlayerObserver, Observed {
     public void setPosition(final double x, final double y) {
         if (controlTower.grantPermission(this, new Point2D.Double(x, y))) {
             super.setPosition(x, y);
-            destinationX = x;
-            destinationY = y;
         }
     }
 
@@ -52,7 +54,6 @@ public class Player extends Person implements PlayerObserver, Observed {
         Image image = state.getImage();
         super.imageWidth = (int) image.getWidth();
         if (this.isAnimated()) super.setCoordinates();
-       // System.out.println("spriteViewChanged");
         return image;
     }
 
@@ -98,5 +99,11 @@ public class Player extends Person implements PlayerObserver, Observed {
     @Override
     public boolean canObserve(final Observer observer) {
         return observer instanceof PlayerObserver;
+    }
+
+    @Override
+    public void draw(final Moth moth) {
+        Path path = controlTower.getPath( this.getPosition(), moth.getPosition());
+        moth.setPathToFlame(path);
     }
 }

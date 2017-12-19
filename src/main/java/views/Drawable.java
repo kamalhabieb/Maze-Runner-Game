@@ -74,6 +74,7 @@ public abstract class Drawable {
 
     public void setDestinationX(int destinationX) {
         this.destinationX = destinationX;
+
     }
 
     public double getDestinationY() {

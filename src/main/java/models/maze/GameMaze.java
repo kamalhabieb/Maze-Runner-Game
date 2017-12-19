@@ -1,6 +1,8 @@
 package models.maze;
 
 import models.mazeObjects.space.Space;
+import models.search.*;
+import models.wall.Wall;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -35,7 +37,10 @@ public class GameMaze implements Maze {
     }
 
     @Override
-    public ArrayList getBombsGiftsArray() { return bombsGiftsArray; }
+    public ArrayList getBombsGiftsArray() {
+        return bombsGiftsArray;
+    }
+
     @Override
     public int getHeight() {
         return this.height;
@@ -75,8 +80,7 @@ public class GameMaze implements Maze {
                 = object;
         if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
             wallsArray.add(object);
-        }
-        else
+        } else
             bombsGiftsArray.add(object);
         return true;
 
@@ -93,8 +97,7 @@ public class GameMaze implements Maze {
         mazeArray[x][y] = object;
         if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
             wallsArray.add(object);
-        }
-        else
+        } else
             bombsGiftsArray.add(object);
         return true;
     }
@@ -112,8 +115,7 @@ public class GameMaze implements Maze {
                 = space;
         if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
             wallsArray.remove(object);
-        }
-        else
+        } else
             bombsGiftsArray.remove(object);
         return true;
     }
@@ -129,8 +131,7 @@ public class GameMaze implements Maze {
         mazeArray[x][y] = space;
         if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
             wallsArray.remove(object);
-        }
-        else
+        } else
             bombsGiftsArray.remove(object);
         return true;
 
@@ -145,14 +146,23 @@ public class GameMaze implements Maze {
 
     @Override
     public MazeObject getMazeObjectAtAbsolutePosition(Point2D absolutePosition) throws InvalidPositionException {
-        int x = (int) absolutePosition.getX() ;
-        int y = (int) absolutePosition.getY() ;
+        int x = (int) absolutePosition.getX();
+        int y = (int) absolutePosition.getY();
       /*  System.out.print("1 ==>" +x + " ");
         System.out.println(y);
 */
         testValidPoint(x, y);
         return mazeArray[x][y];
 
+    }
+
+    @Override
+    public Path getPath(final Point2D start, final Point2D end) {
+        Graph graph = new MatrixGraph(mazeArray);
+        graph.setDelimiter(Wall.class);
+        return graph.getPath(new Point2D.Double(start.getX() / cellSize, start.getY() / cellSize),
+                new Point2D.Double(end.getX() / cellSize, end.getY() / cellSize),
+                SearchStrategies.BFS);
     }
 
 
