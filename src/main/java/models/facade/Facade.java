@@ -16,6 +16,7 @@ import models.maze.MazeObject;
 import models.mazeObjects.Host;
 import models.mazeObjects.ObjectsFactory;
 import models.mazeObjects.Visitor;
+import models.mazeObjects.space.Space;
 import models.wall.Wall;
 import views.Drawable;
 import java.util.Random;
@@ -44,6 +45,11 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public final String END_POINT_X = "end_X";
     public final String END_POINT_Y = "end_Y";
     public final int REFRESH_STEP = 10;
+    private final int cellSize = 30;
+    private final int offset = 3;
+    private final int vertical_offset = 3;
+
+
     private ArrayList<DrawObserver> drawObservers;
     private BigBen clockTower;
     private Properties gameInfo;
@@ -138,12 +144,89 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     @Override
     public boolean grantPermission(final Host host, final java.awt.geom.Point2D newPosition) {
         MazeObject mazeObject;
+        MazeObject mazeObject_2 = new Space();
+        int x = (int)newPosition.getX();
+        int y = (int)newPosition.getY();
         try {
+            // Changes TO Avoid Hitting a Wall
+           /* System.out.print(x + " ");
+            System.out.println(y);
+*/
+            String state = player.getState().getClass().getSimpleName();
+            System.out.println(state);
+            if(state.equalsIgnoreCase("moveeast")){
+                x = x +cellSize;
+                if(y%cellSize>=cellSize-offset){//Offset
+                    y = y + (cellSize-y%cellSize);
+                }
+                else if(y%cellSize<=offset && y%cellSize > 0){//Offset
+                    y = y - y%cellSize;
+                }
+                else if(y%cellSize>offset && y%cellSize < cellSize-offset){
+                    y = y - y%cellSize;
+                    newPosition.setLocation(x/cellSize,y/cellSize);
+                    mazeObject_2=mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    y = y + cellSize;
+
+                }
+            }
+            else if(state.equalsIgnoreCase("movesouth")){
+                y = y +cellSize;
+                if(x%cellSize>=cellSize-vertical_offset){//Offset
+                    x = x + (cellSize-x%cellSize);
+                }
+                else if(x%cellSize<=vertical_offset && x%cellSize > 0){//Offset
+                    x = x - x%cellSize;
+                }
+                else if(x%cellSize>vertical_offset && x%cellSize < cellSize-vertical_offset){
+                    x = x - x%cellSize;
+                    newPosition.setLocation(x/cellSize,y/cellSize);
+                    mazeObject_2=mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    x = x + cellSize;
+                }
+            }
+            else if(state.equalsIgnoreCase("movenorth")){
+                if(x%cellSize>=cellSize-vertical_offset){//Offset
+                    x = x + (cellSize-x%cellSize);
+                }
+                else if(x%cellSize<=vertical_offset && x%cellSize > 0){//Offset
+                    x= x - x%cellSize;
+                }
+                else if(x%cellSize>vertical_offset && x%cellSize < cellSize-vertical_offset){
+                    x = x - x%cellSize;
+                    newPosition.setLocation(x/cellSize,y/cellSize);
+                    mazeObject_2=mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    x = x + cellSize;
+                }
+            }
+            else if(state.equalsIgnoreCase("movewest")) {
+                if (y % cellSize >= cellSize-offset) {//Offset
+                    y = y + (cellSize - y % cellSize);
+                } else if (y % cellSize <= offset && y % cellSize > 0) {//Offset
+                    y = y - y % cellSize;
+                } else if (y % cellSize > offset && y % cellSize < cellSize-offset) {
+                    y = y - y % cellSize;
+
+                    newPosition.setLocation(x/cellSize,y/cellSize);
+                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    y = y + cellSize;
+                }
+            }
+          /*  System.out.print("1 ==>" +x + " ");
+            System.out.println(y);
+*/           /* x = (int) (newPosition.getX()/cellSize);
+            y = (int) (newPosition.getY()/cellSize);*/
+            newPosition.setLocation(x/cellSize,y/cellSize);
             mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+
+           /* System.out.print("2 ==>" +x + " ");
+            System.out.println(y);*/
+//            System.out.println(mazeObject);
+
         } catch (InvalidPositionException e) {
             return false;
         }
-        if (mazeObject instanceof Wall) {
+        if (mazeObject instanceof Wall || mazeObject_2 instanceof Wall) {
             return false;
         }
         if (mazeObject instanceof Visitor) {
@@ -152,7 +235,6 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         }
         return true;
     }
-
     @Override
     public void notifyFuneralOf(final AliveObject wasAlive) {
         if (wasAlive == player) {
