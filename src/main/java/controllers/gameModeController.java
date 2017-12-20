@@ -37,6 +37,7 @@ public class gameModeController implements Initializable {
     private Button leftButton;
 
     public static String player = "";
+    public static String difficulty;
 
     public void onMouseClickRight(MouseEvent event) {
         Image image = new Image(getClass().getResourceAsStream("/images/playerIslam.png"));
@@ -50,8 +51,17 @@ public class gameModeController implements Initializable {
     }
 
     @FXML
-    void onMouseClickedEasy(MouseEvent event) {
+    void onMouseClicked(MouseEvent event) {
         ((Node)(event.getSource())).getScene().getWindow().setOnHidden(e -> Platform.exit());
+        if(((Label)event.getSource()).getText().equalsIgnoreCase("easy")) {
+            difficulty = "easy";
+        }
+        else if(((Label)event.getSource()).getText().equalsIgnoreCase("medium")) {
+            difficulty = "medium";
+        }
+        else {
+            difficulty = "hard";
+        }
         GameGUI chooseMode = new GameGUI();
         Stage s = new Stage();
         try {

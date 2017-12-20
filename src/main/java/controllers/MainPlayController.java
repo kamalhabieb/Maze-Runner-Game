@@ -49,22 +49,37 @@ public class MainPlayController implements Initializable, DrawObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //GUI COMPONENTS INITIALIZATION COMES FIRST
-        canvas.setLayoutX(850);
-        canvas.setLayoutY(500);
-        //todo Get constants not numbers
-        canvas.setWidth(31 * 30);
-        canvas.setHeight(31 * 30);
-
-        staticCanvas.setLayoutX(850);
-        staticCanvas.setLayoutY(500);
-        staticCanvas.setWidth(31 * 30);
-        staticCanvas.setHeight(31 * 30);
 
 
         facade = new Facade();
         facade.registerObserver(this);
-        facade.initializeGame(Facade.EASY);
+        switch (gameModeController.difficulty) {
+            case "easy":
+                facade.initializeGame(Facade.EASY);
+                break;
+            case "medium":
+                facade.initializeGame(Facade.MEDIUM);
+                break;
+            case "hard":
+                facade.initializeGame(Facade.HARD);
+                break;
+            default:
+                facade.initializeGame(Facade.MEDIUM);
+                break;
+
+
+        }
         translateCamera();
+        canvas.setLayoutX(850);
+        canvas.setLayoutY(500);
+        //todo Get constants not numbers
+        canvas.setWidth(facade.currentMazeWidth * 30);
+        canvas.setHeight(facade.currentMazeLength * 30);
+
+        staticCanvas.setLayoutX(850);
+        staticCanvas.setLayoutY(500);
+        staticCanvas.setWidth(facade.currentMazeWidth * 30);
+        staticCanvas.setHeight(facade.currentMazeLength * 30);
 
 
        /* facade.populateDrawables();
@@ -118,7 +133,7 @@ public class MainPlayController implements Initializable, DrawObserver {
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();*/
-             //todo el sound aho uncomment
+            //todo el sound aho uncomment
             facade.excute(CommandFactory.getCommand(shootABullet));
 
         } else if (keyEvent.getCode() == KeyCode.RIGHT) {
@@ -154,7 +169,7 @@ public class MainPlayController implements Initializable, DrawObserver {
             GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() + CAMERA_MOVE + 5);
         }
 
-        if(keyEvent.getCode() == KeyCode.TAB) {
+        if (keyEvent.getCode() == KeyCode.TAB) {
             info = new InfoGUI();
             infoIsOpenned = true;
             try {
@@ -166,7 +181,6 @@ public class MainPlayController implements Initializable, DrawObserver {
         }
 
     }
-
 
 
     private void translateCamera() {
@@ -185,7 +199,7 @@ public class MainPlayController implements Initializable, DrawObserver {
 
     public void onKeyReleased(KeyEvent keyEvent) {
         facade.excute(CommandFactory.getCommand(idle));
-        if(infoIsOpenned) {
+        if (infoIsOpenned) {
             infoIsOpenned = false;
             try {
                 info.stop();

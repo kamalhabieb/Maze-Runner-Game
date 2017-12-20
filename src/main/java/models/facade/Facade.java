@@ -41,8 +41,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private ArrayList<Monster> monsters;
     private ArrayList bullets;
     public static final String EASY = "/configurations/easy.configuration";
-    public final String MEDIUM = "/configurations/medium.configuration";
-    public final String HARD = "/configurations/easy.configuration";
+    public static final String MEDIUM = "/configurations/medium.configuration";
+    public static final String HARD = "/configurations/hard.configuration";
     public final String GAME_DIFFICULTY = "difficulty";
     public final String GAME_MODE = "game_mode";
     public final String MONSTERS_NUMBER = "number_of_monsters";
@@ -59,6 +59,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Properties gameInfo;
     private GameMetadata metadata;
     private ArrayBlockingQueue events;
+    public static int currentMazeLength;
+    public static int currentMazeWidth;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -148,6 +150,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         observe(mazeG.getBombsGiftsArray());
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
+        this.currentMazeLength = mazeG.getHeight();
+        this.currentMazeWidth = mazeG.getWidth();
     }
 
     private void observe(final ArrayList<MazeObject> mazeObjectsArray) {

@@ -31,6 +31,14 @@ public class MazeBuilder {
         return this;
     }
 
+    public int getLength() {
+        return this.length;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
     public MazeBuilder setCellSize(int cellSize) {
         this.cellSize = cellSize;
         return this;
