@@ -11,4 +11,6 @@ public interface DrawObserver {
     void notifyDrawStatic(List<Drawable> drawables);
 
     void notifyDrawGameOver(List<Drawable> drawables);
+
+    void notifyDrawWin(ArrayList<Drawable> drawables);
 }

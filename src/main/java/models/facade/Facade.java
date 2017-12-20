@@ -59,7 +59,6 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Properties gameInfo;
     private GameMetadata metadata;
     private ArrayBlockingQueue events;
-    private boolean lose = false;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -104,6 +103,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void notifyLose() {
         drawObservers.stream().forEach(n -> n.notifyDrawGameOver(drawables));
+    }
+
+    private void notifyWin() {
+        drawObservers.stream().forEach(n -> n.notifyDrawWin(drawables));
     }
 
     public void populateDrawables() {
@@ -170,6 +173,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public boolean grantPermission(final Host host, final Point2D newPosition) {
         MazeObject mazeObject;
         MazeObject mazeObject_2 = new Space();
+        if (this.win(host, newPosition)){
+            notifyWin();
+            return true;
+        }
         int x = (int) newPosition.getX();
         int y = (int) newPosition.getY();
         try {
@@ -250,6 +257,19 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             return true;
         }
         return true;
+    }
+
+
+
+    private boolean win(Host host, Point2D newPosition) {
+        if(host instanceof Player){
+            int endPointX = Integer.parseInt(gameInfo.getProperty(END_POINT_X));
+            int endPointY = Integer.parseInt(gameInfo.getProperty(END_POINT_Y));
+            if(endPointX == newPosition.getX() && endPointY == newPosition.getY()){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
