@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -50,7 +51,7 @@ public class gameModeController implements Initializable {
 
     @FXML
     void onMouseClickedEasy(MouseEvent event) {
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node)(event.getSource())).getScene().getWindow().setOnHidden(e -> Platform.exit());
         GameGUI chooseMode = new GameGUI();
         Stage s = new Stage();
         try {

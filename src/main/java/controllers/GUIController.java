@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +39,8 @@ public class GUIController implements Initializable {
     private Label exitLabel;
     @FXML
     void onMouseClickedStart(MouseEvent event) {
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node)(event.getSource())).getScene().getWindow().setOnHidden(e -> Platform.exit());
+
         GameModesGUI chooseMode = new GameModesGUI();
         Stage s = new Stage();
         try {
