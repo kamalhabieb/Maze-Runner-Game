@@ -15,6 +15,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.facade.DrawObserver;
@@ -102,6 +104,10 @@ public class MainPlayController implements Initializable, DrawObserver {
     public void onKeyPressed(KeyEvent keyEvent) {
 
         if (keyEvent.getCode() == KeyCode.SPACE) {
+             final URL resource = getClass().getResource("/music/shootSound.mp3");
+        final Media media = new Media(resource.toString());
+        final MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
             facade.excute(CommandFactory.getCommand(shootABullet));
             facade.fireWeapon();
         } else if (keyEvent.getCode() == KeyCode.RIGHT) {

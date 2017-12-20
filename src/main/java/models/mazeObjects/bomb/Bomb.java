@@ -1,6 +1,8 @@
 package models.mazeObjects.bomb;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import models.Observer.Observed;
 import models.Observer.Observer;
 import models.charcter.AliveObject;
@@ -13,6 +15,7 @@ import views.flyweight.BombImage;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,10 +106,10 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
             this.visit(affectedCells.get(i));
         }*/
         // TODO: 11/12/17 (DO onExplodeFunction to remove bomb from 2D Array)
-        /*final URL resource = getClass().getResource("/music/bombSound.mp3");
+        final URL resource = getClass().getResource("/music/bombSound.mp3");
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();*/
+        mediaPlayer.play();
     }
 
     @Override
@@ -155,7 +158,9 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
         try {
             AliveObject aliveObject = (AliveObject) host;
             aliveObject.affectHealthBy(this.getDamageRate());
+            explode();
             destroy();
+
         } catch (ClassCastException e) {
             //TODO handle object is not alive
         }

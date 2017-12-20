@@ -1,6 +1,8 @@
 package models.mazeObjects.gift;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import models.Observer.Observed;
 import models.Observer.Observer;
 import models.charcter.AliveObject;
@@ -11,6 +13,7 @@ import views.Drawable;
 import views.flyweight.GiftImage;
 
 import java.awt.geom.Point2D;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,10 +77,10 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
 
     @Override
     public void destroy() {
-        /*final URL resource = getClass().getResource("/music/giftSound.mp3");
+        final URL resource = getClass().getResource("/music/giftSound.mp3");
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();*/
+        mediaPlayer.play();
         getObservers().forEach(n -> ((LifeObserver) n).notifyFuneralOf(Gift.this));
     }
 
