@@ -28,7 +28,7 @@ public class AbstractEngine implements Engine {
         // x = vo *t+0.5*a*t^2
         object.setPosition(xDistance, yDistance);
         velocity += acceleration;//v = vo + a
-        System.out.println(velocity);
+        //System.out.println(velocity);
         //object.setVelocity(velocity);
     }
 
