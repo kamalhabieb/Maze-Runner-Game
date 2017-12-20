@@ -23,6 +23,7 @@ import views.Drawable;
 import views.GameGUI.GameGUI;
 import views.GameGUI.InfoGUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,6 @@ public class MainPlayController implements Initializable, DrawObserver {
     private Canvas canvas;
     @FXML
     private Canvas staticCanvas;
-    @FXML
-    private Label yarab;
 
     public static Facade facade;
 
@@ -48,9 +47,6 @@ public class MainPlayController implements Initializable, DrawObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //GUI COMPONENTS INITIALIZATION COMES FIRST
-
-        yarab.setLayoutX(1100);
-        yarab.setLayoutY(50);
         canvas.setLayoutX(850);
         canvas.setLayoutY(500);
         //todo Get constants not numbers
@@ -110,20 +106,16 @@ public class MainPlayController implements Initializable, DrawObserver {
             facade.fireWeapon();
         } else if (keyEvent.getCode() == KeyCode.RIGHT) {
             facade.excute(CommandFactory.getCommand(moveEast));
-            yarab.setLayoutX(yarab.getLayoutX() + CAMERA_MOVE);
             translateCamera();
         } else if (keyEvent.getCode() == KeyCode.LEFT) {
             facade.excute(CommandFactory.getCommand(moveWest));
-            yarab.setLayoutX(yarab.getLayoutX() - CAMERA_MOVE);
             translateCamera();
         } else if (keyEvent.getCode() == KeyCode.UP) {
             facade.excute(CommandFactory.getCommand(moveNorth));
-            yarab.setLayoutY(yarab.getLayoutX() + CAMERA_MOVE);
             translateCamera();
 
         } else if (keyEvent.getCode() == KeyCode.DOWN) {
             facade.excute(CommandFactory.getCommand(moveSouth));
-            yarab.setLayoutY(yarab.getLayoutX() - CAMERA_MOVE);
             translateCamera();
 
         }
@@ -133,22 +125,26 @@ public class MainPlayController implements Initializable, DrawObserver {
             GameGUI.camera.setTranslateZ(GameGUI.camera.getTranslateZ() - CAMERA_MOVE - 20);
         } else if (keyEvent.getCode() == KeyCode.W) {
             if (!(GameGUI.camera.getTranslateY() - CAMERA_MOVE < 900 / 2)) {
-                GameGUI.camera.setTranslateY(GameGUI.camera.getTranslateY() - CAMERA_MOVE);
+                GameGUI.camera.setTranslateY(GameGUI.camera.getTranslateY() - CAMERA_MOVE - 5);
             }
         } else if (keyEvent.getCode() == KeyCode.S) {
-            GameGUI.camera.setTranslateY(GameGUI.camera.getTranslateY() + CAMERA_MOVE);
+            GameGUI.camera.setTranslateY(GameGUI.camera.getTranslateY() + CAMERA_MOVE + 5);
         } else if (keyEvent.getCode() == KeyCode.A) {
             if (!(GameGUI.camera.getTranslateX() - CAMERA_MOVE < 1366 / 2)) {
-                GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() - CAMERA_MOVE);
+                GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() - CAMERA_MOVE - 5);
             }
         } else if (keyEvent.getCode() == KeyCode.D) {
-            GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() + CAMERA_MOVE);
+            GameGUI.camera.setTranslateX(GameGUI.camera.getTranslateX() + CAMERA_MOVE + 5);
         }
 
         if(keyEvent.getCode() == KeyCode.TAB) {
             info = new InfoGUI();
             infoIsOpenned = true;
-            info.start(new Stage());
+            try {
+                info.start(new Stage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
 
