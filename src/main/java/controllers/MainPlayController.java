@@ -106,6 +106,11 @@ public class MainPlayController implements Initializable, DrawObserver {
 
     }
 
+    @Override
+    public void notifyDrawWin(ArrayList<Drawable> drawables) {
+
+    }
+
     public void onKeyPressed(KeyEvent keyEvent) {
 
         if (keyEvent.getCode() == KeyCode.SPACE) {
