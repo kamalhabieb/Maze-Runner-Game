@@ -119,6 +119,7 @@ public class MainPlayController implements Initializable, DrawObserver {
 
     @Override
     public void notifyDrawWin(ArrayList<Drawable> drawables) {
+        System.out.println("win");
 
     }
 

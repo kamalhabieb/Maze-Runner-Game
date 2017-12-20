@@ -124,12 +124,12 @@ public class GameMaze implements Maze {
                 = space;
         if (object instanceof Wall) {
             if (((Wall) object).isBreakable()) {
-                bombsGiftsArray.add(object);
+                bombsGiftsArray.remove(object);
             } else {
-                wallsArray.add(object);
+                wallsArray.remove(object);
             }
         } else
-            bombsGiftsArray.add(object);
+            bombsGiftsArray.remove(object);
         return true;
     }
 
@@ -144,12 +144,12 @@ public class GameMaze implements Maze {
         mazeArray[x][y] = space;
         if (object instanceof Wall) {
             if (((Wall) object).isBreakable()) {
-                bombsGiftsArray.add(object);
+                bombsGiftsArray.remove(object);
             } else {
-                wallsArray.add(object);
+                wallsArray.remove(object);
             }
         } else
-            bombsGiftsArray.add(object);
+            bombsGiftsArray.remove(object);
         return true;
 
     }
