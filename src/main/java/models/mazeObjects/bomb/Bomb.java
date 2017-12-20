@@ -1,6 +1,8 @@
 package models.mazeObjects.bomb;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import models.Observer.Observed;
 import models.Observer.Observer;
 import models.charcter.AliveObject;
@@ -13,6 +15,7 @@ import views.flyweight.BombImage;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,6 +110,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();*/
+        //todo el music ahe, uncomment
     }
 
     @Override
@@ -153,9 +157,12 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     @Override
     public void visit(Host host) {
         try {
-            AliveObject aliveObject = (AliveObject) host;
-            aliveObject.affectHealthBy(this.getDamageRate());
-            destroy();
+            if(!isCovered) {
+                AliveObject aliveObject = (AliveObject) host;
+                aliveObject.affectHealthBy(this.getDamageRate());
+                explode();
+                destroy();
+            }
         } catch (ClassCastException e) {
             //TODO handle object is not alive
         }
@@ -164,7 +171,12 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
 
     @Override
     public Image getImage() {
-        return BombImage.getImage();
+        if(this.isCovered) {
+            return BombImage.getImage(BombImage.Covered);
+        }
+        else {
+            return BombImage.getImage(BombImage.unCovered);
+        }
     }
 
     @Override

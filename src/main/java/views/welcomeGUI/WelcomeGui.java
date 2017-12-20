@@ -25,6 +25,7 @@ public class WelcomeGui extends Application {
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();*/
+        //todo elmedia ahe, uncomment
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);

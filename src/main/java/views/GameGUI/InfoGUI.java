@@ -41,7 +41,7 @@ public class InfoGUI extends Application {
 
         int playerHealth = MainPlayController.facade.getMetadata().getHealth();
         int playerAmmo = MainPlayController.facade.getMetadata().getAmmo();
-        int playerLives = MainPlayController.facade.getMetadata().getLives() + 1;
+        int playerLives = MainPlayController.facade.getMetadata().getLives();
         int playerScore = MainPlayController.facade.getMetadata().getScore();
         //Label health = new Label(String.valueOf(playerHealth));health.setTranslateX(0);health.setTranslateY(0);
         Label healthBar = new Label();healthBar.setTranslateX(40);healthBar.setTranslateY(-300);

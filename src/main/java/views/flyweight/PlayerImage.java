@@ -33,10 +33,7 @@ public class PlayerImage {
     public static Image getImage(String state) {
         switch (state) {
             case shooting:
-                /*final URL resource = getClass().getResource("/music/shootSound.mp3");
-        final Media media = new Media(resource.toString());
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();*/
+
                 return shootingImage;
             case IDLE:
                 return idleImage;
