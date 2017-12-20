@@ -25,8 +25,14 @@ public class AmmoGift extends Gift {
 
     @Override
     public boolean affectHealthBy(int effect) {
-        //TODO gift can be visited
-        throw new RuntimeException();
+        if (isCovered) {
+            this.isCovered = false;
+            return true;
+        } else {
+            destroy();
+            return true;
+        }
+
     }
 
     @Override

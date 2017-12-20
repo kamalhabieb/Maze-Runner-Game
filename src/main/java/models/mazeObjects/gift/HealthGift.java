@@ -24,10 +24,13 @@ public class HealthGift  extends Gift implements Visitor{
 
     @Override
     public boolean affectHealthBy(int effect) {
-        //TODO gift can be visited ?
-
-        destroy();
-        return true;
+        if (isCovered) {
+            this.isCovered = false;
+            return false;
+        } else {
+            destroy();
+            return true;
+        }
     }
 
 

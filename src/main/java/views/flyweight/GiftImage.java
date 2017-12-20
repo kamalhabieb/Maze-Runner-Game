@@ -9,8 +9,8 @@ public class GiftImage {
     private static final Image box;
 
     static {
-        image = new Image(BombImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/gift.png"));
-        box = new Image(BombImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/box.png"));
+        image = new Image(GiftImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/gift.png"));
+        box = new Image(GiftImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/box.png"));
     }
 
     public static Image getImage(String state) {

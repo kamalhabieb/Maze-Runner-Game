@@ -74,10 +74,10 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
     @Override
     public Image getImage() {
         if(this.isCovered) {
-            return BombImage.getImage(BombImage.Covered);
+            return GiftImage.getImage(GiftImage.Covered);
         }
         else {
-            return BombImage.getImage(BombImage.unCovered);
+            return GiftImage.getImage(GiftImage.unCovered);
         }
     }
 
