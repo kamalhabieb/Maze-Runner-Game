@@ -24,19 +24,24 @@ public class HealthGift  extends Gift implements Visitor{
 
     @Override
     public boolean affectHealthBy(int effect) {
-        //TODO gift can be visited ?
-
-        destroy();
-        return true;
+        if (isCovered) {
+            this.isCovered = false;
+            return false;
+        } else {
+            destroy();
+            return true;
+        }
     }
 
 
     @Override
     public void visit(Host host) {
         try{
-            AliveObject aliveObject = (AliveObject) host;
-            aliveObject.affectHealthBy(type * 20);
-            destroy();
+            if(!isCovered) {
+                AliveObject aliveObject = (AliveObject) host;
+                aliveObject.affectHealthBy(type * 20);
+                destroy();
+            }
         }catch (ClassCastException e){
             //TODO handle the host is not alive
         }

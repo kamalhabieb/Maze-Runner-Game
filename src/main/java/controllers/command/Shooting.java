@@ -11,7 +11,7 @@ public class Shooting implements Command {
 
     @Override
     public void execute(final Receiver receiver) {
-        receiver.setState(StateFactory.getState(shooting));
+        //receiver.setState(StateFactory.getState(shooting));
         receiver.shoot();
     }
 
