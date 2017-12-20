@@ -188,8 +188,15 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
         Image image = ExplosionImage.getImage();
         super.imageWidth = (int) image.getWidth();
         super.setAnimated(true, 31);
+        super.setCyclicAnimation(false);
         super.setCoordinates();
         return image;
+    }
+
+    @Override
+    public void finishAnimation() {
+        super.finishAnimation();
+        destroy();
     }
 
     @Override
