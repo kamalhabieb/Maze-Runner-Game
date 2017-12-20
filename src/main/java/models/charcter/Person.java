@@ -59,6 +59,8 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     @Override
     public void setPosition(final double x, final double y) {
         position.setLocation(x, y);
+        destinationX = x;
+        destinationY = y;
     }
 
     @Override

@@ -2,10 +2,9 @@ package models.facade;
 
 import controllers.command.Command;
 import controllers.command.Receiver;
-import javafx.geometry.Point2D;
 import models.Observer.Observed;
 import models.charcter.*;
-import models.charcter.weapons.bullets.Bullet;
+import models.charcter.autonomous.Moth;
 import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.monsters.Monster;
 import models.charcter.monsters.MonstersFactory;
@@ -17,19 +16,21 @@ import models.maze.InvalidPositionException;
 import models.maze.Maze;
 import models.maze.MazeObject;
 import models.mazeObjects.Host;
-import models.mazeObjects.ObjectsFactory;
 import models.mazeObjects.Visitor;
 import models.mazeObjects.space.Space;
+import models.search.Graph;
+import models.search.MatrixGraph;
+import models.search.Path;
 import models.wall.Wall;
 import views.Drawable;
 
+import java.awt.geom.Point2D;
 import java.util.Random;
 
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
@@ -71,7 +72,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     @Override
     public void notifyNewTick() {
         player.update(gameEngine);
-        //monsters.stream().forEach(n -> n.update(gameEngine));
+        monsters.stream().forEach(n -> n.update(gameEngine));
         populateDrawables();
         updateMetadata();
         notifyDraw();
@@ -91,9 +92,9 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         drawables.clear();
         // drawables.addAll(filterWalls(mazeG.getMazeObjectsArray()));
         drawables.addAll(mazeG.getBombsGiftsArray());
-        drawables.addAll( bullets);
+        drawables.addAll(bullets);
         drawables.add(player);
-        //drawables.addAll(monsters);
+        drawables.addAll(monsters);
     }
 
     private Collection<? extends Drawable> filterWalls(final ArrayList<Drawable> mazeObjectsArray) {
@@ -122,6 +123,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
         this.monstersPositions(configuration.getListOfTakenPositions());
+        monsters.forEach(n -> player.draw((Moth) n));
         observe(mazeG.getBombsGiftsArray());
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
@@ -147,7 +149,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     @Override
-    public boolean grantPermission(final Host host, final java.awt.geom.Point2D newPosition) {
+    public boolean grantPermission(final Host host, final Point2D newPosition) {
         MazeObject mazeObject;
         MazeObject mazeObject_2 = new Space();
         int x = (int) newPosition.getX();
@@ -254,6 +256,12 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
     }
 
+    @Override
+    public Path getPath(final Point2D position, final Point2D position1) {
+        return mazeG.getPath(position, position1);
+    }
+
+
     public void registerObserver(DrawObserver observer) {
         drawObservers.add(observer);
     }
@@ -274,8 +282,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             Point ghostPosition = new Point(x, y);
             if (!listOfTakenPositions.contains(ghostPosition)) {
                 listOfTakenPositions.add(ghostPosition);
-                monsters.get(i).setDestinationX(x);
-                monsters.get(i).setDestinationY(y);
+                monsters.get(i).setDestinationX(x * Integer.parseInt((String) gameInfo.get("cell_width")));
+                monsters.get(i).setDestinationY(y * Integer.parseInt((String) gameInfo.get("cell_width")));
             } else i--;
         }
     }

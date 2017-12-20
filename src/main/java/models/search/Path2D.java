@@ -1,4 +1,4 @@
-package models.charcter.autonomous;
+package models.search;
 
 import models.charcter.states.Directions;
 import models.charcter.states.MoveEast;
@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Path {
+public class Path2D implements Path {
     private final ArrayList<Point2D> path;
-    private final Iterator iterator;
+    private  Iterator iterator;
     private Point2D curr;
     private Point2D next;
 
-    Path(final ArrayList<Point2D> path) {
+    Path2D(final ArrayList<Point2D> path) {
         this.path = path;
         iterator = path.iterator();
+        if(this.path.isEmpty()) return;
         next = (Point2D) iterator.next();
     }
 
@@ -25,6 +26,11 @@ public class Path {
         if (!result) return Directions.reset;
         return GPS.getDirection(curr, next);
 
+    }
+
+    @Override
+    public Point2D getNextTarget() {
+        return next;
     }
 
     private boolean setElements() {
