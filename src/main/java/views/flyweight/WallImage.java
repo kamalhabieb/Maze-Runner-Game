@@ -6,8 +6,8 @@ public class WallImage {
 
     public final static String unBreakable = "/images/RegularMode/mazeObjects/mainwall.png";
     public final static String breakable = "/images/RegularMode/mazeObjects/breakable.png"; //wall health [76,100]
-//    public final static String breakingState1 = "/RegularMode/mazeObjects/.png";//wall health [51,75]
-//    public final static String breakingState2 = "/RegularMode/mazeObjects/.png";//wall health [26,50]
+    public final static String breakingState1 = "/RegularMode/mazeObjects/.png";//wall health [51,75]
+    public final static String breakingState2 = "/RegularMode/mazeObjects/.png";//wall health [26,50]
 
     private static final Image unBreakableImage;
     private static final Image breakableImage;
