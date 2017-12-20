@@ -3,6 +3,7 @@ package models.charcter.monsters;
 import javafx.scene.image.Image;
 import models.charcter.Person;
 import models.facade.ControlTower;
+import views.flyweight.MonsterImage;
 import views.flyweight.PlayerImage;
 
 import java.awt.*;
@@ -20,7 +21,7 @@ public abstract class Monster extends Person {
         setDestinationHeight(30);
         setSrcWidth(33);
         setSrcHeight(50);
-        return PlayerImage.getImage(PlayerImage.IDLE);
+        return MonsterImage.getImage(MonsterImage.IDLE);
     }
 
     @Override

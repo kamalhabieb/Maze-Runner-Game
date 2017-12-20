@@ -8,11 +8,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1366.0" styleClass="anchorMaze" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.mainPlayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1366.0" styleClass="anchorMaze" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.MainPlayController">
   <children>
-    <Canvas fx:id="canvas" height="200.0" layoutX="361.0" layoutY="210.0" scaleX="3.235" scaleY="2.41" width="200.0" />
-    <Canvas id="canvas" fx:id="staticCanvas" height="200.0" layoutX="583.0" layoutY="350.0" scaleX="3.235" scaleY="2.41" width="200.0" />
+    <Canvas id="canvas" fx:id="staticCanvas" height="900.0" layoutX="583.0" layoutY="350.0" scaleX="3.235" scaleY="2.41" width="1366.0" />
+    <Canvas fx:id="canvas" height="900.0" layoutX="583.0" layoutY="350.0" scaleX="3.235" scaleY="2.41" width="1366.0" />
   </children>
   <stylesheets>
     <URL value="@welcomeStyle.css" />

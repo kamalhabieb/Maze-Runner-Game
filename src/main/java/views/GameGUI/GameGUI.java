@@ -1,20 +1,17 @@
 package views.GameGUI;
 
-import controllers.mainPlayController;
+import controllers.MainPlayController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class GameGUI extends Application {
 
-    private mainPlayController controller;
+    private MainPlayController controller;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,12 +20,13 @@ public class GameGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Game.fxml"));
         Scene scene = new Scene(loader.load());
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        controller  = (mainPlayController)loader.getController();
+        controller  = (MainPlayController)loader.getController();
 
         scene.setOnKeyPressed(controller::onKeyPressed);
         scene.setOnKeyReleased(controller::onKeyReleased);
@@ -38,10 +36,7 @@ public class GameGUI extends Application {
         camera.setFarClip(10000);
         camera.setTranslateX(primaryStage.getWidth()/2);
         camera.setTranslateY(primaryStage.getHeight()/2);
-
         camera.setFieldOfView(30);
-
-
         scene.setCamera(camera);
         //primaryStage.setFullScreen(true);
 

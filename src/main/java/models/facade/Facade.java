@@ -160,7 +160,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             System.out.println(y);
 */
             String state = player.getState().getClass().getSimpleName();
-            System.out.println(state);
+            //System.out.println(state);
             if (state.equalsIgnoreCase("moveeast")) {
                 x = x + cellSize;
                 if (y % cellSize >= cellSize - offset) {//Offset
