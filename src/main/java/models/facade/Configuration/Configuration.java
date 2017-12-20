@@ -53,13 +53,19 @@ public class Configuration {
     public Maze loadConfiguration() {
         MazeBuilder builder = new MazeBuilder();
 
+        boolean tempFlag = true;
         builder.setStartPoint(startPoint);
         builder.setEndPoint(endPoint);
-        /*Adding Bombs to MazeBuilder in Random valid positions*/
+        /*Adding Walls to MazeBuilder in Random valid positions*/
         for (int i = 0; i < listOfTakenPositions.size(); i++) {
+            Point pos = listOfTakenPositions.get(i);
             Wall wall = new WallCell();
             wall.setBreakable(false);
-            Point pos = listOfTakenPositions.get(i);
+
+            int breakableProbability = rand.nextInt(101);
+            if (breakableProbability>=85 && notBorder(pos))
+                wall.setBreakable(true);
+
             setPositionOf((Drawable) wall,pos);
             builder.addMazeObject(wall, pos);
         }
@@ -107,6 +113,18 @@ public class Configuration {
         }
         builder.setCellSize(cellWidth);
         return builder.buildMaze();
+    }
+
+    private boolean notBorder(Point point) {
+        int x = point.x;
+        int y= point.y;
+        int offset =2;
+        if (x > (startPoint.x +offset) &&  x< (endPoint.x -offset) && y >(startPoint.y+offset) && y< (endPoint.y-offset) )
+        {
+                return true;
+        }
+
+        return false;
     }
 
     private void setPositionOf(final Drawable drawable, final Point pos) {
