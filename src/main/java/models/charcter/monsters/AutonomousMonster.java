@@ -2,6 +2,7 @@ package models.charcter.monsters;
 
 import models.charcter.autonomous.Moth;
 import models.charcter.states.Directions;
+import models.charcter.states.State;
 import models.charcter.states.StateFactory;
 import models.engine.Engine;
 import models.facade.ControlTower;
@@ -15,8 +16,16 @@ public abstract class AutonomousMonster extends Monster implements Moth {
 
     public AutonomousMonster(final ControlTower controlTower) {
         super(controlTower);
+        setVelocity(1);
     }
 
+    @Override
+    public void setPosition(final double x, final double y) {
+        if (controlTower.grantPermission(this, new Point2D.Double(x, y))) {
+            super.setPosition(x, y);
+        }
+
+    }
 
     @Override
     public void setPathToFlame(final Path path) {
@@ -33,11 +42,22 @@ public abstract class AutonomousMonster extends Monster implements Moth {
             setState(StateFactory.getState(path.getNextDirection()));
             started = true;
         }
+        if(next == null){
+            setState(StateFactory.getState(Directions.reset));
+        }
     }
 
     @Override
     public void update(final Engine engine) {
         goToFlame();
         super.update(engine);
+    }
+
+    @Override
+    public void setState(final State state) {
+        super.setState(state);
+        if (state.getType().equals(Directions.reset)) {
+            controlTower.drawToFlame(this);
+        }
     }
 }
