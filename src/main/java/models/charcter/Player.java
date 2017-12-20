@@ -107,4 +107,5 @@ public class Player extends Person implements PlayerObserver, Observed, Flame {
         Path path = controlTower.getPath( this.getPosition(), moth.getPosition());
         moth.setPathToFlame(path);
     }
+    public int getLives(){return this.lives;}
 }
