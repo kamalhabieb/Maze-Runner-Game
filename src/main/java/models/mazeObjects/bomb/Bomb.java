@@ -159,11 +159,10 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     @Override
     public void visit(Host host) {
         try {
-            if(!isCovered) {
+            if (!isCovered) {
                 AliveObject aliveObject = (AliveObject) host;
                 aliveObject.affectHealthBy(this.getDamageRate());
-                explode();
-                destroy();
+                isExploded = true;
             }
         } catch (ClassCastException e) {
             //TODO handle object is not alive
@@ -173,23 +172,22 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
 
     @Override
     public Image getImage() {
-        if(this.isCovered) {
+        if (this.isCovered) {
             return BombImage.getImage(BombImage.Covered);
-        }
-        else {
-        if(!isExploded) {
-            return BombImage.getImage(BombImage.unCovered);
-        }
-        else{
-            return getExplosionImage();
+        } else {
+            if (!isExploded) {
+                return BombImage.getImage(BombImage.unCovered);
+            } else {
+                //destroy();
+                return getExplosionImage();
+            }
         }
     }
 
-    public Image getExplosionImage(){
+    private Image getExplosionImage() {
         Image image = ExplosionImage.getImage();
         super.imageWidth = (int) image.getWidth();
-        super.setAnimated(true,32);
-
+        super.setAnimated(true, 40);
         super.setCoordinates();
         return image;
     }
