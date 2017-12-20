@@ -82,6 +82,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         metadata.setAmmo(player.getAmmo());
         metadata.setHealth(player.getHealth());
         metadata.setScore(player.getScore());
+        metadata.setLives(player.getLives());
     }
 
     public void notifyDraw() {
