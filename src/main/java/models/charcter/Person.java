@@ -31,7 +31,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
     private int acceleration;
     protected State state;
     protected ControlTower controlTower;
-    private int lives;
+    protected int lives;
 
     public Person(ControlTower controlTower) {
         this.controlTower = controlTower;
@@ -39,6 +39,7 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         position = new Point2D.Double();
         state = StateFactory.getState(Directions.reset);
         weapon = new Gun();
+        this.lives = 1;
     }
 
     @Override
