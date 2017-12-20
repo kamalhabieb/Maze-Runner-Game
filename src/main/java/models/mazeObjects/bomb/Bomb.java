@@ -12,6 +12,7 @@ import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.BombImage;
+import views.flyweight.ExplosionImage;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -30,6 +31,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     private long triggeringStartTime;
     private boolean isCovered = true;
     private List<Observer> observers;
+    private boolean isExploded = false;
 
     public Bomb(int type, Point pos) {
         if (type == 0) {
@@ -175,8 +177,21 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
             return BombImage.getImage(BombImage.Covered);
         }
         else {
+        if(!isExploded) {
             return BombImage.getImage(BombImage.unCovered);
         }
+        else{
+            return getExplosionImage();
+        }
+    }
+
+    public Image getExplosionImage(){
+        Image image = ExplosionImage.getImage();
+        super.imageWidth = (int) image.getWidth();
+        super.setAnimated(true,32);
+
+        super.setCoordinates();
+        return image;
     }
 
     @Override
