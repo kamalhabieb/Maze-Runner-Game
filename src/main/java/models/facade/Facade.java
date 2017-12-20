@@ -56,6 +56,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private BigBen clockTower;
     private Properties gameInfo;
     private GameMetadata metadata;
+    private boolean lose = false;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -85,6 +86,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void notifyDraw() {
         drawObservers.stream().forEach(n -> n.notifyDraw(drawables));
+    }
+
+    public void notifyLose() {
+        drawObservers.stream().forEach(n -> n.notifyDrawGameOver(drawables));
     }
 
     public void populateDrawables() {
@@ -235,7 +240,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     @Override
     public void notifyFuneralOf(final AliveObject wasAlive) {
-        if (wasAlive == player) {
+        if (wasAlive instanceof Player) {
             lose();
         }
         try {
@@ -246,12 +251,12 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     private void lose() {
-        
+        notifyLose();
     }
 
     @Override
     public void notifyResurrectionOf(final AliveObject wasDead) {
-        if (wasDead == player) {
+        if (wasDead instanceof Player) {
             player.setDestinationX((int) ((Player) wasDead).getPosition().getX());
             player.setDestinationY((int) ((Player) wasDead).getPosition().getY());
         }
