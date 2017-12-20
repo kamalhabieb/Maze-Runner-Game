@@ -13,7 +13,7 @@ public class PlayerImage {
         public static final String EAST = "/images/RegularMode/characterIslam/right/characterRun.png";
         public static final String WEST = "/images/RegularMode/characterIslam/left/characterWalk.png";
         public static final String DIE = "/images/RegularMode/characterIslam/right/characterDead.png";
-        public static final String WIN = "/images/RegularMode/characterIslam/right/characterDead.png";
+        public static final String WIN = "/images/RegularMode/characterIslam/right/characterHit.png";
 
 
     public static final String shooting = "/images/RegularMode/characterIslam/right/characterShoot.png";
@@ -58,6 +58,8 @@ public class PlayerImage {
             case SOUTH:
                 return downImage;
             case DIE:
+                return dieImage;
+            case WIN:
                 return dieImage;
             default:
                 return idleImage;

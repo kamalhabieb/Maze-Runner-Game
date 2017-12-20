@@ -13,7 +13,8 @@ public class Win extends AbstractState {
 
     @Override
     public Image getImage() {
-        return PlayerImage.getImage(PlayerImage.WIN);    }
+        return PlayerImage.getImage(PlayerImage.WIN);
+    }
 
     @Override
     public Directions getType() {

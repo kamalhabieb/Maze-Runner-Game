@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 
 import static models.charcter.states.Directions.die;
 import static models.charcter.states.Directions.movingEast;
+import static models.charcter.states.Directions.win;
 
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
@@ -115,6 +116,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     private void notifyWin() {
+        player.setState(StateFactory.getState(win));
         drawObservers.stream().forEach(n -> n.notifyDrawWin(drawables));
     }
 
@@ -270,7 +272,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         if (host instanceof Player) {
             int endPointX = Integer.parseInt(gameInfo.getProperty(END_POINT_X));
             int endPointY = Integer.parseInt(gameInfo.getProperty(END_POINT_Y));
-            if (endPointX == newPosition.getX() && endPointY == newPosition.getY()) {
+            if (endPointX == newPosition.getX()/cellSize && endPointY == newPosition.getY()/cellSize) {
                 return true;
             }
         }
