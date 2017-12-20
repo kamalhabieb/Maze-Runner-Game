@@ -124,9 +124,9 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
 
     @Override
     public void destroy() {
-        controlTower.notifyFuneralOf(this);
         lives--;
         if (lives > 0) revive();
+        else controlTower.notifyFuneralOf(this);
     }
 
     @Override

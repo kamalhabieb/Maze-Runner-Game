@@ -18,8 +18,6 @@ import models.maze.MazeObject;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import models.mazeObjects.space.Space;
-import models.search.Graph;
-import models.search.MatrixGraph;
 import models.search.Path;
 import models.wall.Wall;
 import views.Drawable;
@@ -248,13 +246,15 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     private void lose() {
-        //TODO implement lose scenario
+        
     }
 
     @Override
     public void notifyResurrectionOf(final AliveObject wasDead) {
-        player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
-        player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
+        if (wasDead == player) {
+            player.setDestinationX((int) ((Player) wasDead).getPosition().getX());
+            player.setDestinationY((int) ((Player) wasDead).getPosition().getY());
+        }
     }
 
     @Override
