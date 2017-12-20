@@ -12,6 +12,8 @@ public class StateFactory {
                 return new MoveNorth();
             case movingSouth:
                 return new MoveSouth();
+            case die:
+                return new Die();
             default:
                 return new Reset();
         }

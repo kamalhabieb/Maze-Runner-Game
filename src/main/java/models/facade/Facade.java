@@ -6,6 +6,7 @@ import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.autonomous.Flame;
 import models.charcter.autonomous.Moth;
+import models.charcter.states.StateFactory;
 import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.monsters.Monster;
@@ -33,6 +34,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
+
+import static models.charcter.states.Directions.die;
+import static models.charcter.states.Directions.movingEast;
 
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
@@ -105,7 +109,9 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     public void notifyLose() {
+        player.setState(StateFactory.getState(die));
         drawObservers.stream().forEach(n -> n.notifyDrawGameOver(drawables));
+
     }
 
     private void notifyWin() {
