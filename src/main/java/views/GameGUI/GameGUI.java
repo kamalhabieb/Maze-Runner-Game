@@ -2,10 +2,13 @@ package views.GameGUI;
 
 import controllers.MainPlayController;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -30,6 +33,12 @@ public class GameGUI extends Application {
 
         scene.setOnKeyPressed(controller::onKeyPressed);
         scene.setOnKeyReleased(controller::onKeyReleased);
+
+        primaryStage.setOnCloseRequest(t -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
         camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-2400);
         camera.setNearClip(0.1);
