@@ -21,7 +21,7 @@ public class Gun implements Weapon {
     static {
         properties.put(DAMAGE_RATE, 10);
         properties.put(LIFETIME, 3000);
-        properties.put(VELOCITY, 50);
+        properties.put(VELOCITY, 100);
         properties.put(ACCELERATION, 0);
     }
 

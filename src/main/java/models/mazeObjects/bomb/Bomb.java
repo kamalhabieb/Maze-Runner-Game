@@ -101,13 +101,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
 
     @Override
     public void explode() {
-        //mario, e3mel el function di 3andak 3ashan mesh had5ol classak 3ashan el conflicts
-        // TODO: 11/12/17
-        /*ArrayList<MazeObject> affectedCells = ControlTower.getAffectedRigion(type, getPosition());
-        for(int i = 0; i < affectedCells.size(); i++) {
-            this.visit(affectedCells.get(i));
-        }*/
-        // TODO: 11/12/17 (DO onExplodeFunction to remove bomb from 2D Array)
+        isExploded = true;
         /*final URL resource = getClass().getResource("/music/bombSound.mp3");
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -139,10 +133,11 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     @Override
     public boolean affectHealthBy(int effect) {
         this.health = 0;
-        this.isCovered = false;
-        // TODO: 11/12/17
-        //by update method, if currentTime-beginTime >= timer {Do this.explode}
-        this.triggeringStartTime = System.currentTimeMillis();
+        if (this.isCovered) {
+            this.isCovered = false;
+        } else {
+            explode();
+        }
         return true;
     }
 
@@ -162,7 +157,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
             if (!isCovered) {
                 AliveObject aliveObject = (AliveObject) host;
                 aliveObject.affectHealthBy(this.getDamageRate());
-                isExploded = true;
+                explode();
             }
         } catch (ClassCastException e) {
             //TODO handle object is not alive
@@ -178,7 +173,6 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
             if (!isExploded) {
                 return BombImage.getImage(BombImage.unCovered);
             } else {
-                //destroy();
                 return getExplosionImage();
             }
         }

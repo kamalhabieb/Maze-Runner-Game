@@ -40,6 +40,7 @@ public abstract class ObjectPool<T> {
         }
         // no objects available, create a new one
         t = create();
+        adjust(t);
         locked.add(t);
         return (t);
     }
