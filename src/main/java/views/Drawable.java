@@ -15,6 +15,7 @@ public abstract class Drawable {
     private int destinationHeight;
     private int animationIndex = 0;
     protected int imageWidth;
+    private boolean cyclicAnimation = true;
 
     public int getSrcWidth() {
         return srcWidth;
@@ -90,6 +91,14 @@ public abstract class Drawable {
         this.animationWidth = width;
     }
 
+    public boolean isCyclicAnimation() {
+        return cyclicAnimation;
+    }
+
+    public void setCyclicAnimation(final boolean cyclicAnimation) {
+        this.cyclicAnimation = cyclicAnimation;
+    }
+
     public boolean isAnimated() {
         return animated;
     }
@@ -107,12 +116,20 @@ public abstract class Drawable {
         if (animationIndex == 15) {
             int newX = (getSrcX() + getAnimationWidth());
             if (newX + getAnimationWidth() >= imageWidth) {
-                setSrcX(0);
+                if(cyclicAnimation) {
+                    setSrcX(0);
+                }else{
+                    finishAnimation();
+                }
             } else {
                 setSrcX(newX);
             }
             animationIndex = 0;
         }
+    }
+
+    public void finishAnimation() {
+
     }
 
 }

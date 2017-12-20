@@ -29,12 +29,14 @@ import static controllers.command.CommandFactory.commands.*;
 public class MainPlayController implements Initializable, DrawObserver {
 
     private static final int CAMERA_MOVE = 2;
-    public static Facade facade;
-    private static InfoGUI info;
     @FXML
     private Canvas canvas;
     @FXML
     private Canvas staticCanvas;
+
+    public static Facade facade;
+
+    private static InfoGUI info;
     private boolean infoIsOpenned = false;
 
     private Set<KeyCode> keyCode;
@@ -43,22 +45,37 @@ public class MainPlayController implements Initializable, DrawObserver {
     public void initialize(URL location, ResourceBundle resources) {
         //GUI COMPONENTS INITIALIZATION COMES FIRST
         keyCode = new HashSet<>();
-        canvas.setLayoutX(850);
-        canvas.setLayoutY(500);
-        //todo Get constants not numbers
-        canvas.setWidth(31 * 30);
-        canvas.setHeight(31 * 30);
-
-        staticCanvas.setLayoutX(850);
-        staticCanvas.setLayoutY(500);
-        staticCanvas.setWidth(31 * 30);
-        staticCanvas.setHeight(31 * 30);
 
 
         facade = new Facade();
         facade.registerObserver(this);
-        facade.initializeGame(Facade.EASY);
+        switch (gameModeController.difficulty) {
+            case "easy":
+                facade.initializeGame(Facade.EASY);
+                break;
+            case "medium":
+                facade.initializeGame(Facade.MEDIUM);
+                break;
+            case "hard":
+                facade.initializeGame(Facade.HARD);
+                break;
+            default:
+                facade.initializeGame(Facade.MEDIUM);
+                break;
+
+
+        }
         translateCamera();
+        canvas.setLayoutX(850);
+        canvas.setLayoutY(500);
+        //todo Get constants not numbers
+        canvas.setWidth(facade.currentMazeWidth * 30);
+        canvas.setHeight(facade.currentMazeLength * 30);
+
+        staticCanvas.setLayoutX(850);
+        staticCanvas.setLayoutY(500);
+        staticCanvas.setWidth(facade.currentMazeWidth * 30);
+        staticCanvas.setHeight(facade.currentMazeLength * 30);
 
 
        /* facade.populateDrawables();
@@ -199,7 +216,7 @@ public class MainPlayController implements Initializable, DrawObserver {
     public void onKeyReleased(KeyEvent keyEvent) {
         keyCode.remove(keyEvent.getCode());
         facade.excute(CommandFactory.getCommand(idle));
-        if (infoIsOpenned) {
+        if(infoIsOpenned) {
             infoIsOpenned = false;
             try {
                 info.stop();

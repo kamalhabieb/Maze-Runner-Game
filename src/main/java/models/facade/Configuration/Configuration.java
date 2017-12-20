@@ -56,6 +56,7 @@ public class Configuration {
         boolean tempFlag = true;
         builder.setStartPoint(startPoint);
         builder.setEndPoint(endPoint);
+
         /*Adding Walls to MazeBuilder in Random valid positions*/
         for (int i = 0; i < listOfTakenPositions.size(); i++) {
             Point pos = listOfTakenPositions.get(i);
@@ -112,6 +113,8 @@ public class Configuration {
             } else i--;
         }
         builder.setCellSize(cellWidth);
+        builder.setLength(mazeLength);
+        builder.setWidth(mazeWidth);
         return builder.buildMaze();
     }
 

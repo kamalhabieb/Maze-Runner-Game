@@ -4,7 +4,9 @@ import controllers.command.Command;
 import controllers.command.Receiver;
 import models.Observer.Observed;
 import models.charcter.*;
+import models.charcter.autonomous.Flame;
 import models.charcter.autonomous.Moth;
+import models.charcter.states.StateFactory;
 import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.monsters.Monster;
@@ -33,6 +35,9 @@ import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
+import static models.charcter.states.Directions.die;
+import static models.charcter.states.Directions.movingEast;
+
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
     private Engine gameEngine;
@@ -41,8 +46,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private ArrayList<Monster> monsters;
     private ArrayList bullets;
     public static final String EASY = "/configurations/easy.configuration";
-    public final String MEDIUM = "/configurations/medium.configuration";
-    public final String HARD = "/configurations/easy.configuration";
+    public static final String MEDIUM = "/configurations/medium.configuration";
+    public static final String HARD = "/configurations/hard.configuration";
     public final String GAME_DIFFICULTY = "difficulty";
     public final String GAME_MODE = "game_mode";
     public final String MONSTERS_NUMBER = "number_of_monsters";
@@ -59,6 +64,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Properties gameInfo;
     private GameMetadata metadata;
     private ArrayBlockingQueue events;
+    public static int currentMazeLength;
+    public static int currentMazeWidth;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -98,11 +105,13 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     public void notifyDraw() {
-        drawObservers.stream().forEach(n -> n.notifyDraw((ArrayList<Drawable>)drawables.clone()));
+        drawObservers.stream().forEach(n -> n.notifyDraw((ArrayList<Drawable>) drawables.clone()));
     }
 
     public void notifyLose() {
+        player.setState(StateFactory.getState(die));
         drawObservers.stream().forEach(n -> n.notifyDrawGameOver(drawables));
+
     }
 
     private void notifyWin() {
@@ -149,6 +158,8 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         observe((ArrayList<MazeObject>) mazeG.getWallsArray().stream().filter(n-> ((Wall)n).isBreakable()).collect(Collectors.toList()));
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
+        this.currentMazeLength = mazeG.getHeight();
+        this.currentMazeWidth = mazeG.getWidth();
     }
 
     private void observe(final ArrayList<MazeObject> mazeObjectsArray) {
@@ -173,20 +184,17 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     @Override
     public boolean grantPermission(final Host host, final Point2D newPosition) {
         MazeObject mazeObject;
+
         MazeObject mazeObject_2 = new Space();
-        if (this.win(host, newPosition)){
+        if (this.win(host, newPosition)) {
             notifyWin();
             return true;
         }
         int x = (int) newPosition.getX();
         int y = (int) newPosition.getY();
         try {
-            // Changes TO Avoid Hitting a Wall
-           /* System.out.print(x + " ");
-            System.out.println(y);
-*/
+
             String state = player.getState().getClass().getSimpleName();
-            //System.out.println(state);
             if (state.equalsIgnoreCase("moveeast")) {
                 x = x + cellSize;
                 if (y % cellSize >= cellSize - offset) {//Offset
@@ -236,16 +244,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
                     y = y + cellSize;
                 }
             }
-          /*  System.out.print("1 ==>" +x + " ");
-            System.out.println(y);
-*/           /* x = (int) (newPosition.getX()/cellSize);
-            y = (int) (newPosition.getY()/cellSize);*/
+
             newPosition.setLocation(x / cellSize, y / cellSize);
             mazeObject = mazeG.getMazeObjectAtRelativePosition(newPosition);
 
-           /* System.out.print("2 ==>" +x + " ");
-            System.out.println(y);*/
-//            System.out.println(mazeObject);
 
         } catch (InvalidPositionException e) {
             return false;
@@ -257,16 +259,18 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             host.accept((Visitor) mazeObject);
             return true;
         }
-        return true;
+        if(mazeObject instanceof Space){
+            return true;
+        }
+        return false;
     }
 
 
-
     private boolean win(Host host, Point2D newPosition) {
-        if(host instanceof Player){
+        if (host instanceof Player) {
             int endPointX = Integer.parseInt(gameInfo.getProperty(END_POINT_X));
             int endPointY = Integer.parseInt(gameInfo.getProperty(END_POINT_Y));
-            if(endPointX == newPosition.getX() && endPointY == newPosition.getY()){
+            if (endPointX == newPosition.getX() && endPointY == newPosition.getY()) {
                 return true;
             }
         }
@@ -330,12 +334,12 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     @Override
     public void remove(BulletImpl bullet) {
-        events.add(new Runnable() {
-            @Override
-            public void run() {
-                bullets.remove(bullet);
-            }
-        });
+        events.add((Runnable) () -> bullets.remove(bullet));
+    }
+
+    @Override
+    public void drawToFlame(final Moth moth) {
+        events.add((Runnable) () -> player.draw(moth));
     }
 
 
