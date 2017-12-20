@@ -24,8 +24,8 @@ public class AmmoGift extends Gift {
 
     @Override
     public boolean affectHealthBy(int effect) {
-        //TODO gift can be visited
-        throw new RuntimeException();
+        destroy();
+        return true;
     }
 
     @Override
