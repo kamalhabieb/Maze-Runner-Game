@@ -1,5 +1,6 @@
 package models.mazeObjects.gift;
 
+import models.charcter.AliveObject;
 import models.charcter.Armored;
 import models.mazeObjects.Host;
 
@@ -31,11 +32,13 @@ public class AmmoGift extends Gift {
     @Override
     public void visit(Host host) {
         try {
-            Armored armored = (Armored) host;
-            armored.affectAmmo(type);
-            destroy();
+            if(!isCovered) {
+                Armored armored = (Armored) host;
+                armored.affectAmmo(type);
+                destroy();
+            }
         } catch (ClassCastException e) {
-            //TODO handle given a host that is not armored
+            //TODO handle object is not alive
         }
     }
 
