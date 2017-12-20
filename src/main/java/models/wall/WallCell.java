@@ -9,8 +9,7 @@ public class WallCell extends Drawable implements Wall  {
 
     private boolean breakable ;
     private int MAX_HEALTH=50;
-    private int HALF_HEALTH=50;
-    private int QUARTER_HEALTH=25;
+    private int HALF_HEALTH=25;
     private int MIN_HEALTH=0;
     private int health ;
 
@@ -60,9 +59,6 @@ public class WallCell extends Drawable implements Wall  {
             if (health<=HALF_HEALTH)
             {
                 return WallImage.getImage(WallImage.breakingState1);
-            }else if (health<=QUARTER_HEALTH)
-            {
-                return WallImage.getImage(WallImage.breakingState2);
             }
 
             return WallImage.getImage(WallImage.breakable);
