@@ -26,7 +26,8 @@ public class HealthGift  extends Gift implements Visitor{
     public boolean affectHealthBy(int effect) {
         //TODO gift can be visited ?
 
-        throw new RuntimeException();
+        destroy();
+        return true;
     }
 
 

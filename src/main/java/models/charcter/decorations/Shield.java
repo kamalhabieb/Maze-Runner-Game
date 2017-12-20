@@ -28,4 +28,9 @@ public class Shield extends AbstractDecoration {
         //TODO shield Image
         return null;
     }
+
+    @Override
+    public void shoot() {
+        person.shoot();
+    }
 }

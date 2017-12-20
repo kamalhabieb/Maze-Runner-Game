@@ -6,6 +6,8 @@ import models.charcter.states.Directions;
 import models.charcter.states.Machine;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
+import models.engine.Engine;
+import models.facade.ControlTower;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
@@ -20,13 +22,19 @@ public class BulletImpl extends Drawable implements Bullet, Visitor, Machine {
     private int velocity;
     private int acceleration;
     private State state;
+    private ControlTower controlTower;
 
-    public BulletImpl() {
+    public BulletImpl(ControlTower controlTower) {
+        this.controlTower = controlTower;
         position = new Point2D.Double();
         damageRate = 5;
         lifetime = 5;
         position = new Point2D.Double();
         state = StateFactory.getState(Directions.reset);
+        setDestinationWidth(30);
+        setDestinationHeight(30);
+        setSrcWidth(40);
+        setSrcHeight(40);
     }
 
     @Override
@@ -60,8 +68,31 @@ public class BulletImpl extends Drawable implements Bullet, Visitor, Machine {
     }
 
     @Override
+    public void update(Engine engine) {
+        state.update(this, engine);
+    }
+
+    @Override
     public void setPosition(final double x, final double y) {
-        position.setLocation(x, y);
+        if (controlTower.grantPermission(this, new Point2D.Double(x, y))) {
+            position.setLocation(x, y);
+            destinationX = x;
+            destinationY = y;
+        }else{
+            controlTower.remove(this);
+        }
+    }
+
+    @Override
+    public void setDestinationX(int destinationX) {
+        super.setDestinationX(destinationX);
+        position.setLocation(destinationX,position.getY());
+    }
+
+    @Override
+    public void setDestinationY(int destinationY) {
+        super.setDestinationY(destinationY);
+        position.setLocation(position.getX(),destinationY);
     }
 
     @Override

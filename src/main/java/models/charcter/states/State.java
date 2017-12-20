@@ -9,4 +9,6 @@ public interface State
     void update(Matter matter, Engine engine);
 
     Image getImage();
+
+    Directions getType();
 }

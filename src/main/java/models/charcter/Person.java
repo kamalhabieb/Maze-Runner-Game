@@ -134,14 +134,32 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         controlTower.notifyResurrectionOf(this);
     }
 
-    @Override
-    public BulletImpl fireWeapon() {
+
+    public Bullet fireWeapon() {
         try {
-            weapon.setPosition(this.position.getX(),this.position.getY());
-            return (BulletImpl) weapon.Shoot();
+            weapon.setPosition(this.getPosition().getX() + 2, this.getPosition().getY() + 2);
+            return weapon.Shoot(controlTower);
         } catch (NoRemainingAmmoException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void shoot() {
+        BulletImpl bullet = (BulletImpl) fireWeapon();
+        if (bullet == null) return;
+        State state;
+        if (isIdle()) {
+            state = StateFactory.getState(Directions.movingEast);
+        } else {
+            state = this.state;
+        }
+        controlTower.addBullet(bullet);
+        bullet.setState(state);
+    }
+
+    private boolean isIdle() {
+
+        return state.getType().equals(Directions.reset);
     }
 }

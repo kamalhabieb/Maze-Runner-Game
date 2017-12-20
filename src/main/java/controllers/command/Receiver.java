@@ -5,6 +5,5 @@ import models.charcter.weapons.bullets.Bullet;
 
 public interface Receiver {
     void setState(State state);
-
-    Bullet fireWeapon();
+    void shoot();
 }

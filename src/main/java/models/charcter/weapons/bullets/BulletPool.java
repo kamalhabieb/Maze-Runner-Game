@@ -1,5 +1,7 @@
 package models.charcter.weapons.bullets;
 
+import models.facade.ControlTower;
+
 import java.util.Properties;
 
 
@@ -13,10 +15,11 @@ public class BulletPool extends ObjectPool<Bullet> {
     public static final Object Y = "y";
     private static BulletPool bulletPool;
     private Properties properties;
+    private ControlTower controlTower;
 
     @Override
     protected Bullet create() {
-        return new BulletImpl();
+        return new BulletImpl(controlTower);
     }
 
     @Override
@@ -24,8 +27,9 @@ public class BulletPool extends ObjectPool<Bullet> {
         return o.getBirthtime() - System.currentTimeMillis() >= o.getLifetime();
     }
 
-    public Bullet checkOut(Properties properties) {
+    public Bullet checkOut(Properties properties,ControlTower controlTower) {
         this.properties = properties;
+        this.controlTower = controlTower;
         return checkOut();
     }
 

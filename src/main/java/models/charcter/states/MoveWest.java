@@ -17,4 +17,9 @@ public class MoveWest extends AbstractState {
     public Image getImage() {
         return PlayerImage.getImage(PlayerImage.WEST);
     }
+
+    @Override
+    public Directions getType() {
+        return Directions.movingWest;
+    }
 }

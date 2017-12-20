@@ -5,6 +5,7 @@ import controllers.command.Receiver;
 import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.autonomous.Moth;
+import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.monsters.Monster;
 import models.charcter.monsters.MonstersFactory;
@@ -18,8 +19,6 @@ import models.maze.MazeObject;
 import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import models.mazeObjects.space.Space;
-import models.search.Graph;
-import models.search.MatrixGraph;
 import models.search.Path;
 import models.wall.Wall;
 import views.Drawable;
@@ -31,6 +30,7 @@ import java.util.Random;
 import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
@@ -58,6 +58,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private BigBen clockTower;
     private Properties gameInfo;
     private GameMetadata metadata;
+    private ArrayBlockingQueue events;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -67,15 +68,26 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         clockTower.registerObserver(this);
         metadata = new GameMetadata();
         bullets = new ArrayList<>();
+        events = new ArrayBlockingQueue(1000);
     }
 
     @Override
     public void notifyNewTick() {
+        executeEvents();
         player.update(gameEngine);
         monsters.stream().forEach(n -> n.update(gameEngine));
+        for (Object bullet : bullets) {
+            ((Bullet) bullet).update(gameEngine);
+        }
         populateDrawables();
         updateMetadata();
         notifyDraw();
+    }
+
+    private void executeEvents() {
+        while (!events.isEmpty()) {
+            ((Runnable) events.poll()).run();
+        }
     }
 
     private void updateMetadata() {
@@ -85,7 +97,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     public void notifyDraw() {
-        drawObservers.stream().forEach(n -> n.notifyDraw(drawables));
+        drawObservers.stream().forEach(n -> n.notifyDraw((ArrayList<Drawable>)drawables.clone()));
     }
 
     public void populateDrawables() {
@@ -148,6 +160,13 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         command.execute((Receiver) player);
     }
 
+    public void excuteOnBullet(Command command) {
+        Bullet bullet = player.fireWeapon();
+        BulletImpl bulletImp = (BulletImpl) bullet;
+        bullets.add(bullet);
+        //command.executeBullet(bulletImp);
+    }
+
     @Override
     public boolean grantPermission(final Host host, final Point2D newPosition) {
         MazeObject mazeObject;
@@ -170,7 +189,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
                 } else if (y % cellSize > offset && y % cellSize < cellSize - offset) {
                     y = y - y % cellSize;
                     newPosition.setLocation(x / cellSize, y / cellSize);
-                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    mazeObject_2 = mazeG.getMazeObjectAtRelativePosition(newPosition);
                     y = y + cellSize;
 
                 }
@@ -183,7 +202,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
                 } else if (x % cellSize > vertical_offset && x % cellSize < cellSize - vertical_offset) {
                     x = x - x % cellSize;
                     newPosition.setLocation(x / cellSize, y / cellSize);
-                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    mazeObject_2 = mazeG.getMazeObjectAtRelativePosition(newPosition);
                     x = x + cellSize;
                 }
             } else if (state.equalsIgnoreCase("movenorth")) {
@@ -194,7 +213,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
                 } else if (x % cellSize > vertical_offset && x % cellSize < cellSize - vertical_offset) {
                     x = x - x % cellSize;
                     newPosition.setLocation(x / cellSize, y / cellSize);
-                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    mazeObject_2 = mazeG.getMazeObjectAtRelativePosition(newPosition);
                     x = x + cellSize;
                 }
             } else if (state.equalsIgnoreCase("movewest")) {
@@ -206,7 +225,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
                     y = y - y % cellSize;
 
                     newPosition.setLocation(x / cellSize, y / cellSize);
-                    mazeObject_2 = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+                    mazeObject_2 = mazeG.getMazeObjectAtRelativePosition(newPosition);
                     y = y + cellSize;
                 }
             }
@@ -215,7 +234,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 */           /* x = (int) (newPosition.getX()/cellSize);
             y = (int) (newPosition.getY()/cellSize);*/
             newPosition.setLocation(x / cellSize, y / cellSize);
-            mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+            mazeObject = mazeG.getMazeObjectAtRelativePosition(newPosition);
 
            /* System.out.print("2 ==>" +x + " ");
             System.out.println(y);*/
@@ -261,6 +280,42 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         return mazeG.getPath(position, position1);
     }
 
+    @Override
+    public void addBullet(BulletImpl bullet) {
+        this.bullets.add(bullet);
+    }
+
+    @Override
+    public boolean grantPermission(Visitor visitor, Point2D newPosition) {
+        MazeObject mazeObject;
+        int x = (int) newPosition.getX();
+        int y = (int) newPosition.getY();
+        try {
+            mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
+            if (mazeObject instanceof Space) {
+                return true;
+            }
+            if (mazeObject instanceof Host) {
+                visitor.visit(mazeObject);
+                return false;
+            }
+        } catch (InvalidPositionException e) {
+            return false;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void remove(BulletImpl bullet) {
+        events.add(new Runnable() {
+            @Override
+            public void run() {
+                bullets.remove(bullet);
+            }
+        });
+    }
+
 
     public void registerObserver(DrawObserver observer) {
         drawObservers.add(observer);
@@ -292,21 +347,11 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         clockTower.stop();
     }
 
-    public void fireWeapon() {
-        BulletImpl bullet = player.fireWeapon();
-        bullet.setSrcX(0);
-        bullet.setSrcY(0);
-        bullet.setSrcWidth(40);
-        bullet.setSrcHeight(40);
-        bullet.setDestinationX((int) (bullet.getPosition().getX() * cellSize));
-        bullet.setDestinationY((int) (bullet.getPosition().getY() * cellSize));
-        bullet.setDestinationWidth(cellSize);
-
-    }
-
     public GameMetadata getMetadata() {
         return metadata;
     }
+
+
 }
 
 

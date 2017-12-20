@@ -3,6 +3,7 @@ package models.charcter.weapons;
 import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.weapons.bullets.BulletPool;
+import models.facade.ControlTower;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -10,7 +11,7 @@ import java.util.Properties;
 
 import static models.charcter.weapons.bullets.BulletPool.*;
 
-public class Gun implements Weapon{
+public class Gun implements Weapon {
 
     private static final int MAXIMUM_AMMO = 6;
     private static final int Minimum_Ammo = 0;
@@ -30,7 +31,7 @@ public class Gun implements Weapon{
     private int currentAmmo;
 
     public Gun() {
-        position= new Point();
+        position = new Point();
         currentAmmo = MAXIMUM_AMMO;
         position = new Point2D.Double();
     }
@@ -46,10 +47,12 @@ public class Gun implements Weapon{
     }
 
     @Override
-    public BulletImpl Shoot() throws NoRemainingAmmoException {
+    public Bullet Shoot(ControlTower controlTower) throws NoRemainingAmmoException {
         if (currentAmmo == 0) throw new NoRemainingAmmoException();
-        BulletImpl bullet = (BulletImpl) BulletPool.getInstance().checkOut(properties);
-        bullet.setPosition(position.getX(), position.getY());
+        currentAmmo--;
+        BulletImpl bullet = (BulletImpl) BulletPool.getInstance().checkOut(properties, controlTower);
+        bullet.setDestinationX((int) position.getX());
+        bullet.setDestinationY((int) position.getY());
         return bullet;
     }
 

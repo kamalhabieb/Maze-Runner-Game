@@ -4,8 +4,6 @@ public class StateFactory {
 
     public static State getState(Directions Directions) {
         switch (Directions) {
-            case shooting :
-                return new shootingGun1();
             case movingEast:
                 return new MoveEast();
             case movingWest:

@@ -103,7 +103,7 @@ public class MainPlayController implements Initializable, DrawObserver {
 
         if (keyEvent.getCode() == KeyCode.SPACE) {
             facade.excute(CommandFactory.getCommand(shootABullet));
-            facade.fireWeapon();
+
         } else if (keyEvent.getCode() == KeyCode.RIGHT) {
             facade.excute(CommandFactory.getCommand(moveEast));
             translateCamera();

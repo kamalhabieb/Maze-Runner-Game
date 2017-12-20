@@ -17,4 +17,9 @@ public class Reset extends AbstractState {
     public Image getImage() {
         return PlayerImage.getImage(PlayerImage.IDLE);
     }
+
+    @Override
+    public Directions getType() {
+        return Directions.reset;
+    }
 }
