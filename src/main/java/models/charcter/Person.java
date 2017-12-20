@@ -54,6 +54,9 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
         if (newHealth > MAX_HEALTH) newHealth = MAX_HEALTH;
         int diff = Math.abs(newHealth - health);
         health = newHealth;
+        if (health <= 0){
+            this.destroy();
+        }
         return diff == 0;
     }
 
@@ -124,9 +127,9 @@ public abstract class Person extends Drawable implements AliveObject, Machine, M
 
     @Override
     public void destroy() {
-        controlTower.notifyFuneralOf(this);
         lives--;
         if (lives > 0) revive();
+        else controlTower.notifyFuneralOf(this);
     }
 
     @Override

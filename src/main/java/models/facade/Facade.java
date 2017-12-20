@@ -59,6 +59,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Properties gameInfo;
     private GameMetadata metadata;
     private ArrayBlockingQueue events;
+    private boolean lose = false;
 
     public Facade() {
         drawables = new ArrayList<>();
@@ -99,6 +100,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void notifyDraw() {
         drawObservers.stream().forEach(n -> n.notifyDraw((ArrayList<Drawable>)drawables.clone()));
+    }
+
+    public void notifyLose() {
+        drawObservers.stream().forEach(n -> n.notifyDrawGameOver(drawables));
     }
 
     public void populateDrawables() {
@@ -159,13 +164,6 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     public void excute(Command command) {
         command.execute((Receiver) player);
-    }
-
-    public void excuteOnBullet(Command command) {
-        Bullet bullet = player.fireWeapon();
-        BulletImpl bulletImp = (BulletImpl) bullet;
-        bullets.add(bullet);
-        //command.executeBullet(bulletImp);
     }
 
     @Override
@@ -256,7 +254,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     @Override
     public void notifyFuneralOf(final AliveObject wasAlive) {
-        if (wasAlive == player) {
+        if (wasAlive instanceof Player) {
             lose();
         }
         try {
@@ -267,13 +265,15 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     private void lose() {
-        //TODO implement lose scenario
+        notifyLose();
     }
 
     @Override
     public void notifyResurrectionOf(final AliveObject wasDead) {
-        player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
-        player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
+        if (wasDead instanceof Player) {
+            player.setDestinationX((int) ((Player) wasDead).getPosition().getX());
+            player.setDestinationY((int) ((Player) wasDead).getPosition().getY());
+        }
     }
 
     @Override
