@@ -187,7 +187,7 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     private Image getExplosionImage() {
         Image image = ExplosionImage.getImage();
         super.imageWidth = (int) image.getWidth();
-        super.setAnimated(true, 40);
+        super.setAnimated(true, 31);
         super.setCoordinates();
         return image;
     }

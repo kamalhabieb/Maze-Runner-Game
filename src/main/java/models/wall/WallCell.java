@@ -1,5 +1,6 @@
 package models.wall;
 import javafx.scene.image.Image;
+import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.WallImage;
@@ -7,10 +8,8 @@ import views.flyweight.WallImage;
 public class WallCell extends Drawable implements Wall  {
 
     private boolean breakable ;
-    private int MAX_HEALTH=100;
-    private int THREE_QUARTERS_HEALTH=75;
-    private int HALF_HEALTH=50;
-    private int QUARTER_HEALTH=25;
+    private int MAX_HEALTH=50;
+    private int HALF_HEALTH=25;
     private int MIN_HEALTH=0;
     private int health ;
 
@@ -57,15 +56,9 @@ public class WallCell extends Drawable implements Wall  {
         {
             int health = this.getHealth();
 
-            if (health<=THREE_QUARTERS_HEALTH)
+            if (health<=HALF_HEALTH)
             {
                 return WallImage.getImage(WallImage.breakingState1);
-            }else if (health<=HALF_HEALTH)
-            {
-                return WallImage.getImage(WallImage.breakingState2);
-            }else if (health<=QUARTER_HEALTH)
-            {
-                return WallImage.getImage(WallImage.breakingState3);
             }
 
             return WallImage.getImage(WallImage.breakable);
@@ -78,4 +71,5 @@ public class WallCell extends Drawable implements Wall  {
     public void accept(final Visitor visitor) {
 
     }
+
 }
