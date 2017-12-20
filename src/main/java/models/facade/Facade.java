@@ -146,6 +146,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         this.monstersPositions(configuration.getListOfTakenPositions());
         monsters.forEach(n -> player.draw((Moth) n));
         observe(mazeG.getBombsGiftsArray());
+        observe((ArrayList<MazeObject>) mazeG.getWallsArray().stream().filter(n-> ((Wall)n).isBreakable()).collect(Collectors.toList()));
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
     }

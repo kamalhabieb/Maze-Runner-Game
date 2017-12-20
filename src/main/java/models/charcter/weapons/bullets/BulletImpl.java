@@ -27,7 +27,7 @@ public class BulletImpl extends Drawable implements Bullet, Visitor, Machine {
     public BulletImpl(ControlTower controlTower) {
         this.controlTower = controlTower;
         position = new Point2D.Double();
-        damageRate = 5;
+        damageRate = -25;
         lifetime = 5;
         position = new Point2D.Double();
         state = StateFactory.getState(Directions.reset);
