@@ -2,18 +2,21 @@ package views.GameGUI;
 
 import controllers.MainPlayController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.stage.*;
+import models.facade.Facade;
 
 import java.io.IOException;
 
@@ -22,7 +25,7 @@ public class WinGUI extends Application {
 
     private static final int shadowSize = 50;
     private static Scene scene;
-    @Override public void start(final Stage stage) throws IOException {
+    @Override public void start(Stage stage) throws IOException {
         stage.initStyle(StageStyle.TRANSPARENT);
 
         StackPane stackPane = new StackPane(createShadowPane());
@@ -35,18 +38,45 @@ public class WinGUI extends Application {
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                close();
             }
         });
 
-        int playerScore = /*MainPlayController.facade.getMetadata().getScore()*/320;
+        int playerScore = MainPlayController.facade.getMetadata().getScore();
         Label winPic = new Label();winPic.setTranslateX(0);winPic.setTranslateY(-200);
+        Label nextLevel = new Label("Go to next level");
+        nextLevel.setFont(new Font("Sawasdee",80));
+        nextLevel.setTextFill(Color.web("#ff0000"));
+        nextLevel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                MainPlayController.facade.initializeGame(Facade.MEDIUM);
+                Stage stage = (Stage) scene.getWindow();
+                MainPlayController.translateCamera();
+                stage.close();
+
+            }
+        });
+        nextLevel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                nextLevel.setTextFill(Color.web("#00ff00"));
+            }
+        });
+        nextLevel.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                nextLevel.setTextFill(Color.web("#ff0000"));
+            }
+        });
+        nextLevel.setStyle("-fx-text-inner-color: red;");
         Image img = new Image("/images/win.png");
         winPic.setGraphic(new ImageView(img));
         Label score = new Label(String.valueOf(playerScore));score.setTranslateX(0);score.setTranslateY(250);
         score.setFont(new Font("Sawasdee",80));
         stackPane.getChildren().add(score);
         stackPane.getChildren().add(winPic);
+        stackPane.getChildren().add(nextLevel);
+
 
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
