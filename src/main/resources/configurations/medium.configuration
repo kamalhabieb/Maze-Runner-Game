@@ -1,7 +1,7 @@
 difficulty : medium
 number_of_bombs : 10
 number_of_gifts : 5
-number_of_monsters : 5
+number_of_monsters : 7
 game_mode : default
 width : 31
 height : 31

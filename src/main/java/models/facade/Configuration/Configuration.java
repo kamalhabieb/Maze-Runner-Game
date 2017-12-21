@@ -68,8 +68,6 @@ public class Configuration {
     /*initializations for new game*/
     public Maze loadConfiguration() {
         MazeBuilder builder = new MazeBuilder();
-
-        boolean tempFlag = true;
         builder.setStartPoint(startPoint);
         builder.setEndPoint(endPoint);
 
@@ -80,6 +78,7 @@ public class Configuration {
             wall.setBreakable(false);
 
             int breakableProbability = rand.nextInt(101);
+
             if (breakableProbability>=85 && notBorder(pos))
                 wall.setBreakable(true);
 
@@ -92,8 +91,8 @@ public class Configuration {
             int x = rand.nextInt(mazeWidth);
             int y = rand.nextInt(mazeLength);
             Point bombPosition = new Point(x, y);
-           // String bombPositionString = bombPosition.toString();
-            int range = rand.nextInt(range_of_bomb_actions) + 1;// a random number from the interval [1,num_of_bomb_types]
+
+            int range = rand.nextInt(range_of_bomb_actions) + 1;// randomize bomb's effect in the interval [1,num_of_bomb_types]
 
             if (!listOfTakenPositions.contains(bombPosition) && !bombPosition.equals(startPoint)  ) {
                 listOfTakenPositions.add(bombPosition);
@@ -108,8 +107,8 @@ public class Configuration {
             int x = rand.nextInt(mazeWidth);
             int y = rand.nextInt(mazeLength);
             Point giftPosition = new Point(x, y);
-           // String giftPositionString = giftPosition.toString();
-            int range = rand.nextInt(range_of_gift_actions) + 1;// a random number from the interval [1,num_of_gift_types]
+
+            int range = rand.nextInt(range_of_gift_actions) + 1;// randomize gift's effect in the interval [1,num_of_gift_types]
 
             if (!listOfTakenPositions.contains(giftPosition) && !giftPosition.equals(startPoint)) {
                 listOfTakenPositions.add(giftPosition);
@@ -163,7 +162,6 @@ public class Configuration {
     * and convert it to a hash set
     */
     private LinkedList makeSetOFWallCellsPositions(String WallPositions) {
-        //LinkedList<String> setOfWallCells = new LinkedList();
         LinkedList<Point> setOfWallCells = new LinkedList();
         String[] pointString = WallPositions.split(" ");
         for (String s : pointString) {
@@ -174,10 +172,8 @@ public class Configuration {
             int y = Integer.parseInt(s.split(",")[1]);
 
             Point wallCellPoint = new Point(x, y);
-            //String wallCellPointString = wallCellPoint.toString();
             setOfWallCells.add(wallCellPoint);
         }
-
         return setOfWallCells;
     }
 
