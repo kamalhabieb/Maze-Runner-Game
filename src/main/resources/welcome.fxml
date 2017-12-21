@@ -16,8 +16,7 @@
         <Font size="36.0" fx:id="x1" />
       </font>
     </Label>
-    <Label fx:id="loadLabel" alignment="CENTER" font="$x1" layoutX="530.0" layoutY="563.0" onMouseEntered="#onMouseEnteredWelcome" onMouseExited="#onMouseExitedWelcome" prefHeight="17.0" prefWidth="304.0" text="Load Game" textAlignment="CENTER" textFill="WHITE" />
-    <Label fx:id="exitLabel" alignment="CENTER" font="$x1" layoutX="530.0" layoutY="614.0" onMouseEntered="#onMouseEnteredWelcome" onMouseExited="#onMouseExitedWelcome" prefHeight="17.0" prefWidth="304.0" text="Exit" textAlignment="CENTER" textFill="WHITE" />
+    <Label fx:id="loadLabel" alignment="CENTER" font="$x1" layoutX="530.0" layoutY="563.0" onMouseEntered="#onMouseEnteredWelcome" onMouseExited="#onMouseExitedWelcome" prefHeight="17.0" prefWidth="304.0" text="Exit" textAlignment="CENTER" textFill="WHITE" />
   </children>
   <stylesheets>
     <URL value="@welcomeStyle.css" />

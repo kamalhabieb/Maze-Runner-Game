@@ -16,8 +16,7 @@ public class GiftImage implements Flyweight {
     }
 
 
-    @Override
-    public void load(final Image image) {
-        this.image = image;
+    public static void load(final Image image) {
+        GiftImage.image = image;
     }
 }

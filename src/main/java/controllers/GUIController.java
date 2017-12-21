@@ -60,7 +60,6 @@ public class GUIController implements Initializable {
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
             startLabel.setContentDisplay(ContentDisplay.CENTER);
-            exitLabel.setContentDisplay(ContentDisplay.CENTER);
         PathTransition transition = new PathTransition();
         PathTransition transition2 = new PathTransition();
         PathTransition transition3 = new PathTransition();
