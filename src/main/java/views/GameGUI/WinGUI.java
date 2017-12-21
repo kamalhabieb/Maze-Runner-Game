@@ -1,0 +1,95 @@
+package views.GameGUI;
+
+import controllers.MainPlayController;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+import javafx.stage.*;
+
+import java.io.IOException;
+
+// Java 8 code
+public class WinGUI extends Application {
+
+    private static final int shadowSize = 50;
+    private static Scene scene;
+    @Override public void start(final Stage stage) throws IOException {
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        StackPane stackPane = new StackPane(createShadowPane());
+        stackPane.setStyle(
+                "-fx-background-color: rgba(255, 255, 255, 0.5);" +
+                        "-fx-background-insets: " + shadowSize + ";"
+        );
+
+        scene = new Scene(stackPane, 800, 800);
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                close();
+            }
+        });
+
+        int playerScore = /*MainPlayController.facade.getMetadata().getScore()*/320;
+        Label winPic = new Label();winPic.setTranslateX(0);winPic.setTranslateY(-200);
+        Image img = new Image("/images/win.png");
+        winPic.setGraphic(new ImageView(img));
+        Label score = new Label(String.valueOf(playerScore));score.setTranslateX(0);score.setTranslateY(250);
+        score.setFont(new Font("Sawasdee",80));
+        stackPane.getChildren().add(score);
+        stackPane.getChildren().add(winPic);
+
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    // Create a shadow effect as a halo around the pane and not within
+    // the pane's content area.
+    public static void close() {
+        scene.getWindow().hide();
+    }
+
+    private Pane createShadowPane() throws IOException {
+        Pane shadowPane = new Pane();
+        // a "real" app would do this in a CSS stylesheet.
+        shadowPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-effect: dropshadow(gaussian, red, " + shadowSize + ", 0, 0, 0);" +
+                        "-fx-background-insets: " + shadowSize + ";"
+        );
+
+        Rectangle innerRect = new Rectangle();
+        Rectangle outerRect = new Rectangle();
+        shadowPane.layoutBoundsProperty().addListener(
+                (observable, oldBounds, newBounds) -> {
+                    innerRect.relocate(
+                            newBounds.getMinX() + shadowSize,
+                            newBounds.getMinY() + shadowSize
+                    );
+                    innerRect.setWidth(newBounds.getWidth() - shadowSize * 2);
+                    innerRect.setHeight(newBounds.getHeight() - shadowSize * 2);
+
+                    outerRect.setWidth(newBounds.getWidth());
+                    outerRect.setHeight(newBounds.getHeight());
+
+                    Shape clip = Shape.subtract(outerRect, innerRect);
+                    shadowPane.setClip(clip);
+                }
+        );
+        return shadowPane;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

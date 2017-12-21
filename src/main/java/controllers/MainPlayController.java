@@ -19,6 +19,7 @@ import models.facade.Facade;
 import views.Drawable;
 import views.GameGUI.GameGUI;
 import views.GameGUI.InfoGUI;
+import views.GameGUI.WinGUI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,14 +67,14 @@ public class MainPlayController implements Initializable, DrawObserver {
 
         }
         translateCamera();
-        canvas.setLayoutX(850);
-        canvas.setLayoutY(500);
+        /*canvas.setLayoutX(850);
+        canvas.setLayoutY(500);*/
         //todo Get constants not numbers
         canvas.setWidth(facade.currentMazeWidth * 30);
         canvas.setHeight(facade.currentMazeLength * 30);
 
-        staticCanvas.setLayoutX(850);
-        staticCanvas.setLayoutY(500);
+        /*staticCanvas.setLayoutX(850);
+        staticCanvas.setLayoutY(500);*/
         staticCanvas.setWidth(facade.currentMazeWidth * 30);
         staticCanvas.setHeight(facade.currentMazeLength * 30);
 
@@ -119,7 +120,12 @@ public class MainPlayController implements Initializable, DrawObserver {
 
     @Override
     public void notifyDrawWin(ArrayList<Drawable> drawables) {
-
+        WinGUI win = new WinGUI();
+        try {
+            win.start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {

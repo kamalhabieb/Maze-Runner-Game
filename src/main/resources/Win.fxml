@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1366.0" style=" &quot;-fx-background-color: rgba(255, 255, 255, 0.5);&quot; +&#10;                        &quot;-fx-background-insets: &quot; + 50 + &quot;;&quot;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.WinAndLoseController" />
