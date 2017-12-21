@@ -14,8 +14,7 @@ public class BoxImage implements Flyweight {
         return box;
     }
 
-    @Override
-    public void load(final Image image) {
-        this.box = image;
+    public static void load(final Image image) {
+        BoxImage.box = image;
     }
 }

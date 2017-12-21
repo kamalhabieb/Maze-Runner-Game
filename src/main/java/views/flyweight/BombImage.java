@@ -14,8 +14,8 @@ public class BombImage implements Flyweight {
         return image;
     }
 
-    @Override
-    public void load(final Image image) {
-        this.image = image;
+
+    public static void load(final Image image) {
+        BombImage.image = image;
     }
 }
