@@ -19,6 +19,7 @@ import models.facade.Facade;
 import views.Drawable;
 import views.GameGUI.GameGUI;
 import views.GameGUI.InfoGUI;
+import views.GameGUI.WinGUI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,10 +46,9 @@ public class MainPlayController implements Initializable, DrawObserver {
     public void initialize(URL location, ResourceBundle resources) {
         //GUI COMPONENTS INITIALIZATION COMES FIRST
         keyCode = new HashSet<>();
-
-
         facade = new Facade();
         facade.registerObserver(this);
+
         switch (gameModeController.difficulty) {
             case "easy":
                 facade.initializeGame(Facade.EASY);
@@ -62,21 +62,17 @@ public class MainPlayController implements Initializable, DrawObserver {
             default:
                 facade.initializeGame(Facade.MEDIUM);
                 break;
-
-
         }
+        canvas.setWidth(facade.currentMazeWidth * 30 * 2);
+        canvas.setHeight(facade.currentMazeLength * 30 * 2);
+        /*staticCanvas.setLayoutX(850);
+        staticCanvas.setLayoutY(500);*/
+        staticCanvas.setWidth(facade.currentMazeWidth * 30 * 2);
+        staticCanvas.setHeight(facade.currentMazeLength * 30 * 2);
         translateCamera();
-        canvas.setLayoutX(850);
-        canvas.setLayoutY(500);
+        /*canvas.setLayoutX(850);
+        canvas.setLayoutY(500);*/
         //todo Get constants not numbers
-        canvas.setWidth(facade.currentMazeWidth * 30);
-        canvas.setHeight(facade.currentMazeLength * 30);
-
-        staticCanvas.setLayoutX(850);
-        staticCanvas.setLayoutY(500);
-        staticCanvas.setWidth(facade.currentMazeWidth * 30);
-        staticCanvas.setHeight(facade.currentMazeLength * 30);
-
 
        /* facade.populateDrawables();
         facade.notifyDraw();*/
@@ -119,9 +115,14 @@ public class MainPlayController implements Initializable, DrawObserver {
 
     @Override
     public void notifyDrawWin(ArrayList<Drawable> drawables) {
-        System.out.println("win");
-        //facade.shutdown();
-        facade.initializeGame(Facade.MEDIUM);
+        Platform.runLater(() -> {
+            WinGUI win = new WinGUI();
+            try {
+                win.start(new Stage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 
@@ -198,16 +199,35 @@ public class MainPlayController implements Initializable, DrawObserver {
                 translateCamera();
             }
 
+        } else if (keyCode.size() == 3) {
+            if(keyCode.contains(KeyCode.A) && keyCode.contains(KeyCode.M) && keyCode.contains(KeyCode.O)) {
+                facade.player.affectAmmo(6);
+
+            }
+            else if(keyCode.contains(KeyCode.H) && keyCode.contains(KeyCode.L) && keyCode.contains(KeyCode.T)) {
+                facade.player.affectHealthBy(100);
+            }
+            else if(keyCode.contains(KeyCode.S) && keyCode.contains(KeyCode.P) && keyCode.contains(KeyCode.D)) {
+                facade.player.setVelocity(10);
+            }
+            else if(keyCode.contains(KeyCode.L) && keyCode.contains(KeyCode.V) && keyCode.contains(KeyCode.E)) {
+                facade.player.setLives(5);
+            }
+            else if(keyCode.contains(KeyCode.E) && keyCode.contains(KeyCode.N) && keyCode.contains(KeyCode.D)) {
+                facade.player.setPosition((facade.getEndPoint().getX()-1)*30 , facade.getEndPoint().getY()*30);
+                translateCamera();
+            }
+
         }
     }
 
 
-    private void translateCamera() {
+    public static void translateCamera() {
         TranslateTransition t = new TranslateTransition(Duration.millis(100), GameGUI.camera);
         //t.setFromX(GameGUI.camera.getTranslateX());
-        t.setToX(facade.player.getDestinationX() + 1366 / 2);
+        t.setToX(facade.player.getDestinationX() + 1366 / 2 - 600);
         //t.setFromY(GameGUI.camera.getTranslateY());
-        t.setToY(facade.player.getDestinationY() + 900 / 2);
+        t.setToY(facade.player.getDestinationY() + 900 / 2 - 400);
 
         t.setInterpolator(Interpolator.EASE_BOTH);
         t.setDelay(Duration.ZERO);

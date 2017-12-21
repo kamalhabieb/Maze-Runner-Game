@@ -1,27 +1,32 @@
 package models.charcter.monsters;
 
+import models.charcter.AliveObject;
 import models.charcter.autonomous.Moth;
 import models.charcter.states.Directions;
 import models.charcter.states.State;
 import models.charcter.states.StateFactory;
 import models.engine.Engine;
 import models.facade.ControlTower;
+import models.mazeObjects.Host;
+import models.mazeObjects.Visitor;
 import models.search.Path;
 
 import java.awt.geom.Point2D;
 
-public abstract class AutonomousMonster extends Monster implements Moth {
+public abstract class AutonomousMonster extends Monster implements Moth,Visitor {
     private Path path;
     private boolean started = false;
+    private int damageRate = -25;
 
     public AutonomousMonster(final ControlTower controlTower) {
         super(controlTower);
         setVelocity(1);
+        health = 25;
     }
 
     @Override
     public void setPosition(final double x, final double y) {
-        if (controlTower.grantPermission(this, new Point2D.Double(x, y))) {
+        if (controlTower.grantPermission((Host) this, new Point2D.Double(x, y))) {
             super.setPosition(x, y);
         }
 
@@ -42,7 +47,7 @@ public abstract class AutonomousMonster extends Monster implements Moth {
             setState(StateFactory.getState(path.getNextDirection()));
             started = true;
         }
-        if(next == null){
+        if (next == null) {
             setState(StateFactory.getState(Directions.reset));
         }
     }
@@ -58,6 +63,17 @@ public abstract class AutonomousMonster extends Monster implements Moth {
         super.setState(state);
         if (state.getType().equals(Directions.reset)) {
             controlTower.drawToFlame(this);
+        }
+    }
+
+    @Override
+    public void visit(final Host host) {
+        try {
+            AliveObject alive = (AliveObject) host;
+            alive.affectHealthBy(damageRate);
+            destroy();
+        }catch (ClassCastException e){
+
         }
     }
 }
