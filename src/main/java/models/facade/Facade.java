@@ -26,6 +26,7 @@ import models.mazeObjects.space.Space;
 import models.search.Path;
 import models.wall.Wall;
 import views.Drawable;
+import views.flyweight.MonsterImage;
 
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -156,6 +157,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         player.setDestinationHeight(Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationX(Integer.parseInt(gameInfo.getProperty(START_POINT_X)) * Integer.parseInt((String) gameInfo.get("cell_width")));
         player.setDestinationY(Integer.parseInt(gameInfo.getProperty(START_POINT_Y)) * Integer.parseInt((String) gameInfo.get("cell_width")));
+        monsters.clear();
         this.generateMonsters(Integer.parseInt(gameInfo.getProperty(MONSTERS_NUMBER)), gameInfo.getProperty(GAME_DIFFICULTY));
         this.monstersPositions(configuration.getListOfTakenPositions());
         monsters.forEach(n -> player.draw((Moth) n));

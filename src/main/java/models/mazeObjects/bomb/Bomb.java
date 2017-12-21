@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
-        AliveObject, Observed {
+public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter, AliveObject, Observed {
+
     private int type;
     private int damageRate;
     private int timer;
@@ -154,6 +154,8 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
 
     @Override
     public void visit(Host host) {
+        if (isExploded)
+            return;
         try {
             if (!isCovered) {
                 AliveObject aliveObject = (AliveObject) host;

@@ -20,6 +20,7 @@ import views.Drawable;
 import views.GameGUI.GameGUI;
 import views.GameGUI.InfoGUI;
 import views.GameGUI.WinGUI;
+import views.GameGUI.loseGUI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -110,7 +111,14 @@ public class MainPlayController implements Initializable, DrawObserver {
 
     @Override
     public void notifyDrawGameOver(List<Drawable> drawables) {
-
+        Platform.runLater(() -> {
+            loseGUI lose = new loseGUI();
+            try {
+                lose.start(new Stage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
