@@ -2,6 +2,7 @@ package models.facade;
 
 import controllers.command.Command;
 import controllers.command.Receiver;
+import javafx.application.Platform;
 import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.autonomous.Flame;
@@ -272,7 +273,12 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         if (host instanceof Player) {
             int endPointX = Integer.parseInt(gameInfo.getProperty(END_POINT_X));
             int endPointY = Integer.parseInt(gameInfo.getProperty(END_POINT_Y));
-            if (endPointX == newPosition.getX()/cellSize && endPointY == newPosition.getY()/cellSize) {
+            double winPointXD = newPosition.getX()/cellSize;
+            double winPointYD = (newPosition.getY())/cellSize;
+            int winPointX = (int) Math.round(winPointXD);
+            int winPointY = (int) Math.round(winPointYD);
+            System.out.println(winPointX+", "+winPointY);
+            if (endPointX <= winPointX && endPointY <= winPointY) {
                 return true;
             }
         }

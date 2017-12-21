@@ -55,6 +55,7 @@ public class BigBen implements Observed {
     }
 
     public void begin() {
+        if (clockThread.isAlive()) return;
         isTicking = true;
         clockThread.start();
     }
