@@ -34,7 +34,7 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
         if (isCovered) {
             this.isCovered = false;
         } else {
-            // TODO: 11/12/17 (DO onVanishFunction to remove Gift from 2D Array)
+            visitor.visit(this);
         }
     }
 

@@ -158,6 +158,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         this.monstersPositions(configuration.getListOfTakenPositions());
         monsters.forEach(n -> player.draw((Moth) n));
         observe(mazeG.getBombsGiftsArray());
+        observe((ArrayList<MazeObject>) mazeG.getWallsArray().stream().filter(n-> ((Wall)n).isBreakable()).collect(Collectors.toList()));
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
         this.currentMazeLength = mazeG.getHeight();
@@ -290,7 +291,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             lose();
         }
         try {
-            mazeG.RemoveMazeObjectWithRelativePosition((MazeObject) wasAlive, ((Matter) wasAlive).getPosition());
+            double x = ((Drawable) wasAlive).getDestinationX();
+            double y = ((Drawable) wasAlive).getDestinationY();
+            Point2D point = new Point2D.Double (x,y);
+            mazeG.RemoveMazeObjectWithAbsolutePosition((MazeObject) wasAlive,point );
         } catch (InvalidPositionException e) {
             e.printStackTrace();
         }
