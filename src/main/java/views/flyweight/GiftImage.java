@@ -1,29 +1,23 @@
 package views.flyweight;
 
 import javafx.scene.image.Image;
+import views.DynamicLinkage.Flyweight;
 
-public class GiftImage {
-    public static final String Covered = "covered";
-    public static final String unCovered = "uncovered";
-    private static final Image image;
-    private static final Image box;
+public class GiftImage implements Flyweight {
+
+    private static Image image;
 
     static {
         image = new Image(GiftImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/gift.png"));
-        box = new Image(GiftImage.class.getResourceAsStream("/images/RegularMode/mazeObjects/box.png"));
     }
 
-    public static Image getImage(String state) {
-        switch (state) {
-            case Covered:
-                return box;
-            case unCovered:
-                return image;
-            default:
-                return null;
-        }
-
+    public static Image getImage() {
+        return image;
     }
 
 
+    @Override
+    public void load(final Image image) {
+        this.image = image;
+    }
 }
