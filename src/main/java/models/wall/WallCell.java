@@ -53,9 +53,11 @@ public class WallCell extends Drawable implements Wall, Host, AliveObject, Obser
     public boolean affectHealthBy(int effect) {
         if (breakable && health > MIN_HEALTH) {
             health += effect;
-            System.out.println(health);
             if (health<=MIN_HEALTH)
+            {
                 destroy();
+            }
+
             return true;
         }
         return false;
