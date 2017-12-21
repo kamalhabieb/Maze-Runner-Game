@@ -9,15 +9,17 @@ import models.wall.WallCell;
 import views.Drawable;
 
 import java.awt.*;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
 
+
 //todo Life Gifts adding after its implementation
 //todo hashMap for time complexity instead of linkedList
 public class Configuration {
-
     private final Point startPoint;
     private final Point endPoint;
     private final int cellWidth;
@@ -32,7 +34,9 @@ public class Configuration {
     // private LinkedList<String> listOfTakenPositions;
     private LinkedList<Point> listOfTakenPositions;
     private Random rand = new Random();
-    private String template;
+    private int pickedTemplate;
+    private int NUMBER_OF_TEMPLATES=2;
+    private String difficulty;
 
     public Configuration(Properties info) {
         this.mazeLength = Integer.parseInt(info.getProperty("height"));
@@ -45,7 +49,19 @@ public class Configuration {
                 .getProperty("start_Y")));
         endPoint = new Point(Integer.parseInt(info.getProperty("end_X")), Integer.parseInt(info
                 .getProperty("end_Y")));
-        this.listOfTakenPositions = this.makeSetOFWallCellsPositions(info.getProperty("tempWallsList"));
+
+        this.pickedTemplate=rand.nextInt(NUMBER_OF_TEMPLATES)+1;
+        this.difficulty=info.getProperty("difficulty");
+
+        Properties property = new Properties();
+        try {
+            property.load(getClass().getResourceAsStream("/Mazes/"+difficulty+ ".Mazes"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        this.listOfTakenPositions = this.makeSetOFWallCellsPositions(property.getProperty("template"+pickedTemplate) );
+        
         this.cellWidth = Integer.parseInt(info.getProperty("cell_width"));
     }
 
