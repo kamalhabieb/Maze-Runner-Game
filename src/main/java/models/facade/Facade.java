@@ -360,7 +360,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
 
     private void generateMonsters(int numberOfMonsters, String mode) {
         MonstersFactory monstersFactory = new MonstersFactory();
-        for (int i = 0; i < numberOfMonsters; i++) {
+        for (int i = 0; i < 1; i++) {
             monsters.add(monstersFactory.GetMonster(mode + "monster", this));
         }
     }
