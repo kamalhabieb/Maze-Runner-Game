@@ -108,4 +108,7 @@ public class Player extends Person implements PlayerObserver, Observed, Flame {
         moth.setPathToFlame(path);
     }
     public int getLives(){return this.lives;}
+
+
+    public void setLives(int lives){this.lives = lives;}
 }

@@ -83,6 +83,6 @@ public class MatrixGraph implements Graph {
     }
 
     private int toVertex(final Point2D point) {
-        return (int) (point.getY() * width + point.getX());
+        return (int) (Math.round(point.getY()) * width + Math.round(point.getX()));
     }
 }

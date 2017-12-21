@@ -3,6 +3,7 @@ package models.facade;
 import controllers.command.Command;
 import controllers.command.Receiver;
 import javafx.application.Platform;
+import javafx.scene.input.MouseEvent;
 import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.autonomous.Flame;
@@ -27,6 +28,7 @@ import models.wall.Wall;
 import views.Drawable;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Random;
 
 
@@ -158,7 +160,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         this.monstersPositions(configuration.getListOfTakenPositions());
         monsters.forEach(n -> player.draw((Moth) n));
         observe(mazeG.getBombsGiftsArray());
-        observe((ArrayList<MazeObject>) mazeG.getWallsArray().stream().filter(n-> ((Wall)n).isBreakable()).collect(Collectors.toList()));
+        observe((ArrayList<MazeObject>) mazeG.getWallsArray().stream().filter(n -> ((Wall) n).isBreakable()).collect(Collectors.toList()));
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
         this.currentMazeLength = mazeG.getHeight();
@@ -192,6 +194,15 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         if (this.win(host, newPosition)) {
             notifyWin();
             return true;
+        }
+        if (host instanceof Monster) {
+            if (newPosition.distance(player.getPosition()) < cellSize / 2) {
+                ((Visitor) host).visit(player);
+            }
+        }
+        if (host instanceof Player) {
+            monsters.stream().filter(n -> n.getPosition().distance(player.getPosition()) < cellSize / 2).forEach(n -> (
+                    (Visitor) n).visit(player));
         }
         int x = (int) newPosition.getX();
         int y = (int) newPosition.getY();
@@ -262,7 +273,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             host.accept((Visitor) mazeObject);
             return true;
         }
-        if(mazeObject instanceof Space){
+        if (mazeObject instanceof Space) {
             return true;
         }
         return false;
@@ -273,11 +284,11 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         if (host instanceof Player) {
             int endPointX = Integer.parseInt(gameInfo.getProperty(END_POINT_X));
             int endPointY = Integer.parseInt(gameInfo.getProperty(END_POINT_Y));
-            double winPointXD = newPosition.getX()/cellSize;
-            double winPointYD = (newPosition.getY())/cellSize;
+            double winPointXD = newPosition.getX() / cellSize;
+            double winPointYD = (newPosition.getY()) / cellSize;
             int winPointX = (int) Math.round(winPointXD);
             int winPointY = (int) Math.round(winPointYD);
-            System.out.println(winPointX+", "+winPointY);
+            System.out.println(winPointX + ", " + winPointY);
             if (endPointX <= winPointX && endPointY <= winPointY) {
                 return true;
             }
@@ -289,12 +300,17 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public void notifyFuneralOf(final AliveObject wasAlive) {
         if (wasAlive instanceof Player) {
             lose();
+            return;
+        }
+        if (wasAlive instanceof Monster) {
+            events.add((Runnable) () -> monsters.remove(wasAlive));
+            return;
         }
         try {
             double x = ((Drawable) wasAlive).getDestinationX();
             double y = ((Drawable) wasAlive).getDestinationY();
-            Point2D point = new Point2D.Double (x,y);
-            mazeG.RemoveMazeObjectWithAbsolutePosition((MazeObject) wasAlive,point );
+            Point2D point = new Point2D.Double(x, y);
+            mazeG.RemoveMazeObjectWithAbsolutePosition((MazeObject) wasAlive, point);
         } catch (InvalidPositionException e) {
             e.printStackTrace();
         }
@@ -325,8 +341,15 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     @Override
     public boolean grantPermission(Visitor visitor, Point2D newPosition) {
         MazeObject mazeObject;
-        int x = (int) newPosition.getX();
-        int y = (int) newPosition.getY();
+        if (visitor instanceof Bullet) {
+            this.monsters.stream().filter(n -> n.getPosition().distance(newPosition) < cellSize / 2).forEach
+                    (n -> visitor.visit(n));
+        }
+        if (visitor instanceof Monster) {
+            if (newPosition.distance(((Monster) visitor).getPosition()) < cellSize / 2) {
+                visitor.visit(player);
+            }
+        }
         try {
             mazeObject = mazeG.getMazeObjectAtAbsolutePosition(newPosition);
             if (mazeObject instanceof Space) {
@@ -386,8 +409,9 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     public GameMetadata getMetadata() {
         return metadata;
     }
-
-
+    public Point2D getEndPoint() {
+        return mazeG.getEndPoint();
+    }
 }
 
 

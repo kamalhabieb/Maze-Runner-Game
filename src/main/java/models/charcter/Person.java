@@ -23,7 +23,7 @@ import java.awt.geom.Point2D;
 
 public abstract class Person extends Drawable implements AliveObject, Machine, Matter, Armored, Host, Receiver {
     protected final Weapon weapon;
-    private int health;
+    protected int health;
     private final int MAX_HEALTH = 100;
     private final int MIN_HEALTH = 0;
     private Point2D position;

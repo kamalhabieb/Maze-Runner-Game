@@ -43,8 +43,8 @@ public class GameGUI extends Application {
         camera.setTranslateZ(-2400);
         camera.setNearClip(0.1);
         camera.setFarClip(10000);
-        camera.setTranslateX(primaryStage.getWidth()/2);
-        camera.setTranslateY(primaryStage.getHeight()/2);
+        camera.setTranslateX(primaryStage.getWidth()/2 - 600);
+        camera.setTranslateY(primaryStage.getHeight()/2 - 400);
         camera.setFieldOfView(30);
         scene.setCamera(camera);
         //primaryStage.setFullScreen(true);
