@@ -11,6 +11,7 @@ import models.engine.Matter;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.BombImage;
+import views.flyweight.BoxImage;
 import views.flyweight.GiftImage;
 
 import java.awt.geom.Point2D;
@@ -74,10 +75,10 @@ public abstract class Gift extends Drawable implements Gift_I, AliveObject,
     @Override
     public Image getImage() {
         if(this.isCovered) {
-            return GiftImage.getImage(GiftImage.Covered);
+            return BoxImage.getImage();
         }
         else {
-            return GiftImage.getImage(GiftImage.unCovered);
+            return GiftImage.getImage();
         }
     }
 

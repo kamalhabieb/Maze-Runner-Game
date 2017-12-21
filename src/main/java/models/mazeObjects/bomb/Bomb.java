@@ -12,6 +12,7 @@ import models.mazeObjects.Host;
 import models.mazeObjects.Visitor;
 import views.Drawable;
 import views.flyweight.BombImage;
+import views.flyweight.BoxImage;
 import views.flyweight.ExplosionImage;
 
 import java.awt.*;
@@ -168,10 +169,10 @@ public class Bomb extends Drawable implements Bomb_I, Visitor, Host, Matter,
     @Override
     public Image getImage() {
         if (this.isCovered) {
-            return BombImage.getImage(BombImage.Covered);
+            return BoxImage.getImage();
         } else {
             if (!isExploded) {
-                return BombImage.getImage(BombImage.unCovered);
+                return BombImage.getImage();
             } else {
                 return getExplosionImage();
             }
