@@ -3,6 +3,7 @@ package models.maze;
 import models.mazeObjects.space.Space;
 import models.search.*;
 import models.wall.Wall;
+import models.wall.WallCell;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -78,8 +79,12 @@ public class GameMaze implements Maze {
         mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
                 = object;
-        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
-            wallsArray.add(object);
+        if (object instanceof Wall) {
+            if (((Wall) object).isBreakable()) {
+                bombsGiftsArray.add(object);
+            } else {
+                wallsArray.add(object);
+            }
         } else
             bombsGiftsArray.add(object);
         return true;
@@ -95,8 +100,12 @@ public class GameMaze implements Maze {
             return false;
         }
         mazeArray[x][y] = object;
-        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
-            wallsArray.add(object);
+        if (object instanceof Wall) {
+            if (((Wall) object).isBreakable()) {
+                bombsGiftsArray.add(object);
+            } else {
+                wallsArray.add(object);
+            }
         } else
             bombsGiftsArray.add(object);
         return true;
@@ -113,8 +122,12 @@ public class GameMaze implements Maze {
         mazeArray[(int) relativePosition.getX()]
                 [(int) relativePosition.getY()]
                 = space;
-        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
-            wallsArray.remove(object);
+        if (object instanceof Wall) {
+            if (((Wall) object).isBreakable()) {
+                bombsGiftsArray.remove(object);
+            } else {
+                wallsArray.remove(object);
+            }
         } else
             bombsGiftsArray.remove(object);
         return true;
@@ -129,8 +142,12 @@ public class GameMaze implements Maze {
             return false;
         }
         mazeArray[x][y] = space;
-        if (object.getClass().getSimpleName().equalsIgnoreCase("wallcell")) {
-            wallsArray.remove(object);
+        if (object instanceof Wall) {
+            if (((Wall) object).isBreakable()) {
+                bombsGiftsArray.remove(object);
+            } else {
+                wallsArray.remove(object);
+            }
         } else
             bombsGiftsArray.remove(object);
         return true;

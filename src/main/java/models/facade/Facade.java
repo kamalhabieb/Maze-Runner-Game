@@ -6,6 +6,7 @@ import models.Observer.Observed;
 import models.charcter.*;
 import models.charcter.autonomous.Flame;
 import models.charcter.autonomous.Moth;
+import models.charcter.states.StateFactory;
 import models.charcter.weapons.bullets.Bullet;
 import models.charcter.weapons.bullets.BulletImpl;
 import models.charcter.monsters.Monster;
@@ -33,6 +34,10 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
+
+import static models.charcter.states.Directions.die;
+import static models.charcter.states.Directions.movingEast;
+import static models.charcter.states.Directions.win;
 
 public class Facade implements ControlTower, ClockObserver, LifeObserver {
     private Maze mazeG;
@@ -105,10 +110,13 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
     }
 
     public void notifyLose() {
+        player.setState(StateFactory.getState(die));
         drawObservers.stream().forEach(n -> n.notifyDrawGameOver(drawables));
+
     }
 
     private void notifyWin() {
+        player.setState(StateFactory.getState(win));
         drawObservers.stream().forEach(n -> n.notifyDrawWin(drawables));
     }
 
@@ -149,6 +157,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         this.monstersPositions(configuration.getListOfTakenPositions());
         monsters.forEach(n -> player.draw((Moth) n));
         observe(mazeG.getBombsGiftsArray());
+        observe((ArrayList<MazeObject>) mazeG.getWallsArray().stream().filter(n-> ((Wall)n).isBreakable()).collect(Collectors.toList()));
         clockTower.begin();
         notifyDrawStatic(mazeG.getWallsArray());
         this.currentMazeLength = mazeG.getHeight();
@@ -263,7 +272,7 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
         if (host instanceof Player) {
             int endPointX = Integer.parseInt(gameInfo.getProperty(END_POINT_X));
             int endPointY = Integer.parseInt(gameInfo.getProperty(END_POINT_Y));
-            if (endPointX == newPosition.getX() && endPointY == newPosition.getY()) {
+            if (endPointX == newPosition.getX()/cellSize && endPointY == newPosition.getY()/cellSize) {
                 return true;
             }
         }
@@ -276,7 +285,10 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             lose();
         }
         try {
-            mazeG.RemoveMazeObjectWithRelativePosition((MazeObject) wasAlive, ((Matter) wasAlive).getPosition());
+            double x = ((Drawable) wasAlive).getDestinationX();
+            double y = ((Drawable) wasAlive).getDestinationY();
+            Point2D point = new Point2D.Double (x,y);
+            mazeG.RemoveMazeObjectWithAbsolutePosition((MazeObject) wasAlive,point );
         } catch (InvalidPositionException e) {
             e.printStackTrace();
         }
