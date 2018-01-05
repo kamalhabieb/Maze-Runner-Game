@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -37,10 +39,10 @@ public class GUIController implements Initializable {
 
     @FXML
     private Label exitLabel;
+
     @FXML
     void onMouseClickedStart(MouseEvent event) {
-        ((Node)(event.getSource())).getScene().getWindow().setOnHidden(e -> Platform.exit());
-
+        ((Node)(event.getSource())).getScene().getWindow().hide();
         GameModesGUI chooseMode = new GameModesGUI();
         Stage s = new Stage();
         try {
@@ -80,4 +82,5 @@ public class GUIController implements Initializable {
         transition3.setNode(exitLabel);
         transition3.play();
     }
+
 }

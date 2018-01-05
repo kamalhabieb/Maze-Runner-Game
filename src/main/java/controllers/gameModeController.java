@@ -79,7 +79,6 @@ public class gameModeController implements Initializable {
 
     @FXML
     void onMouseClicked(MouseEvent event) {
-        ((Node)(event.getSource())).getScene().getWindow().setOnHidden(e -> Platform.exit());
         if(((Label)event.getSource()).getText().equalsIgnoreCase("easy")) {
             difficulty = "easy";
         }
@@ -90,6 +89,7 @@ public class gameModeController implements Initializable {
             difficulty = "hard";
         }
         GameGUI chooseMode = new GameGUI();
+        ((Node)(event.getSource())).getScene().getWindow().hide();
         Stage s = new Stage();
         try {
             chooseMode.start(s);

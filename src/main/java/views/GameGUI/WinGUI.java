@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
@@ -19,6 +21,7 @@ import javafx.stage.*;
 import models.facade.Facade;
 
 import java.io.IOException;
+import java.net.URL;
 
 // Java 8 code
 public class WinGUI extends Application {
@@ -51,6 +54,10 @@ public class WinGUI extends Application {
             public void handle(MouseEvent event) {
                 MainPlayController.facade.initializeGame(Facade.MEDIUM);
                 Stage stage = (Stage) scene.getWindow();
+                URL resource = getClass().getResource("/music/transient.mp3");
+                Media media = new Media(resource.toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
                 MainPlayController.translateCamera();
                 stage.close();
 

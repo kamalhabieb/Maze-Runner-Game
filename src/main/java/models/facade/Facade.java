@@ -290,7 +290,6 @@ public class Facade implements ControlTower, ClockObserver, LifeObserver {
             double winPointYD = (newPosition.getY()) / cellSize;
             int winPointX = (int) Math.round(winPointXD);
             int winPointY = (int) Math.round(winPointYD);
-            System.out.println(winPointX + ", " + winPointY);
             if (endPointX <= winPointX && endPointY <= winPointY) {
                 return true;
             }

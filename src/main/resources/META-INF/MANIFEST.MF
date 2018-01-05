@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: aspectjrt-1.6.12.jar slf4j-api-1.7.7.jar validation-api-1.
+ 1.0.Final.jar log4j-1.2.17.jar slf4j-log4j12-1.7.5.jar jcabi-log-0.17
+ .jar jcabi-aspects-0.22.6.jar
+Main-Class: views.welcomeGUI.WelcomeGui
+

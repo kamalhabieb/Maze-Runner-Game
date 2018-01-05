@@ -27,7 +27,7 @@ public class Player extends Person implements PlayerObserver, Observed, Flame {
         setVelocity(1);
         score = new Score();
         this.registerObserver(score);
-        super.lives = 1;
+        super.lives = 3;
     }
 
     @Override
